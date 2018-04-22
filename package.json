@@ -1,0 +1,32 @@
+{
+  "name": "showjumping",
+  "version": "1.0.0",
+  "description": "Showjumping with bootstrap and browserify",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.1.0",
+    "browserify": "^16.2.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.3",
+    "watchify": "^3.11.0"
+  },
+  "devDependencies": {
+    "csvtojson": "^1.1.9",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.7",
+    "nodemon": "^1.17.3",
+    "serialport": "^6.2.0",
+    "socketio": "^1.0.0",
+    "thenby": "^1.2.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://acontrerasregueiro@bitbucket.org/acontrerasregueiro/showjumping.git"
+  },
+  "author": "Adrian Contreras Regueiro",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/acontrerasregueiro/showjumping#readme"
+}
