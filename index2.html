@@ -4,48 +4,77 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="./bootstrap.css"> -->
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/index2.css">
+
+    
 
     <title>Hello, world!</title>
   </head>
-  <body>
+  <body>        
         <!-- .container-fluid -->
     <div class="container-fluid">
         <!-- INICIO MENU HORIZONTAL BOOTSTRAP -->
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="#">Jinetes</a>
+                <a class="nav-link" id="navjinetes" href="#">Jinetes</a>
             </li>
             <li class="nav-item">
-                    <a class="nav-link" href="#">Competiciones</a>
+                    <a class="nav-link" id="navcompeticiones" href="#">Competiciones</a>
                 </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Caballos</a>
+                <a class="nav-link" id="navcaballos" href="#">Caballos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Otros</a>
+                <a class="nav-link" id="navotros" href="#">Otrosssss</a>
             </li>
         </ul> 
             <!-- FIN MENU HORIZONTAL BOOTSTRAP -->
             <!-- CONTENIDO DE LOS TABS BOOTSTRAP -->
         <div id="tab-contenedor" class="tab-content">
+         <!-- <div class="tab-pane active"> -->
+        <div id="tab-jinetes">
+            <table id="tablajinetes" class="table table-sm table-hover">   <!--table-hover-->
+                <thead>
+                    <tr class="">
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Apellido 2</th>
+                    <th>Licencia</th>
+                    <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody id ="tbodyjinetes" class ="tbody"></tbody>
+                </table>
+            
+                </div>
+                <div id="formulariojinetes">
+                        <form class="">
+                        <fieldset class= "form-group">
+                            <input id = "inputnombreJinete" type="text" class = "form-control-sm" placeholder= "Nombre">
+                            <input id = "inputapellido1Jinete" type="text" class = "form-control-sm " placeholder= "Apellido">
+                            <input id = "inputapellido2Jinete" type="text" class = "form-control-sm" placeholder= "2º Apellido">
+                            <input id = "inputlicenciaJinete" type="text" class = "form-control-sm" placeholder= "licencia">
+                            <input id = "inputidJinete" type="text" class = "form-control-sm" placeholder= "id" readonly="readonly">
+                        </fieldset>
+                        <input type="button" id = "btnguardarjinete" class="btnmenuizquierda" value= "Guardar Jinete" disabled="">
+                        <input type="button" id = "btnnuevojinete" class= "btnmenuizquierda" value="Nuevo Jinete">
+                        </form>
+                    </div>
+        </div>
 
-            <div class="tab-pane active" id="tab-jinetes">
-                <h1>Orange</h1>
-                <p>orange orange orange orange orange</p>
-                <button>Blue</button>
-            </div>
-            <div class="tab-pane" id="tab-competiciones">
+            <div class="tab-content" id="tab-competiciones">
                     <h1>Red</h1>
                     <p>red red red red red red</p>
                     <button>Blue</button>
                 </div>
-            <div class="tab-pane" id="tab-caballos">
+            <div class="tab-content" id="tab-caballos">
                 <h1>Yellow</h1>
                 <p>yellow yellow yellow yellow yellow</p>
                 <button>Blue</button>
             </div>
-            <div class="tab-pane" id="tab-otros">
+            <div class="tab-content" id="tab-otros">
                 <h1>Green</h1>
                 <p>green green green green green</p>
                 <button>Blue</button>
@@ -53,10 +82,8 @@
         </div>
         <!-- FIN DE CONTENIDO DE LOS TABS BOOTSTRAP -->
     </div>
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <!-- <script src="./js/jquery.js"></script> -->
+    <script src="./socket.io/socket.io.js"></script>
     <script src="./js/Cliente/bundle.js"></script>
-    <!-- <script src="./js/bootstrap.min.js"></script> --> 
+ 
   </body>
 </html>

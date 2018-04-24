@@ -16824,12 +16824,507 @@ return Popper;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],4:[function(require,module,exports){
+//Busca los elementos html con una clase dentro de otro elementoid
+//y los elimina. ELIMINA LOS ELEMENTOS, NO BORRA LA CLASE.
+//Recibe por paramentro el id del nodo donde buscar los elementos con clase,
+//tambien recibe la clase a buscar y
+//Elimina los elementos con dicha clase, dentro de ese elemento.
+module.exports.removeclasselements = function(elementoid,clase) {
+  var elementosaborrar = document.getElementById(elementoid).getElementsByClassName(clase)
+  while (elementosaborrar[0]) {
+    elementosaborrar[0].parentNode.removeChild(elementosaborrar[0])
+  }
+}
+//recibe por parametro una elemento html(padre),y un tipo de elemento html(hijo) y nombre de una clase
+//elimina la clase pasada por argumento de los elementos hijos
+module.exports.borrarclase = function (padre,clase) {
+  var liItems = padre.getElementsByTagName('li')
+  for (var i = 0 ; i < liItems.length; i++){
+    liItems[i].classList.remove(clase)
+  }
+}
+//Crea un span elemento span dentro del elementoid y le anade una clase
+module.exports.addiconelement = function(clase,float) {
+  var iconoborrar = document.createElement('button')
+  iconoborrar.setAttribute('class', clase);
+  iconoborrar.style.float = float
+  return iconoborrar
+}
+
+//recibe por parametro el id de un div a mostrar y el tipo de clase
+//oculta todos los elementos con esa clase
+//y muestra el div que se pasa por parametro
+module.exports.showdiv = function (divid,clase) {
+ var elementosaocultar = document.getElementsByClassName(clase)
+ var divamostrar = document.getElementById(divid)
+ for (var i = 0; i < elementosaocultar.length ; i ++) {
+   elementosaocultar[i].style.display = 'none'
+ }
+ divamostrar.style.display = 'block'
+}
+
+//ELMINA LA CLASE PASADA POR PARAMETRO DE TODOS LOS ELEMENTOS HIJOS
+module.exports.borrarclase = function (clase,elementopadre) {
+  var items = elementopadre.children
+  for (var i = 0 ; i < elementopadre.children.length; i++){
+    items[i].classList.remove(clase)
+  }
+}
+module.exports.borrarclase2 = function (clase,elementopadre) {
+  var items = document.getElementsByClassName('nav-link')
+  for (var i = 0 ; i < items.length; i++){
+    items[i].classList.remove('active')
+  }
+}
+//cambia los values de todos los elementos input tipo text de un nodopadre a = ""
+module.exports.limpiarinputs = function (nodopadre) {
+    //guardamos los elementos input del nodopadre
+    var elementosinput = nodopadre.getElementsByTagName('input')
+    // los recorremos y eliminamos el value de los tipo text
+    for (var i = 0 ; i < elementosinput.length; i ++) {
+      if (elementosinput[i].type == 'text') {
+        elementosinput[i].value = ''
+      }
+    }
+ }
+/*
+Recibe por parametro el ID de un elemento HTML y le añade la clase "activo"
+*/
+
+/*
+Texto : el texto a introducir
+id : id del elemento html creado
+clase : clase del elemento html creado
+Devuelve : devuelve un elemento html , con innerhtml, y propiedades id y clase
+*/
+module.exports.creaSpan = function (texto, id, clase , callback ){
+  var elementospan = document.createElement('span')
+  elementospan.innerHTML = texto
+  elementospan.id = id
+  elementospan.classList.add(clase)
+  return elementospan
+  callback()
+}
+module.exports.SortByID = function (x, y) {
+  // ORDENAMOS EL ARRAY EN MODO ASCENDIENTE
+  return x.orden - y.orden
+}
+
+module.exports.borrarbinomiodeordensalida = function (filaid,socket) {
+  console.log('CLICK EN SPANIMAGEN ID : ', filaid)  //id : fila2imgOS
+  var fila = filaid.replace('imgOS',"")  //eliminamos imgOS para quedarnos con la fila en la que se encuentra
+  var jinete = document.getElementById(fila +'JineteOS').innerHTML
+  var caballo = document.getElementById(fila + 'CaballoOS').innerHTML
+  var orden = document.getElementById(fila+ 'NumeroOS').innerHTML
+  console.log ('JINETE ,caballo , orden : ', jinete + ' ' ,caballo + ' ',orden)
+  // var prueba = inputNombrepruebaconfig.value
+  // var coleccion = inputNombrecompeticionOS.value
+  var binomio = {}
+  binomio.jinete = jinete
+  binomio.caballo = caballo
+  binomio.numero = orden
+  socket.emit('borrarbinomiodeordensalida', binomio, document.getElementById('inputnombrenuevaprueba').value ,document.getElementById('inputnombreCompeticion').value)
+  /* OJO CON LA FUNCION ASYNCRONA, AHORA FUNCIONA PERO CUIDADO */
+ //  actualizarnumerosdeordendesalida()
+}
+
+module.exports.ocultarelemento = function(elementoid) {
+  var elementoaocultar = document.getElementById(elementoid)
+  elementoaocultar.style.display = 'none'
+}
+
+module.exports.mostrarelemento = function (elementoid) {
+  var elementoamostrar = document.getElementById(elementoid)
+  elementoamostrar.style.display = 'block'
+}
+
+/*modulos testeo diseno modular*/
+module.exports.test = function  () {
+  console.log('test!!!')
+ }
+module.exports.test2 = function () {
+ console.log('test222222')
+ }
+// module.exports = function (n) { return n * 111 }
+
+},{}],5:[function(require,module,exports){
 (function (global){
 //FICHERO INICIAL
 global.jQuery = require('jquery') // declaramos jquery como GLOBAL, es necesario
 var popper = require('popper.js')// necesario para Bootstrap4
 var bootstrap = require('bootstrap') //Importamos Boostrap
 
+var socket = io() //Importamos Socket.io
+var ordenartabla = require('./sorttable.js')// Al hacer click en el encabezado de tabla ordena la tabla por ese campo
+var funcionescomunes = require('./funciones-compartidas.js')
+var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
 
+function iniciarjinetes() {
+    // alert('enviando LEER_JINETES')
+    socket.emit('leer_jinetes') // solicitamos listado de jinetes
+    var btnnuevojinete = document.getElementById('btnnuevojinete') // boton anadir nuevo jinete
+    var btnguardarjinete = document.getElementById('btnguardarjinete') // boton guardar jinete
+   
+    btnguardarjinete.addEventListener('click', function (){
+      var jinete = funcionesformulariojinete.leerformulariojinete() //asigna a jinete los valores del formulario nombre,,apellidos,etc
+      var inputidJinete = document.getElementById('inputidJinete')
+       //limpiamos los input text
+      if (document.getElementById('inputidJinete').value =='') { //Si no hay datos en el ID es que es NUEVO PARTICIPANTE
+        socket.emit('new_jinete', jinete)
+        socket.emit('leer_jinetes') //actualizamos pantalla
+      } else {  //si hay datos es un participante existente,ACTUALIZAMOS LOS DATOS
+         var inputidJinete = document.getElementById('inputidJinete')
+         jinete._id = inputidJinete.value
+         socket.emit('editar_jinete',jinete)
+         socket.emit('leer_jinetes')
+         document.getElementById('inputidJinete').setAttribute("disabled","disabled")
+      }
+      funcionescomunes.limpiarinputs(formulariodatosjinete)
+    })
+   
+    btnnuevojinete.addEventListener('click', function (){
+      //alert(formulariodatosjinete.id)
+      funcionescomunes.limpiarinputs(formulariodatosjinete)
+      //hacemos focus en el input nombrejinete
+      inputnombreJinete.focus()
+      //removemos el atributo disabled del boton guardarjinete para que se pueda guardar
+      document.getElementById('btnguardarjinete').removeAttribute('disabled')
+    })
+}
+
+//CONTROLA LA NAVEGACION ENTRE LAS TAB PANE PRINCIPALES MENU HORIZONTAL,. JINETES CABALLOS, COMPETICIONES Y OTROS
+function iniciarnavegacion() {
+  
+    var navjinetes = document.getElementById('navjinetes')
+    navjinetes.addEventListener('click', function() {
+      funcionescomunes.showdiv('tab-contenedor','tab-content')
+      funcionescomunes.borrarclase2('nav-link','active')
+     document.getElementById('navjinetes').classList.add('active')
+    })
+    var navcaballos = document.getElementById('navcaballos')
+    navcaballos.addEventListener('click', function() {
+      funcionescomunes.showdiv('tab-caballos','tab-content')
+      funcionescomunes.borrarclase2('nav-link','active')
+      navcaballos.classList.add('active')
+    }) 
+    var navcompeticiones = document.getElementById('navcompeticiones')
+    navcompeticiones.addEventListener('click', function() {
+      funcionescomunes.showdiv('tab-competiciones','tab-content')
+      funcionescomunes.borrarclase2('nav-link','active')
+      navcompeticiones.classList.add('active')
+    })  
+
+    var navotros = document.getElementById('navotros')
+    navotros.addEventListener('click', function() {
+      funcionescomunes.showdiv('tab-otros','tab-content')
+      funcionescomunes.borrarclase2('nav-link','active')
+      navotros.classList.add('active')
+    })
+ } // FIN MENU HORIZONTAL
+
+function iniciar() {
+
+iniciarnavegacion()//Nos movemos entre los TAB principales.
+iniciarjinetes()
+}
+
+iniciar()
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"bootstrap":1,"jquery":2,"popper.js":3}]},{},[4]);
+},{"./funciones-compartidas.js":4,"./operaciones-formulario-jinetes.js":7,"./sorttable.js":8,"bootstrap":1,"jquery":2,"popper.js":3}],6:[function(require,module,exports){
+/*Fichero en el que se realizan todas las operaciones relacionadas
+con la base de datos de jinete*/
+var socket = io()
+// var ordenartabla = require('../sorttable.js')
+var funcionescomunes = require('./funciones-compartidas.js')
+// var funcionesmodaldesempate = require('../operaciones-jinetes/modaldesempate.js')
+var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
+// var funcionesformulariocaballo = require('../operaciones-jinetes/operaciones-formulario-caballos.js')
+// var funcionesformulariocompeticion = require('../operaciones-jinetes/operaciones-formulario-competicion.js')
+// var funcionesformulariocompeticionseleccionada = require('../operaciones-jinetes/operaciones-formulario-competicionseleccionada.js')
+// var funcionesmodalnuevaprueba = require('../operaciones-jinetes/modalnuevaprueba.js')
+// var funcionesmodalnuevojinete = require('../operaciones-jinetes/modalnuevojinete.js')
+// var funcionesmodalnuevocaballo = require('../operaciones-jinetes/modalnuevocaballo.js')
+// var funcionesmodaldesempate = require('../operaciones-jinetes/modaldesempate.js')
+
+// var funcionespruebaencurso = require('../operaciones-jinetes/pruebaencurso.js')
+// var funcionescontextmenupruebaactiva = require('../operaciones-jinetes/contextmenuempezarprueba.js')
+// var disablef5 = require('../operaciones-jinetes/disablef5.js')
+// var disablemousebuttons = require('../operaciones-jinetes/disablemousebuttons.js')
+// var funcionesclasificar = require('../operaciones-jinetes/operaciones-clasificacion.js')
+// var funcionespuertoserie = require('../operaciones-jinetes/operaciones-puertoserie.js')
+
+
+//CONEXIONES DE SOCKETS PARA TABLA JINETES
+function iniciarjinetes() {
+
+  // var encabezadoClass = document.getElementById('encabezadoClass')
+  // encabezadoClass.addEventListener('click',function(){
+  //   // alert('ord3enando')
+  //   ordenartabla.sortTable(4)
+  // })  
+  // var encabezadoOrden = document.getElementById('encabezadoOrden')
+  // encabezadoOrden.addEventListener('click',function(){
+  //   // alert('ord3enando')
+  //   ordenartabla.sortTable(1)
+  // })  
+  // iniciarmenuizquierda()
+  // funcionesbbddcaballos.iniciarcaballos(socket)
+  var formulariodatosjinete = document.getElementById('formulariodatosjinete')
+  var tablajinetes = document.getElementById('tablajinetes')
+  //elementos input con datos de los jientes
+  var inputnombreJinete = document.getElementById('inputnombreJinete')
+  var inputapellido1Jinete = document.getElementById('inputapellido1Jinete')
+  var inputapellido2Jinete = document.getElementById('inputapellido2Jinete')
+  var inputlicenciaJinete = document.getElementById('inputlicenciaJinete')
+  var inputidJinete = document.getElementById('inputidJinete')
+
+  //si hacen click en los elementos input, activamos el boton guardarjinete
+  inputnombreJinete.addEventListener('keydown',function (){
+    document.getElementById('btnguardarjinete').removeAttribute('disabled')
+  })
+  inputapellido1Jinete.addEventListener('keydown',function (){
+    document.getElementById('btnguardarjinete').removeAttribute('disabled')
+  })
+  inputapellido2Jinete.addEventListener('keydown',function (){
+    document.getElementById('btnguardarjinete').removeAttribute('disabled')
+  })
+  inputlicenciaJinete.addEventListener('keydown',function (){
+    document.getElementById('btnguardarjinete').removeAttribute('disabled')
+  })
+  //fin click elementos input
+  // funcionesformulariocompeticionseleccionada.iniciarcompeticionseleccionada(socket)
+//  funcionesformulariocaballo.iniciarmodulocaballos(socket)
+//  funcionesformulariocompeticion.iniciarmodulocompeticiones(socket)
+//  funcionesmodalnuevaprueba.iniciarmodalnuevaprueba(socket)
+//  funcionesmodalnuevojinete.iniciarmodalnuevojinete(socket)
+//  funcionesmodaldesempate.iniciarmodaldesempate()
+//  funcionesmodalnuevocaballo.iniciarmodalnuevocaballo(socket)
+//  funcionespruebaencurso.iniciarpruebaencurso(socket)
+//  funcionescontextmenupruebaactiva.iniciarcontextmenu(socket)
+//  funcionesclasificar.iniciarclasificar(socket)
+//  disablef5.iniciardisableF5()
+//  disablemousebuttons.iniciardisablemousebuttons()
+//  funcionespuertoserie.iniciarpuertoserie(socket)
+
+ socket.emit('leer_jinetes') // solicitamos listado de jinetes
+//  alert('enviando LEER JINETES')
+ var btnnuevojinete = document.getElementById('btnnuevojinete') // boton anadir nuevo jinete
+ var btnguardarjinete = document.getElementById('btnguardarjinete') // boton guardar jinete
+
+ btnguardarjinete.addEventListener('click', function (){
+   var jinete = funcionesformulariojinete.leerformulariojinete() //asigna a jinete los valores del formulario nombre,,apellidos,etc
+   var inputidJinete = document.getElementById('inputidJinete')
+    //limpiamos los input text
+   if (document.getElementById('inputidJinete').value =='') { //Si no hay datos en el ID es que es NUEVO PARTICIPANTE
+    //  socket.emit('new_jinete', jinete)
+    alert(jinete)
+    //  socket.emit('leer_jinetes') //actualizamos pantalla
+   } else {  //si hay datos es un participante existente,ACTUALIZAMOS LOS DATOS
+      var inputidJinete = document.getElementById('inputidJinete')
+      alert('modific')
+      // jinete._id = inputidJinete.value
+      // socket.emit('editar_jinete',jinete)
+      // socket.emit('leer_jinetes')
+      // document.getElementById('inputidJinete').setAttribute("disabled","disabled")
+   }
+   funcionescomunes.limpiarinputs(formulariodatosjinete)
+ })
+
+ btnnuevojinete.addEventListener('click', function (){
+   //alert(formulariodatosjinete.id)
+   funcionescomunes.limpiarinputs(formulariojinetes)
+   //hacemos focus en el input nombrejinete
+   inputnombreJinete.focus()
+   //removemos el atributo disabled del boton guardarjinete para que se pueda guardar
+   document.getElementById('btnguardarjinete').removeAttribute('disabled')
+ })
+
+ socket.on('listadoJinetes', function (data) {
+   console.log('RECIBIDO LISTADOJINETES ,numero de jinetes :' ,data.length)
+   funcionesformulariojinete.generartablaJinetes(data,socket)
+  //  funcionesformulariojinete.generarListaJinetesordendesalida(data)
+ })
+
+}
+/*FIN GENERARLISTAJINETES() */
+// funcionesformulariocaballo.iniciarmenuizquierda()
+iniciarjinetes()
+
+},{"./funciones-compartidas.js":4,"./operaciones-formulario-jinetes.js":7}],7:[function(require,module,exports){
+
+/*Fichero en el que se realizan todas las operaciones relacionadas
+con la base de datos de jinete*/
+//
+var funcionescomunes = require('./funciones-compartidas.js')
+var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
+var funcionesbbddjinetes = require('./operaciones-bbdd-jinetes.js')
+var socket = io()
+
+module.exports.leerformulariojinete = function () {
+  //asignamos valores
+  //elementos input con datos de los jientes
+  var inputnombreJinete = document.getElementById('inputnombreJinete')
+  var inputapellido1Jinete = document.getElementById('inputapellido1Jinete')
+  var inputapellido2Jinete = document.getElementById('inputapellido2Jinete')
+  var inputlicenciaJinete = document.getElementById('inputlicenciaJinete')
+  var inputidJinete = document.getElementById('inputidJinete')
+  var jinete = {}
+  jinete.nombre = inputnombreJinete.value
+  jinete.apellido1 = inputapellido1Jinete.value
+  jinete.apellido2 = inputapellido2Jinete.value
+  jinete.licencia = inputlicenciaJinete.value
+  jinete.id = inputidJinete.value
+  return jinete
+}
+
+module.exports.mostrardatosJinetes = function ( filaid) {
+  var inputnombreJinete = document.getElementById('inputnombreJinete')
+  var celdanombreJinete = document.getElementById(filaid + 'NombreJ')
+  inputnombreJinete.value = celdanombreJinete.innerHTML
+  var inputapellido1Jinete = document.getElementById('inputapellido1Jinete')
+  var celdaapellido1Jinete = document.getElementById(filaid + 'Apellido1J')
+  inputapellido1Jinete.value = celdaapellido1Jinete.innerHTML
+  var inputapellido2Jinete = document.getElementById('inputapellido2Jinete')
+  var celdaapellido2Jinete = document.getElementById(filaid + 'Apellido2J')
+  inputapellido2Jinete.value = celdaapellido2Jinete.innerHTML
+  var inputlicenciaJinete = document.getElementById('inputlicenciaJinete')
+  var celdalicenciaJinete = document.getElementById(filaid + 'LicenciaJ')
+  //para que no anada los span con los iconos
+  inputlicenciaJinete.value = celdalicenciaJinete.textContent
+  var inputidJinete = document.getElementById('inputidJinete')
+  var celdaidJinete = document.getElementById(filaid + 'IDJ')
+  inputidJinete.value = celdaidJinete.innerHTML
+}
+function generarListaJinetesordendesalida(data) {
+
+    var listadoJinetesconfiguracionordendesalida = document.getElementById('listadoJinetesconfiguracionordendesalida')
+    listadoJinetesconfiguracionordendesalida.innerHTML = ''
+    data.forEach(function (data,indice){
+      var elemListado
+      // alert(jinete)
+      elemListado = document.createElement('li')
+      elemListado.id = 'fila' + indice + 'jinete'
+      data.nombre = data.nombre + ' ' + data.apellido1 + ' ' + data.apellido2
+      elemListado.appendChild(funcionescomunes.creaSpan(data.nombre, elemListado.id,'nombreJinete'))
+      // // elemListado.appendChild(funcionescomunes.creaSpan(jinete.nombre,elemListado.id + 'NombreJOS','linombreJOS'))
+      listadoJinetesconfiguracionordendesalida.appendChild(elemListado)
+      elemListado.addEventListener('click', function () {
+        funcionesformulariocompeticionseleccionada.mostrarJineteordendesalida('fila' + indice + 'jinete')
+      })
+      // detectarClick(elemListado)
+    })
+  }
+module.exports.generartablaJinetes = function(data,socket) {
+  var tbodyjinetes = document.getElementById('tbodyjinetes')
+  tbodyjinetes.innerHTML = ''
+  data.forEach(function (jinete,i) {
+    elementotr = document.createElement('tr')
+    elementotr.id = 'fila' + i
+    var tdnombre = document.createElement('td')
+    var tdapellido = document.createElement('td')
+    var tdapellido2 = document.createElement('td')
+    var tdlicencia = document.createElement('td')
+    var tdid = document.createElement('td')
+    //CREAMOS UN SPAN POR CADA PROPIEDAD DE CADA CABALLO,NOMBRE,LICENCIA,ID
+    tdnombre.appendChild(funcionescomunes.creaSpan(jinete.nombre, elementotr.id +'NombreJ','liNombreJ'))
+    tdapellido.appendChild(funcionescomunes.creaSpan(jinete.apellido1,elementotr.id +'Apellido1J','liApellido1J'))
+    tdapellido2.appendChild(funcionescomunes.creaSpan(jinete.apellido2,elementotr.id +'Apellido2J','liApellido2J'))
+    tdlicencia.appendChild(funcionescomunes.creaSpan(jinete.licencia, elementotr.id +'LicenciaJ','liLicenciaJ'))
+    tdid.appendChild(funcionescomunes.creaSpan(jinete._id, elementotr.id +'IDJ','liIDJ'))
+    elementotr.appendChild(tdnombre)
+    elementotr.appendChild(tdapellido)
+    elementotr.appendChild(tdapellido2)
+    elementotr.appendChild(tdlicencia)
+    elementotr.appendChild(tdid)
+    tbodyjinetes.appendChild(elementotr)
+    elementotr.addEventListener('click', function (){
+      funcionescomunes.borrarclase('bg-success', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+      this.classList.add('bg-success')//anadimos nueva clase a este elemento (color)
+      funcionesformulariojinete.mostrardatosJinetes(this.id)//mostramos los datos de esta fila
+      funcionescomunes.removeclasselements('tablajinetes','glyphicon') //eliminamos los glyphicon de tablajientes
+      var span = document.createElement('span')
+      span.classList.add('iconoborrarjinete')
+      span.id = this.id + 'iconoborrar'
+      span.appendChild(funcionescomunes.addiconelement('glyphicon glyphicon-remove','right'))//anadimos icono en la celda LicenciaJ
+      document.getElementById(this.id + 'LicenciaJ').appendChild(span)
+      span.addEventListener('click',function () {
+        var inputnombreJinete = document.getElementById('inputnombreJinete')
+        var jinete = funcionesformulariojinete.leerformulariojinete()
+        console.log(jinete)
+        socket.emit('borrar_jinete',jinete.id)
+        socket.emit('leer_jinetes')
+        })
+      document.getElementById('btnguardarjinete').setAttribute("disabled","disabled");
+    })
+  })
+  // generarListaJinetesordendesalida(data)
+}
+
+},{"./funciones-compartidas.js":4,"./operaciones-bbdd-jinetes.js":6,"./operaciones-formulario-jinetes.js":7}],8:[function(require,module,exports){
+module.exports.sortTable  = function(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("tablaempezarprueba");
+  switching = true
+  // alert(x + 'mayor que ' + y)
+  // Set the sorting direction to ascending:
+  dir = "asc" 
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false
+    rows = table.getElementsByTagName("TR")
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n]
+      y = rows[i + 1].getElementsByTagName("TD")[n]
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if ((x.innerHTML == 'ELI') || (x.innerHTML == 'RET') || (x.innerHTML == 'NP')) {
+        x = 999
+      } else {var x = parseInt(x.innerHTML)}
+      if ((y.innerHTML == 'ELI') || (y.innerHTML == 'RET') || (y.innerHTML == 'NP')){
+        y = 999
+      } else {var y = parseInt(y.innerHTML) }
+
+      
+      if (dir == "asc") {
+        if (x > y) {
+          // alert(x + 'mayor que ' + y)
+          // If so, mark as a switch and break the loop:
+          shouldSwitch= true
+          break
+          
+        }
+      } else if (dir == "desc") {
+        if (x < y) {
+          // alert(x + 'menor que ' + y)
+          // If so, mark as a switch and break the loop:
+          shouldSwitch= true
+          break
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc"
+        switching = true
+      }
+    }
+  }
+}
+},{}]},{},[5]);

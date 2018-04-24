@@ -1,1 +1,1 @@
-console.error("Error: Cannot find module 'C:\\dev\\showjumping\\operaciones-bbdd-jinetes.js' from 'C:\\dev\\showjumping'");
+console.error("Error: Cannot find module 'C:\\dev\\showjumping\\inicial.js' from 'C:\\dev\\showjumping'");
