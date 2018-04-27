@@ -1,0 +1,52 @@
+/* body, html {
+    margin: 0;
+    height:100%;
+  } */
+  /* body{
+    overflow: hidden;
+  }
+  .container-fluid, .parent{
+    height: 100%;
+  }
+  #tab-contenedor {
+    position: relative;
+    height:100%;
+  }
+
+  #tab-jinetes {
+    height: 80%;
+    max-height: 80%;
+    /* overflow: auto; */
+  /* } */
+
+  /* #formulariodatosjinete {
+    text-align: center;
+  }  */
+  thead th {
+    /* height: 30px; */
+
+    /*text-align: left;*/
+}
+
+tbody {
+  height: 80%;
+  max-height: 80%;
+  overflow: auto;
+}
+
+thead {
+    /* fallback */
+}
+
+
+tbody td, thead th {
+    width: 19.2%;
+    float: left;
+}
+  thead, tbody, tr, td, th { display: block; }
+  tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+} 

@@ -39,7 +39,10 @@
                
 
          <!-- <div class="tab-pane active"> -->
-        <div id="tab-jinetes" class= "col-9">
+            <div id="rowjinetes" class="row"> 
+
+            
+        <div id="tab-jinetes" class= "col-8">
             <table id="tablajinetes" class="table table-sm table-hover">   <!--table-hover-->
                 <thead>
                     <tr class="">
@@ -51,23 +54,38 @@
                     </tr>
                 </thead>
                 <tbody id ="tbodyjinetes" class ="tbody"></tbody>
-                </table>
-            
-                </div>
-                <div id="formulariojinetes" class= "col-4">
-                        <form class="">
-                        <fieldset class= "form-group">
-                            <input id = "inputnombreJinete" type="text" class = "form-control-sm" placeholder= "Nombre">
-                            <input id = "inputapellido1Jinete" type="text" class = "form-control-sm " placeholder= "Apellido">
-                            <input id = "inputapellido2Jinete" type="text" class = "form-control-sm" placeholder= "2º Apellido">
-                            <input id = "inputlicenciaJinete" type="text" class = "form-control-sm" placeholder= "licencia">
-                            <input id = "inputidJinete" type="text" class = "form-control-sm" placeholder= "id" readonly="readonly">
-                        </fieldset>
-                        <input type="button" id = "btnguardarjinete" class="btnmenuizquierda" value= "Guardar Jinete" disabled="">
-                        <input type="button" id = "btnnuevojinete" class= "btnmenuizquierda" value="Nuevo Jinete">
-                        </form>
-                    </div>
+                </table>            
         </div>
+    
+        <div id="formulariojinetes"  class = "col-4">
+            <br>
+            <div class= "form-group">
+                <label for="inputnombreJinete">Nombre</label>
+                <input id = "inputnombreJinete" type="text" class = "form-control">
+            </div>
+            <div class= "form-group">
+                <label for="inputapellido1Jinete">Primer Apellido</label>
+                <input id = "inputapellido1Jinete" type="text" class = "form-control" >
+            </div>
+                <div class= "form-group">
+                <label for="inputapellido1Jinete">Segundo Apellido</label>
+                <input id = "inputapellido2Jinete" type="text" class = "form-control" >
+            </div>
+                <div class= "form-group">
+                <label for="inputapellido1Jinete">Licencia</label>
+                <input id = "inputlicenciaJinete" type="text" class = "form-control" >
+            </div>
+                <div class= "form-group">
+                <label for="inputapellido1Jinete">Id</label>
+                <input id = "inputidJinete" type="text" class = "form-control" readonly="readonly">
+            </div>
+            <!-- </fieldset> -->
+                <input type="button" id = "btnguardarjinete" class="btnmenuizquierda" value= "Guardar Jinete" disabled="">
+                <input type="button" id = "btnnuevojinete" class= "btnmenuizquierda" value="Nuevo Jinete">
+            </div>
+        </div>
+        </div>
+    </div>
 
             <div class="tab-content" id="tab-competiciones">
                 

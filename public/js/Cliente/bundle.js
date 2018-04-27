@@ -17238,8 +17238,8 @@ module.exports.generartablaJinetes = function(data,socket) {
     elementotr.appendChild(tdid)
     tbodyjinetes.appendChild(elementotr)
     elementotr.addEventListener('click', function (){
-      funcionescomunes.borrarclase('bg-muted', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
-      this.classList.add('bg-muted')//anadimos nueva clase a este elemento (color)
+      funcionescomunes.borrarclase('bg-secondary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+      this.classList.add('bg-secondary')//anadimos nueva clase a este elemento (color)
       funcionesformulariojinete.mostrardatosJinetes(this.id)//mostramos los datos de esta fila
       funcionescomunes.removeclasselements('tablajinetes','fas fa-trash') //eliminamos los glyphicon de tablajientes
      
