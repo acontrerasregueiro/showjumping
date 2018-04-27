@@ -16845,7 +16845,7 @@ module.exports.borrarclase = function (padre,clase) {
 }
 //Crea un span elemento span dentro del elementoid y le anade una clase
 module.exports.addiconelement = function(clase,float) {
-  var iconoborrar = document.createElement('button')
+  var iconoborrar = document.createElement('i')
   iconoborrar.setAttribute('class', clase);
   iconoborrar.style.float = float
   return iconoborrar
@@ -17238,14 +17238,15 @@ module.exports.generartablaJinetes = function(data,socket) {
     elementotr.appendChild(tdid)
     tbodyjinetes.appendChild(elementotr)
     elementotr.addEventListener('click', function (){
-      funcionescomunes.borrarclase('bg-success', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
-      this.classList.add('bg-success')//anadimos nueva clase a este elemento (color)
+      funcionescomunes.borrarclase('bg-muted', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+      this.classList.add('bg-muted')//anadimos nueva clase a este elemento (color)
       funcionesformulariojinete.mostrardatosJinetes(this.id)//mostramos los datos de esta fila
-      funcionescomunes.removeclasselements('tablajinetes','glyphicon') //eliminamos los glyphicon de tablajientes
+      funcionescomunes.removeclasselements('tablajinetes','fas fa-trash') //eliminamos los glyphicon de tablajientes
+     
       var span = document.createElement('span')
-      span.classList.add('iconoborrarjinete')
-      span.id = this.id + 'iconoborrar'
-      span.appendChild(funcionescomunes.addiconelement('glyphicon glyphicon-remove','right'))//anadimos icono en la celda LicenciaJ
+      span.classList.add('glyphicon')
+      span.id = this.id + 'glyphicon'
+      span.appendChild(funcionescomunes.addiconelement('fas fa-trash','right'))//anadimos icono en la celda LicenciaJ
       document.getElementById(this.id + 'LicenciaJ').appendChild(span)
       span.addEventListener('click',function () {
         var inputnombreJinete = document.getElementById('inputnombreJinete')

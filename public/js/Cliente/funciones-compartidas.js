@@ -19,7 +19,7 @@ module.exports.borrarclase = function (padre,clase) {
 }
 //Crea un span elemento span dentro del elementoid y le anade una clase
 module.exports.addiconelement = function(clase,float) {
-  var iconoborrar = document.createElement('button')
+  var iconoborrar = document.createElement('i')
   iconoborrar.setAttribute('class', clase);
   iconoborrar.style.float = float
   return iconoborrar
