@@ -27,65 +27,54 @@ module.exports = function(socket,MongoClient,url,dbName) {
         } else {
           console.log('No document(s) found with defined "find" criteria!')
         }
+        client.close()
       }) 
     socket.emit('listadoJinetes', arrayjinetes)
+
   })
 
-})
-    // MongoClient.connect(url, function (err, db) {
-    //   if (err) {
-    //     console.log('Unable to connect to the mongoDB server. Error:', err)
-    //   } else {
-    //     console.log('LOGGED INTO DB')
-    // // Get the documents collection
-    //     var collection = db.collection('Table_Jinetes')
-    //     // Insert some users
-    //     collection.find({}).toArray(function (err, result) {
-    //       if (err) {
-    //         console.log(err)
-    //       } else if (result.length) {
-    //     //    console.log('Found:', result);
-    //         socket.emit('listadoJinetes', result)
-    //       } else {
-    //         console.log('No document(s) found with defined "find" criteria!')
-    //       }
-    //       // Close connection
-    //       db.close()
-    //     })
-    //   }
-    // })
-  // }) // FIN DE LEER jinetes
+}) // FIN DE LEER jinetes
 
 //BORRAR_JINETE
   socket.on('borrar_jinete', function (id) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) throw err
-      var collection = db.collection('Table_Jinetes')
-      collection.remove({'_id': ObjectID(id)}, function (err, result) {
+    MongoClient.connect(url, function(err, client) {
+      const db = client.db(dbName);
+      const col = db.collection('Table_Jinetes')
+      col.remove({'_id': ObjectID(id)}, function (err, result) {
+        if (err) {
+          console.log(err)
+        } else if (result.length) {
+         console.log('Found:', result);
+          socket.emit('listadoJinetes', result)
+        } else {
+          console.log('No document(s) found with defined "find" criteria!')
+        }
+      }) 
         // console.log(result)
+        client.close()
       })
-      db.close()
-    })
+      
+    socket.emit('listadoJinetes', arrayjinetes)
   })
  // FIN BORRAR_JINETE
 
  //NUEVO JINETE A guardar
-   socket.on('new_jinete', function (data) {
-     console.log('DATOS NUEVOS JINETES ', data)
-     MongoClient.connect(url, function (err, db) {
-       var collection = db.collection('Table_Jinetes')
-       collection.insert({
-         'nombre': data.nombre,
-         'apellido1': data.apellido1,
-         'apellido2': data.apellido2,
-         'licencia': data.licencia
-       }, function (err, result) {
-         if (err) throw err
-         if (result) console.log('Added!')
-       })
-       db.close()
-     })
-   })
+  //  socket.on('new_jinete', function (data) {
+  //    console.log('DATOS NUEVOS JINETES ', data)
+  //    MongoClient.connect(url, function (err, db) {
+  //      var collection = db.collection('Table_Jinetes')
+  //      collection.insert({
+  //        'nombre': data.nombre,
+  //        'apellido1': data.apellido1,
+  //        'apellido2': data.apellido2,
+  //        'licencia': data.licencia
+  //      }, function (err, result) {
+  //        if (err) throw err
+  //        if (result) console.log('Added!')
+  //      })
+  //      MongoClient.close()
+  //    })
+  //  })
  //FIN NUEVO JINETE A GUARDAR
   socket.on('editar_jinete', function (jinete) {
     console.log('recibido "EDITAR_jinete"')
