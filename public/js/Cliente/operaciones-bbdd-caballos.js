@@ -25,6 +25,7 @@ function iniciarsocketcaballos (socket) {
     inputidCaballo.value = ''
     inputnombreCaballo.focus()
   })
+
   var btnguardarcaballo = document.getElementById('btnguardarcaballo')
   btnguardarcaballo.addEventListener('click', function (){
   var caballo = funcionesformulariocaballo.leerformulariocaballo() //asigna a jinete los valores del formulario nombre,,apellidos,etc
@@ -39,6 +40,7 @@ function iniciarsocketcaballos (socket) {
      socket.emit('leer_caballos')
      document.getElementById('inputidJinete').setAttribute("disabled","disabled")
   }
+  
   funcionescomunes.limpiarinputs(formulariodatoscaballo)
  })
 

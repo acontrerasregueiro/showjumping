@@ -48,7 +48,7 @@ socket.on('borrar_jinete', function (id) {
     })
     client.close()
   }) 
-  socket.broadcast.emit('leer_jinetes')
+  // socket.broadcast.emit('leer_jinetes')
 })
  // FIN BORRAR_JINETE
 
@@ -72,7 +72,7 @@ socket.on('borrar_jinete', function (id) {
      
       }) 
         // console.log(result)
-        socket.broadcast.emit('leer_jinetes')
+        // socket.broadcast.emit('leer_jinetes')
        
       })
 

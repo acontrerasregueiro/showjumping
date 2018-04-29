@@ -16959,6 +16959,7 @@ var ordenartabla = require('./sorttable.js')// Al hacer click en el encabezado d
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
 var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
+
 function iniciarjinetes() {
 
   var formulariodatosjinete = document.getElementById('formulariodatosjinete')
@@ -17005,12 +17006,12 @@ function iniciarjinetes() {
          socket.emit('leer_jinetes')
          document.getElementById('inputidJinete').setAttribute("disabled","disabled")
       }
-      funcionescomunes.limpiarinputs(formulariodatosjinete)
+      funcionescomunes.limpiarinputs(formulariojinetes)
     })
    
-       btnnuevojinete.addEventListener('click', function (){
+      btnnuevojinete.addEventListener('click', function (){
       //alert(formulariodatosjinete.id)
-      funcionescomunes.limpiarinputs(formulariodatosjinete)
+      funcionescomunes.limpiarinputs(formulariojinetes)
       //hacemos focus en el input nombrejinete
       inputnombreJinete.focus()
       //removemos el atributo disabled del boton guardarjinete para que se pueda guardar
@@ -17093,6 +17094,7 @@ function iniciarsocketcaballos (socket) {
     inputidCaballo.value = ''
     inputnombreCaballo.focus()
   })
+
   var btnguardarcaballo = document.getElementById('btnguardarcaballo')
   btnguardarcaballo.addEventListener('click', function (){
   var caballo = funcionesformulariocaballo.leerformulariocaballo() //asigna a jinete los valores del formulario nombre,,apellidos,etc
@@ -17107,6 +17109,7 @@ function iniciarsocketcaballos (socket) {
      socket.emit('leer_caballos')
      document.getElementById('inputidJinete').setAttribute("disabled","disabled")
   }
+  
   funcionescomunes.limpiarinputs(formulariodatoscaballo)
  })
 
@@ -17298,14 +17301,11 @@ function mostrardatosCaballos(id){
 }
 
 function iniciarformulariocaballos(socket) {
-  alert('envioando leer caballosS')
+  // alert('envioando leer caballosS')
   socket.emit('leer_caballos') //Solicitamos listado de Caballos
   funcionesbbddcaballos.socketcaballos(socket)//Iniciamos operaciones con sockets Caballos
 }
 
-function prueba(socket) {
-  // alert('work!')
-}
 module.exports.iniciarmodulocaballos = function (socket) {
  iniciarformulariocaballos(socket)
 }
@@ -17349,9 +17349,9 @@ module.exports.generartablaCaballos = function (data,socket) {
       mostrardatosCaballos(this.id)//mostramos los datos de esta fila
       funcionescomunes.removeclasselements('tablacaballos','glyphicon') //eliminamos los glyphicon de tablajientes
       var span = document.createElement('span')
-      span.classList.add('iconoborrarcaballo')
-      span.id = this.id + 'iconoborrar'
-      span.appendChild(funcionescomunes.addiconelement('glyphicon glyphicon-remove','right'))//anadimos icono en la celda LicenciaJ
+      span.classList.add('glyphicon')
+      span.id = this.id + 'glyphicon'
+      span.appendChild(funcionescomunes.addiconelement('fas fa-trash','right'))//anadimos icono en la celda LicenciaJ
       document.getElementById(this.id + 'LicenciaC').appendChild(span)
       span.addEventListener('click',function () {
         var inputnombreCaballo = document.getElementById('inputnombreCaballo')

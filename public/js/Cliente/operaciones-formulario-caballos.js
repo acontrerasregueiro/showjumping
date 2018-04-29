@@ -36,14 +36,11 @@ function mostrardatosCaballos(id){
 }
 
 function iniciarformulariocaballos(socket) {
-  alert('envioando leer caballosS')
+  // alert('envioando leer caballosS')
   socket.emit('leer_caballos') //Solicitamos listado de Caballos
   funcionesbbddcaballos.socketcaballos(socket)//Iniciamos operaciones con sockets Caballos
 }
 
-function prueba(socket) {
-  // alert('work!')
-}
 module.exports.iniciarmodulocaballos = function (socket) {
  iniciarformulariocaballos(socket)
 }
@@ -87,9 +84,9 @@ module.exports.generartablaCaballos = function (data,socket) {
       mostrardatosCaballos(this.id)//mostramos los datos de esta fila
       funcionescomunes.removeclasselements('tablacaballos','glyphicon') //eliminamos los glyphicon de tablajientes
       var span = document.createElement('span')
-      span.classList.add('iconoborrarcaballo')
-      span.id = this.id + 'iconoborrar'
-      span.appendChild(funcionescomunes.addiconelement('glyphicon glyphicon-remove','right'))//anadimos icono en la celda LicenciaJ
+      span.classList.add('glyphicon')
+      span.id = this.id + 'glyphicon'
+      span.appendChild(funcionescomunes.addiconelement('fas fa-trash','right'))//anadimos icono en la celda LicenciaJ
       document.getElementById(this.id + 'LicenciaC').appendChild(span)
       span.addEventListener('click',function () {
         var inputnombreCaballo = document.getElementById('inputnombreCaballo')

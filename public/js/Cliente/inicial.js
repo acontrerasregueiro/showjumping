@@ -8,6 +8,7 @@ var ordenartabla = require('./sorttable.js')// Al hacer click en el encabezado d
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
 var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
+
 function iniciarjinetes() {
 
   var formulariodatosjinete = document.getElementById('formulariodatosjinete')
@@ -54,12 +55,12 @@ function iniciarjinetes() {
          socket.emit('leer_jinetes')
          document.getElementById('inputidJinete').setAttribute("disabled","disabled")
       }
-      funcionescomunes.limpiarinputs(formulariodatosjinete)
+      funcionescomunes.limpiarinputs(formulariojinetes)
     })
    
-       btnnuevojinete.addEventListener('click', function (){
+      btnnuevojinete.addEventListener('click', function (){
       //alert(formulariodatosjinete.id)
-      funcionescomunes.limpiarinputs(formulariodatosjinete)
+      funcionescomunes.limpiarinputs(formulariojinetes)
       //hacemos focus en el input nombrejinete
       inputnombreJinete.focus()
       //removemos el atributo disabled del boton guardarjinete para que se pueda guardar
