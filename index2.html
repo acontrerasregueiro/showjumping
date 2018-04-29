@@ -38,7 +38,7 @@
         <div id="tab-contenedor" class="tab-content">
                
 
-         <!-- <div class="tab-pane active"> -->
+         <!-- COMIENZO DIV JINETES -->
             <div id="rowjinetes" class="row"> 
 
             
@@ -79,13 +79,47 @@
                 <label for="inputapellido1Jinete">Id</label>
                 <input id = "inputidJinete" type="text" class = "form-control" readonly="readonly">
             </div>
-            <!-- </fieldset> -->
                 <input type="button" id = "btnguardarjinete" class="btnmenuizquierda" value= "Guardar Jinete" disabled="">
                 <input type="button" id = "btnnuevojinete" class= "btnmenuizquierda" value="Nuevo Jinete">
+                <input type="button" id = "btnactualizarjinetes" class="btnmenuizquierda" value= "Actualizar Listado">
             </div>
+        </div>  
+            <!-- FIN TAB JINETES -->
+
         </div>
-        </div>
-    </div>
+        <!-- INICIO TAB CABALLOS -->
+        <div class="tab-content" id="tab-caballos">
+            <div id="rowcaballos" class="row">
+                    <div id="col1caballos" class= "col-9">
+                        <table id="tablacaballos" class="">
+                            <thead>
+                              <tr class="">
+                                <th>Nombre</th>
+                                <th>Licencia</th>
+                                <th>Id</th>
+                              </tr>
+                            </thead>
+                            <tbody id ="tbodycaballos" class ="tbody"></tbody>
+                          </table>
+                        </div>
+                    <div id="col2caballos" class= "col-3">
+                        <div class= "form-group">
+                         <input id = "inputnombreCaballo" type="text" class = "form-control " placeholder= "Nombre">
+                        </div>
+                        <div class= "form-group">
+                         <input id = "inputlicenciaCaballo" type="text" class = "form-control" placeholder= "licencia">
+                        </div>
+                        <div class= "form-group">
+                         <input id = "inputidCaballo" type="text" class = "form-control " placeholder= "id" readonly="readonly">
+                        </div>
+                        <!-- <fieldset class= "pure-group"> -->
+                        <input type="button" id ="btnguardarcaballo" class= "" value= "Guardar Caballo" disabled="">
+                        <input type="button" id= "btnnuevocaballo" class= "" value= "Nuevo Caballo">
+                    </div>
+            </div>    
+       
+        </div> 
+         <!-- FIN TAB CABALLOS -->
 
             <div class="tab-content" id="tab-competiciones">
                 
@@ -97,18 +131,7 @@
                     <p>red red red red red red</p>
                    
                 </div>
-            <div class="tab-content" id="tab-caballos">
-                <div id="rowcaballos" class="row">
-                        <div id="col1caballos" class= "col-9">
-                                <h1>Yellow</h1>
-                                <p>yellow yellow yellow yellow yellow</p>
-                            </div>
-                            <div id="col2caballos" class= "col-3">
-                                    <button>Blue</button>
-                            </div>
-                </div>    
-           
-            </div>
+
             <div class="tab-content" id="tab-otros">
                 <h1>Green</h1>
                 <p>green green green green green</p>
