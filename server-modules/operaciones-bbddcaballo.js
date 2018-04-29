@@ -1,36 +1,33 @@
 /*en este fichero guardaremos todas las operaciones
 que se realicen sobre la base de datos de caballos */
 'use strict'
-module.exports = function(socket,MongoClient) {
+module.exports = function(socket,MongoClient,url,dbName) {
   /** COMIENZO OPERACIONES CRUD Table_Caballos **/
   // var MongoClient = require('mongodb').MongoClient
   var url = 'mongodb://127.0.0.1:27017/hipica'
   var ObjectID = require('mongodb').ObjectID
+  var arrayjinetes = []
+
   socket.on('leer_caballos', function () {
-    console.log('recibido "LEER_x=CABALLOS"')
-    MongoClient.connect(url, function (err, db) {
-      if (err) {
-        console.log('Unable to connect to the mongoDB server. Error:', err)
-      } else {
-        console.log('LOGGED INTO DB')
-    // Get the documents collection
-        var collection = db.collection('Table_Caballos')
-        // Insert some users
-        collection.find({}).toArray(function (err, result) {
-          if (err) {
-            console.log(err)
-          } else if (result.length) {
-          // console.log('Found:', result);
-            socket.emit('listadoCaballos', result)
-          } else {
-            console.log('No document(s) found with defined "find" criteria!')
-          }
-          // Close connection
-          db.close()
-        })
-      }
-    })
-  }) // FIN DE LEER jinetes
+    
+    console.log('RECIBIDO LEER CABALLOS')
+    MongoClient.connect(url, function(err, client) {
+      const db = client.db(dbName);
+      const col = db.collection('Table_Caballos').find()
+       col.toArray(function(err,result) {
+        if (err) {
+          console.log(err)
+        } else if (result.length) {
+        //  console.log('Found:', result);
+          socket.emit('listadoCaballos', result)
+          console.log('ENVIANDO LISTADO caballos')
+        } else {
+          console.log('No document(s) found with defined "find" criteria!')
+        }
+        client.close()
+      }) 
+  })
+}) // FIN DE LEER CABALLOS
 
   socket.on('editar_caballo', function (caballo) {
     console.log('recibido "EDITAR_caballo"')

@@ -7,11 +7,7 @@ var socket = io() //Importamos Socket.io
 var ordenartabla = require('./sorttable.js')// Al hacer click en el encabezado de tabla ordena la tabla por ese campo
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
-// socket.on('listadoJinetes', function (data) {
-//   alert('RECIBIDO LISTADOJINETES ,numero de jinetes :' ,data.length)
-//   funcionesformulariojinete.generartablaJinetes(data,socket)
-//  //  funcionesformulariojinete.generarListaJinetesordendesalida(data)
-// })
+var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
 function iniciarjinetes() {
 
   var formulariodatosjinete = document.getElementById('formulariodatosjinete')
@@ -73,20 +69,14 @@ function iniciarjinetes() {
       socket.emit('leer_jinetes')
     })
     socket.on('listadoJinetes', function (data) {
-      // alert('RECIBIDO LISTADOJINETES ,numero de jinetes :' ,data.length)
       funcionesformulariojinete.generartablaJinetes(data,socket)
      //  funcionesformulariojinete.generarListaJinetesordendesalida(data)
     })
-
+    funcionesformulariocaballo.iniciarmodulocaballos(socket)
 }
 
 //CONTROLA LA NAVEGACION ENTRE LAS TAB PANE PRINCIPALES MENU HORIZONTAL,. JINETES CABALLOS, COMPETICIONES Y OTROS
 function iniciarnavegacion() {
-  // socket.on('listadoJinetes', function (data) {
-  //   alert('RECIBIDO LISTADOJINETES ,numero de jinetes :' ,data.length)
-  //   funcionesformulariojinete.generartablaJinetes(data,socket)
-  //  //  funcionesformulariojinete.generarListaJinetesordendesalida(data)
-  // })
     var navjinetes = document.getElementById('navjinetes')
     navjinetes.addEventListener('click', function() {
       funcionescomunes.showdiv('tab-contenedor','tab-content')

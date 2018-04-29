@@ -8,7 +8,7 @@
 var rutas = require('./server-modules/rutas.js') // contiene la resolucion de rutas
  //contiene las operaciones sobre la bbdd Table_Jinetes
 var bbddjinetes = require('./server-modules/operaciones-bbddjinete.js')
-// var bbddcaballos = require('./server-modules/operaciones-bbddcaballo.js')
+var bbddcaballos = require('./server-modules/operaciones-bbddcaballo.js')
 // var bbddcompeticiones = require('./server-modules/operaciones-bbddcompeticiones.js')
 // var bbddpruebas = require('./server-modules/operaciones-bbddpruebas.js')
 // var bbddpruebaencurso = require('./server-modules/operaciones-bbddpruebaactiva.js')
@@ -41,7 +41,7 @@ rutas(app,path,express)
 
 io.on('connection', function (socket) {
 bbddjinetes(socket,MongoClient,url,dbName)
-// bbddcaballos(socket,MongoClient)
+bbddcaballos(socket,MongoClient,url,dbName)
 // bbddcompeticiones(socket,MongoClient)
 // bbddpruebas(socket,MongoClient)
 // csvtojson(socket,MongoClient)

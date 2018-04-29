@@ -1,4 +1,4 @@
-     'use strict'
+'use strict'
 //RESUELVE LAS DIRECCIONES DE EXPRESS
 module.exports = function(app,path,express) {
   var pathpublic = path.join(__dirname, '../public')
