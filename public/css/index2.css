@@ -34,3 +34,6 @@ tbody td, thead th {
 #tab-competiciones, #tab-caballos, #tab-otros {
   display:none;
 }
+td span {
+  text-align:center;
+}
