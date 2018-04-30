@@ -8,7 +8,7 @@ var ordenartabla = require('./sorttable.js')// Al hacer click en el encabezado d
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
 var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
-
+var funcionesformulariocompeticiones = require('./operaciones-formulario-competicion.js')
 function iniciarjinetes() {
 
   var formulariodatosjinete = document.getElementById('formulariodatosjinete')
@@ -66,14 +66,17 @@ function iniciarjinetes() {
       //removemos el atributo disabled del boton guardarjinete para que se pueda guardar
       document.getElementById('btnguardarjinete').removeAttribute('disabled')
     })
+
     btnactualizarjinetes.addEventListener('click',function (){
       socket.emit('leer_jinetes')
     })
+
     socket.on('listadoJinetes', function (data) {
       funcionesformulariojinete.generartablaJinetes(data,socket)
      //  funcionesformulariojinete.generarListaJinetesordendesalida(data)
     })
-    funcionesformulariocaballo.iniciarmodulocaballos(socket)
+    funcionesformulariocaballo.iniciarmodulocaballos(socket) // INICIAMOS MODULO CABALLOS
+    funcionesformulariocompeticiones.iniciarmodulocompeticiones(socket) //INICIAMOS MODULO DE COMPETICIONES
 }
 
 //CONTROLA LA NAVEGACION ENTRE LAS TAB PANE PRINCIPALES MENU HORIZONTAL,. JINETES CABALLOS, COMPETICIONES Y OTROS

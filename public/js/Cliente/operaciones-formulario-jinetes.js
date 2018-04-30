@@ -4,7 +4,6 @@ con la base de datos de jinete*/
 //
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
-var funcionesbbddjinetes = require('./operaciones-bbdd-jinetes.js')
 var socket = io()
 
 module.exports.leerformulariojinete = function () {

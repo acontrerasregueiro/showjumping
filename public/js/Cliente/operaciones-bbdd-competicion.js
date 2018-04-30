@@ -8,6 +8,7 @@ var funcionesformulariocompeticion = require('./operaciones-formulario-competici
 
 
 function iniciarsocketcompeticiones(socket){
+
   socket.on('ordendesalidacompeticion', function (competicion, nombreprueba) {
    console.log('recibod ordendesalidacompeticion :', nombreprueba)
    for (var indice = 0; indice < competicion.pruebas.length; indice++) {
@@ -33,7 +34,8 @@ function iniciarsocketcompeticiones(socket){
   socket.emit('leer_competiciones') //Solicitamos listado de competiciones
 
   socket.on('dato_competicion',function (competicion,indice) { //recibimos data competicion y creamos la tabla
-  funcionesformulariocompeticion.generartablaCompeticiones(competicion,socket)
+  funcionesformulariocompeticion.generartablaCompeticiones(competicion[0],socket)
+  console.log(competicion[0].nombre)
   })
   // devuelve todos los datos de 1 competicion
   // socket.on('configurar_competicion', function (competicion) {
@@ -64,5 +66,7 @@ function iniciarsocketcompeticiones(socket){
 }
 
 module.exports.iniciarcompeticiones = function(socket) {
+  // socket.emit('leer_competiciones') //Solicitamos listado de competiciones
+  // alert('enviando leercompetici')
   iniciarsocketcompeticiones(socket)
 }

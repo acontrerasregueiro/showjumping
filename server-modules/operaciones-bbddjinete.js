@@ -34,7 +34,6 @@ module.exports = function(socket,MongoClient,url,dbName) {
 }) // FIN DE LEER jinetes
 
 //BORRAR_JINETE
-//BORRAR_JINETE
 socket.on('borrar_jinete', function (id) {
   MongoClient.connect(url, function(err, client) {
     const db = client.db(dbName);
@@ -48,7 +47,6 @@ socket.on('borrar_jinete', function (id) {
     })
     client.close()
   }) 
-  // socket.broadcast.emit('leer_jinetes')
 })
  // FIN BORRAR_JINETE
 
@@ -57,7 +55,6 @@ socket.on('borrar_jinete', function (id) {
     MongoClient.connect(url, function(err, client) {
       const db = client.db(dbName);
       const col = db.collection('Table_Jinetes')
-      // col.remove({'_id': ObjectID(id)}, function (err, result) {
         col.insert({
           'nombre': data.nombre,
           'apellido1': data.apellido1,
@@ -70,11 +67,8 @@ socket.on('borrar_jinete', function (id) {
         })
         client.close()
      
-      }) 
-        // console.log(result)
-        // socket.broadcast.emit('leer_jinetes')
-       
-      })
+      })        
+    })
 
  //FIN NUEVO JINETE A GUARDAR
   socket.on('editar_jinete', function (jinete) {
