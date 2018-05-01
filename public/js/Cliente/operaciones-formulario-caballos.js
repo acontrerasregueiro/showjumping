@@ -79,8 +79,8 @@ module.exports.generartablaCaballos = function (data,socket) {
     elementotr.appendChild(tdid)
     tbodycaballos.appendChild(elementotr)
     elementotr.addEventListener('click', function () {
-      funcionescomunes.borrarclase('bg-success', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
-      this.classList.add('bg-success')//anadimos nueva clase a este elemento (color)
+      funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+      this.classList.add('text-primary')//anadimos nueva clase a este elemento (color)
       mostrardatosCaballos(this.id)//mostramos los datos de esta fila
       funcionescomunes.removeclasselements('tablacaballos','glyphicon') //eliminamos los glyphicon de tablajientes
       var span = document.createElement('span')
