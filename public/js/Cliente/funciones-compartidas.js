@@ -22,9 +22,63 @@ module.exports.addiconelement = function(clase,float) {
   var iconoborrar = document.createElement('i')
   iconoborrar.setAttribute('class', clase);
   iconoborrar.style.float = float
+  // iconoborrar.style.verticalAlign = 'middle'
   return iconoborrar
 }
 
+//PASAMOS POR PARAMETRO EL ID DE LA TABLA DONDE BUSCAR
+//PASAMOS POR PARAMETRO LA PALABRA CLAVE A BUSCAR
+//SI LA ENCUENTRA MUESTRA LAS FILAS DE LA TABLA QUE CONTIENEN LA CLAVE
+//EL RESTO DE FILAS LAS OCULTA
+module.exports.buscarenTabla = function (tablaid,clave) { 
+    var tableReg = tablaid
+    var searchText = clave.toLowerCase()   
+    var cellsOfRow=""
+    var found=false
+    var compareWith=""
+    // alert(tableReg.rows.length)
+    // Recorremos todas las filas con contenido de la tabla
+    for (var i = 1; i < tableReg.rows.length; i++)
+    {
+      cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+      found = false;
+      // Recorremos todas las celdas
+      for (var j = 0; j < cellsOfRow.length && !found; j++)
+      {
+        if ((cellsOfRow[j].innerText.toUpperCase().indexOf(clave) > -1) ||//comprobamos si esta en mayusculas
+           (cellsOfRow[j].innerText.toLowerCase().indexOf(clave) > -1)){ //comprobamos si esta en minus
+          //si encuentra la palabra a buscar (filter), muestra el elemento y pasa a la siguiente fila
+          tableReg.rows[i].style.display = '';
+          break
+        } else {
+          //si no lo encuentra, oculta el elemento LI
+          tableReg.rows[i].style.display = 'none';
+        }
+    }
+  }
+}
+//FIN BUSCAR EN TABLA
+
+//pasamos por parametro 
+module.exports.buscarenListado = function(ul,filter) { 
+  var filter = filter.toUpperCase()  //pasamos a mayusculas
+  var filas = ul.getElementsByTagName('li') //
+  var spans = filas[0].getElementsByTagName("span")
+  for (var i = 0; i < filas.length; i++) {
+    var spanActualtexto
+    spanActualtexto = filas[i].getElementsByTagName('span')
+    for (var ind = 0; ind < spans.length; ind++) {
+      if (spanActualtexto[ind].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        //si encuentra la palabra a buscar (filter), muestra el elemento y pasa a la siguiente fila
+        filas[i].style.display = ""
+        break
+      } else {
+        //si no lo encuentra, oculta el elemento LI
+        filas[i].style.display = "none"
+      }
+    }
+  }
+}
 //recibe por parametro el id de un div a mostrar y el tipo de clase
 //oculta todos los elementos con esa clase
 //y muestra el div que se pasa por parametro
@@ -52,6 +106,7 @@ module.exports.borrarclase2 = function (clase,elementopadre) {
 }
 //cambia los values de todos los elementos input tipo text de un nodopadre a = ""
 module.exports.limpiarinputs = function (nodopadre) {
+  // alert(nodopadre.id)
     //guardamos los elementos input del nodopadre
     var elementosinput = nodopadre.getElementsByTagName('input')
     // los recorremos y eliminamos el value de los tipo text

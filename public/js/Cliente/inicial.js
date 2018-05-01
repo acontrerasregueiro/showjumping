@@ -99,7 +99,6 @@ function iniciarnavegacion() {
       funcionescomunes.borrarclase2('nav-link','active')
       navcompeticiones.classList.add('active')
     })  
-
     var navotros = document.getElementById('navotros')
     navotros.addEventListener('click', function() {
       funcionescomunes.showdiv('tab-otros','tab-content')
@@ -108,11 +107,21 @@ function iniciarnavegacion() {
     })
  } // FIN MENU HORIZONTAL
 
-function iniciar() {
+function iniciarsearch() {
+  var tablajinetes = document.getElementById('tablajinetes')
+  var tablacaballos = document.getElementById('tablacaballos')
+  var inputsearch = document.getElementById('inputsearch')
+    inputsearch.addEventListener('keyup',function() {
+    funcionescomunes.buscarenTabla(tablajinetes,inputsearch.value)
+    funcionescomunes.buscarenTabla(tablacaballos,inputsearch.value)
+    // buscarenListado(listadoJinetesconfiguracionordendesalida,inputBuscarenlistadojinetesycaballos.value)
+  })
+}
 
+function iniciar() {
+iniciarsearch()
 iniciarnavegacion()//Nos movemos entre los TAB principales.
 iniciarjinetes()
-
 }
 
 iniciar()

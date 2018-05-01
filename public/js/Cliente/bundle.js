@@ -16848,9 +16848,63 @@ module.exports.addiconelement = function(clase,float) {
   var iconoborrar = document.createElement('i')
   iconoborrar.setAttribute('class', clase);
   iconoborrar.style.float = float
+  // iconoborrar.style.verticalAlign = 'middle'
   return iconoborrar
 }
 
+//PASAMOS POR PARAMETRO EL ID DE LA TABLA DONDE BUSCAR
+//PASAMOS POR PARAMETRO LA PALABRA CLAVE A BUSCAR
+//SI LA ENCUENTRA MUESTRA LAS FILAS DE LA TABLA QUE CONTIENEN LA CLAVE
+//EL RESTO DE FILAS LAS OCULTA
+module.exports.buscarenTabla = function (tablaid,clave) { 
+    var tableReg = tablaid
+    var searchText = clave.toLowerCase()   
+    var cellsOfRow=""
+    var found=false
+    var compareWith=""
+    // alert(tableReg.rows.length)
+    // Recorremos todas las filas con contenido de la tabla
+    for (var i = 1; i < tableReg.rows.length; i++)
+    {
+      cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+      found = false;
+      // Recorremos todas las celdas
+      for (var j = 0; j < cellsOfRow.length && !found; j++)
+      {
+        if ((cellsOfRow[j].innerText.toUpperCase().indexOf(clave) > -1) ||//comprobamos si esta en mayusculas
+           (cellsOfRow[j].innerText.toLowerCase().indexOf(clave) > -1)){ //comprobamos si esta en minus
+          //si encuentra la palabra a buscar (filter), muestra el elemento y pasa a la siguiente fila
+          tableReg.rows[i].style.display = '';
+          break
+        } else {
+          //si no lo encuentra, oculta el elemento LI
+          tableReg.rows[i].style.display = 'none';
+        }
+    }
+  }
+}
+//FIN BUSCAR EN TABLA
+
+//pasamos por parametro 
+module.exports.buscarenListado = function(ul,filter) { 
+  var filter = filter.toUpperCase()  //pasamos a mayusculas
+  var filas = ul.getElementsByTagName('li') //
+  var spans = filas[0].getElementsByTagName("span")
+  for (var i = 0; i < filas.length; i++) {
+    var spanActualtexto
+    spanActualtexto = filas[i].getElementsByTagName('span')
+    for (var ind = 0; ind < spans.length; ind++) {
+      if (spanActualtexto[ind].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        //si encuentra la palabra a buscar (filter), muestra el elemento y pasa a la siguiente fila
+        filas[i].style.display = ""
+        break
+      } else {
+        //si no lo encuentra, oculta el elemento LI
+        filas[i].style.display = "none"
+      }
+    }
+  }
+}
 //recibe por parametro el id de un div a mostrar y el tipo de clase
 //oculta todos los elementos con esa clase
 //y muestra el div que se pasa por parametro
@@ -16878,6 +16932,7 @@ module.exports.borrarclase2 = function (clase,elementopadre) {
 }
 //cambia los values de todos los elementos input tipo text de un nodopadre a = ""
 module.exports.limpiarinputs = function (nodopadre) {
+  // alert(nodopadre.id)
     //guardamos los elementos input del nodopadre
     var elementosinput = nodopadre.getElementsByTagName('input')
     // los recorremos y eliminamos el value de los tipo text
@@ -17050,7 +17105,6 @@ function iniciarnavegacion() {
       funcionescomunes.borrarclase2('nav-link','active')
       navcompeticiones.classList.add('active')
     })  
-
     var navotros = document.getElementById('navotros')
     navotros.addEventListener('click', function() {
       funcionescomunes.showdiv('tab-otros','tab-content')
@@ -17059,11 +17113,21 @@ function iniciarnavegacion() {
     })
  } // FIN MENU HORIZONTAL
 
-function iniciar() {
+function iniciarsearch() {
+  var tablajinetes = document.getElementById('tablajinetes')
+  var tablacaballos = document.getElementById('tablacaballos')
+  var inputsearch = document.getElementById('inputsearch')
+    inputsearch.addEventListener('keyup',function() {
+    funcionescomunes.buscarenTabla(tablajinetes,inputsearch.value)
+    funcionescomunes.buscarenTabla(tablacaballos,inputsearch.value)
+    // buscarenListado(listadoJinetesconfiguracionordendesalida,inputBuscarenlistadojinetesycaballos.value)
+  })
+}
 
+function iniciar() {
+iniciarsearch()
 iniciarnavegacion()//Nos movemos entre los TAB principales.
 iniciarjinetes()
-
 }
 
 iniciar()
@@ -17288,7 +17352,7 @@ module.exports.generartablaCaballos = function (data,socket) {
       var span = document.createElement('span')
       span.classList.add('glyphicon')
       span.id = this.id + 'glyphicon'
-      span.appendChild(funcionescomunes.addiconelement('fas fa-trash','right'))//anadimos icono en la celda LicenciaJ
+      span.appendChild(funcionescomunes.addiconelement('fas fa-trash',''))//anadimos icono en la celda LicenciaJ
       document.getElementById(this.id + 'LicenciaC').appendChild(span)
       span.addEventListener('click',function () {
         var inputnombreCaballo = document.getElementById('inputnombreCaballo')
@@ -17308,7 +17372,7 @@ module.exports.generartablaCaballos = function (data,socket) {
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariocompeticion = require('.//operaciones-formulario-competicion.js')
 var funcionesbbddcompeticiones = require('.//operaciones-bbdd-competicion.js')
-// var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
+var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
 
 //BUSCA EN TODOS LOS CAMPOS SPAN DE UNA LISTA
 //SI ENCUENTRA EL VALOR EN ALGUNO MUESTRA EL ELEMENTO LI
@@ -17531,28 +17595,34 @@ module.exports.generartablaCompeticiones = function(competicion,socket) {
   elementotr.appendChild(tdcategoria)
   elementotr.appendChild(tdid)
   tbodycompeticion.appendChild(elementotr)
+
   elementotr.addEventListener('click', function (){
     funcionescomunes.borrarclase('bg-success', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
     this.classList.add('bg-success')//anadimos nueva clase a este elemento (color)
     funcionesformulariocompeticion.mostrardatosCompeticion(this.id)//mostramos los datos de esta fila
-    funcionescomunes.removeclasselements('tablacompeticiones','glyphicon') //eliminamos los glyphicon de tablajientes
-    var span = document.createElement('span')
+    funcionescomunes.removeclasselements('tablacompeticiones','fas fa-chevron-circle-right') //eliminamos los glyphicon de tablajientes
+     var span = document.createElement('span')
     span.classList.add('iconoborrarjinete')
     span.id =  this.id + 'iconoborrar'
-    span.appendChild(funcionescomunes.addiconelement('glyphicon glyphicon-ok','left'))//anadimos icono en la celda LicenciaJ
+    span.appendChild(funcionescomunes.addiconelement('fas fa-chevron-circle-right',''))//anadimos icono en la celda LicenciaJ
     document.getElementById(this.id + 'nombreCompeticion').appendChild(span)
+    // document.getElementById(this.id + 'nombreCompeticion').appendChild(div)
     span.addEventListener('click',function () {
       var nombrecompeticionseleccionada = document.getElementById('inputnombreCompeticion').value
       socket.emit('solicita_competicion', nombrecompeticionseleccionada)
-      funcionescomunes.showdiv('divcompeticionseleccionada','contenido')
+      var formulariodatosprueba = document.getElementById('formulariodatosprueba')//LIMPIAMOS LOS DATOS DEL FORMULARIO DE PRUEBA
+      funcionescomunes.limpiarinputs(formulariodatosprueba)
+      var dropdownprueba = document.getElementById('dropdownprueba') //DESACTIVAMOS EL DROPDOWN DE PRUEBAS
+      dropdownprueba.classList.add('disabled')//
+      funcionescomunes.showdiv('tab-competicionseleccionada','tab-content')//MOSTRAMOS EL TAB DE LA COMPETICION SELECCIONADA     
     })
   })
 }
 
-},{".//operaciones-bbdd-competicion.js":7,".//operaciones-formulario-competicion.js":9,"./funciones-compartidas.js":4}],10:[function(require,module,exports){
-// 'use strict'
+},{".//operaciones-bbdd-competicion.js":7,".//operaciones-formulario-competicion.js":9,".//operaciones-formulario-competicionseleccionada.js":10,"./funciones-compartidas.js":4}],10:[function(require,module,exports){
+'use strict'
 
-// var funcionescomunes = require('./funciones-compartidas.js')
+var funcionescomunes = require('./funciones-compartidas.js')
 // var funcionesbbddpruebas = require('.//operaciones-bbdd-pruebas.js')
 // var funcionesmodalnuevaprueba = require('./modalnuevaprueba.js')
 // var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
@@ -17693,19 +17763,19 @@ module.exports.generartablaCompeticiones = function(competicion,socket) {
 //   }
 // }
 
-// function mostrardatospruebaenformulario(fila,socket){
-//   // iniciarbbddpruebas(socket) // iniciamos el modulo bbdd pruebas
-//   var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
-//   var inputtrofeonuevaprueba = document.getElementById('inputtrofeonuevaprueba')
-//   var inputbaremonuevaprueba = document.getElementById('inputbaremonuevaprueba')
-//   var inputalturanuevaprueba = document.getElementById('inputalturanuevaprueba')
-//   var inputindicenuevaprueba = document.getElementById('inputindicenuevaprueba')
-//   inputnombrenuevaprueba.value = fila.childNodes[1].innerHTML
-//   inputtrofeonuevaprueba.value = fila.childNodes[2].innerHTML
-//   inputalturanuevaprueba.value = fila.childNodes[3].innerHTML
-//   inputbaremonuevaprueba.value = fila.childNodes[4].innerHTML
-//   inputindicenuevaprueba.value = fila.childNodes[0].innerHTML
-// }
+function mostrardatospruebaenformulario(fila,socket){
+  // iniciarbbddpruebas(socket) // iniciamos el modulo bbdd pruebas
+  var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
+  var inputtrofeonuevaprueba = document.getElementById('inputtrofeonuevaprueba')
+  var inputbaremonuevaprueba = document.getElementById('inputbaremonuevaprueba')
+  var inputalturanuevaprueba = document.getElementById('inputalturanuevaprueba')
+  var inputindicenuevaprueba = document.getElementById('inputindicenuevaprueba')
+  inputnombrenuevaprueba.value = fila.childNodes[1].innerHTML
+  inputtrofeonuevaprueba.value = fila.childNodes[2].innerHTML
+  inputalturanuevaprueba.value = fila.childNodes[3].innerHTML
+  inputbaremonuevaprueba.value = fila.childNodes[4].innerHTML
+  inputindicenuevaprueba.value = fila.childNodes[0].innerHTML
+}
 // function borrarLiactivo(ul) {
 //   var liItems = ul.getElementsByTagName('li')
 //   for (var i = 0 ; i < liItems.length; i++){
@@ -17825,7 +17895,7 @@ module.exports.generartablaCompeticiones = function(competicion,socket) {
 //   var nombrecaballo = document.getElementById(nombre).innerText
 //   inputcaballoordensalida.value = nombrecaballo
 // }
-// function mostrardatosenformulariocompeticionseleccionada (competicion) {
+function mostrardatosenformulariocompeticionseleccionada (competicion) {
 //   var inputnombreCompeticion2 = document.getElementById('inputnombreCompeticion2')
 //   var inputlugarCompeticion2 = document.getElementById('inputlugarCompeticion2')
 //   var inputfechaCompeticion2 = document.getElementById('inputfechaCompeticion2')
@@ -17836,108 +17906,119 @@ module.exports.generartablaCompeticiones = function(competicion,socket) {
 //   inputfechaCompeticion2.value = competicion.fecha
 //   inputcategoriaCompeticion2.value = competicion.categoria
 //   inputidCompeticion2.value = competicion._id
-// }
+}
 // function borrarprueba(socket) {
 //   var inputnombreCompeticion2 = document.getElementById('inputnombreCompeticion2')
 //   var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
 //   socket.emit('borrarprueba', inputnombreCompeticion2.value, inputnombrenuevaprueba.value)
 // }
 
-// module.exports.generartablaCompeticionSeleccionada = function(competicion,socket) {
-//   mostrardatosenformulariocompeticionseleccionada(competicion) //cargamos datos de competicion en formulario de la derecha
-//   var tbodycompeticionseleccionada = document.getElementById('tbodycompeticionseleccionada')
-//   tbodycompeticionseleccionada.innerHTML = ''
-//   if (competicion.pruebas.length > 0) { // SI EXISTE ALGUNA PUEBRA
-//     // alert('mas de 1 prueba')
-//      for (var indice = 0; indice < competicion.pruebas.length; indice++) {
-//        var elementotr = document.createElement('tr')
-//        var indiceprueba = document.createElement('td')
-//        var nombreprueba = document.createElement('td')
-//        var trofeoprueba = document.createElement('td')
-//        var alturaprueba = document.createElement('td')
-//        var baremoprueba = document.createElement('td')
+module.exports.generartablaCompeticionSeleccionada = function(competicion,socket) {
+  mostrardatosenformulariocompeticionseleccionada(competicion) //cargamos datos de competicion en formulario de la derecha
+  var tbodycompeticionseleccionada = document.getElementById('tbodycompeticionseleccionada')
+  tbodycompeticionseleccionada.innerHTML = ''
+  if (competicion.pruebas.length > 0) { // SI EXISTE ALGUNA PUEBRA
+    // alert('mas de 1 prueba')
+     for (var indice = 0; indice < competicion.pruebas.length; indice++) {
+       var elementotr = document.createElement('tr')
+       var indiceprueba = document.createElement('td')
+       var nombreprueba = document.createElement('td')
+       var trofeoprueba = document.createElement('td')
+       var alturaprueba = document.createElement('td')
+       var baremoprueba = document.createElement('td')
 
-//       indiceprueba.innerHTML = indice
-//       nombreprueba.innerHTML = competicion.pruebas[indice].nombreprueba
-//       trofeoprueba.innerHTML = competicion.pruebas[indice].trofeo
-//       alturaprueba.innerHTML = competicion.pruebas[indice].altura
-//       baremoprueba.innerHTML = competicion.pruebas[indice].baremo
-//       elementotr.appendChild(indiceprueba)
-//       elementotr.appendChild(nombreprueba)
-//       elementotr.appendChild(trofeoprueba)
-//       elementotr.appendChild(alturaprueba)
-//       elementotr.appendChild(baremoprueba)
-//       tbodycompeticionseleccionada.appendChild(elementotr)
-//       elementotr.addEventListener(`click`, function (){
-//        mostrardatospruebaenformulario(this)
-//        funcionescomunes.removeclasselements('tablacompeticioneseleccionada','iconoborrarprueba') //eliminamos los glyphicon de tablajientes
-//        var btnborrarprueba = document.createElement('button')
-//        btnborrarprueba.classList.add('iconoborrarprueba')
-//        btnborrarprueba.innerHTML = 'X'
-//        var btnclasificacionprueba = document.createElement('button')
-//        btnclasificacionprueba.classList.add('iconoborrarprueba')
-//        btnclasificacionprueba.innerHTML = 'C'
-//        var btnordenprueba = document.createElement('button')
-//        btnordenprueba.classList.add('iconoborrarprueba')
-//        btnordenprueba.innerHTML = 'O'
-//        var btnempezarrueba = document.createElement('button')
-//        btnempezarrueba.classList.add('iconoborrarprueba')
-//        btnempezarrueba.innerHTML = 'S'
-//       //  var spanborrarprueba = document.createElement('span')
-//       //  spanborrarprueba.classList.add('iconoborrarprueba')
-//       // spanborrarprueba.appendChild(funcionescomunes.addiconelement('glyphicon glyphicon-ok','left'))//anadimos icono en la celda LicenciaJ
-//       btnborrarprueba.addEventListener('click',function () {
-//         alert('click en iconoborrarprueba')
-//         if (confirm('Are you sure you want to save this thing into the database?')) {
-//           borrarprueba(socket)
-//             // BORRAR PRUEBA
-//         } else {
-//             // Do nothing!
-//         }
-//       })
-//       btnempezarrueba.addEventListener('click',function () {
-//         // socket.emit('recargarpaginaclasificacion')
+      indiceprueba.innerHTML = indice
+      nombreprueba.innerHTML = competicion.pruebas[indice].nombreprueba
+      trofeoprueba.innerHTML = competicion.pruebas[indice].trofeo
+      alturaprueba.innerHTML = competicion.pruebas[indice].altura
+      baremoprueba.innerHTML = competicion.pruebas[indice].baremo
+      elementotr.appendChild(indiceprueba)
+      elementotr.appendChild(nombreprueba)
+      elementotr.appendChild(trofeoprueba)
+      elementotr.appendChild(alturaprueba)
+      elementotr.appendChild(baremoprueba)
+      tbodycompeticionseleccionada.appendChild(elementotr)
 
-//         var nombreprueba = document.getElementById('inputnombrenuevaprueba').value
-//         var nombrecompeticion = document.getElementById('inputnombreCompeticion2').value
-//         var baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
-//         var altura = document.getElementById('inputalturanuevaprueba').value
-//         var trofeo = document.getElementById('inputtrofeonuevaprueba').value
-//         var baremo = document.getElementById('inputbaremonuevaprueba').value
-//         //enviamos solicitud de prueba a servdior
-//         socket.emit('empezarprueba', nombrecompeticion, nombreprueba, baremodeprueba)
+      elementotr.addEventListener(`click`, function (){
 
-//         funcionescomunes.showdiv('divempezarprueba','contenido')
-//         //enviamos solicitud de nuevo encabezado pantalla clasificacion
+        var dropdownprueba = document.getElementById('dropdownprueba')
+        dropdownprueba.classList.remove('disabled')
+       mostrardatospruebaenformulario(this)
+     
+    //    var span = document.createElement('span')
+    //    span.classList.add('glyphicon')
+    //    span.id = this.id + 'glyphicon'
+    //    span.appendChild(funcionescomunes.addiconelement('fas fa-trash',''))//anadimos icono en la celda LicenciaJ
+    //    funcionescomunes.removeclasselements('tablacompeticioneseleccionada','iconoborrarprueba') //eliminamos los glyphicon de tablajientes
+    //    var btnborrarprueba = document.createElement('span')
+    //    btnborrarprueba.classList.add('iconoborrarprueba')
+    //    btnborrarprueba.appendChild(funcionescomunes.addiconelement('fas fa-trash',''))
+    //    var btnclasificacionprueba = document.createElement('span')
+    //    btnclasificacionprueba.classList.add('iconoborrarprueba')
+    //    btnclasificacionprueba.appendChild(funcionescomunes.addiconelement('fas fa-list-ol',''))
+    //    var btnordenprueba = document.createElement('span')
+    //    btnordenprueba.classList.add('iconoborrarprueba')
+    //    btnordenprueba.appendChild(funcionescomunes.addiconelement('fas fa-list',''))
+    //    var btnempezarrueba = document.createElement('span')
+    //    btnempezarrueba.classList.add('iconoborrarprueba')
+    //    btnempezarrueba.innerHTML = 'S'
+      //  var spanborrarprueba = document.createElement('span')
+      //  spanborrarprueba.classList.add('iconoborrarprueba')
+      // spanborrarprueba.appendChild(funcionescomunes.addiconelement('glyphicon glyphicon-ok','left'))//anadimos icono en la celda LicenciaJ
+
+    //   btnempezarrueba.addEventListener('click',function () {
+    //     // socket.emit('recargarpaginaclasificacion')
+
+    //     var nombreprueba = document.getElementById('inputnombrenuevaprueba').value
+    //     var nombrecompeticion = document.getElementById('inputnombreCompeticion2').value
+    //     var baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
+    //     var altura = document.getElementById('inputalturanuevaprueba').value
+    //     var trofeo = document.getElementById('inputtrofeonuevaprueba').value
+    //     var baremo = document.getElementById('inputbaremonuevaprueba').value
+    //     //enviamos solicitud de prueba a servdior
+    //     socket.emit('empezarprueba', nombrecompeticion, nombreprueba, baremodeprueba)
+
+    //     funcionescomunes.showdiv('divempezarprueba','contenido')
+    //     //enviamos solicitud de nuevo encabezado pantalla clasificacion
 
 
-//         socket.emit('encabezadoclasificaciondeprueba',altura, trofeo,baremo)
-//         //enviamos solicitud de recargar pagina de clasificacion
+    //     socket.emit('encabezadoclasificaciondeprueba',altura, trofeo,baremo)
+    //     //enviamos solicitud de recargar pagina de clasificacion
   
-//       })
+    //   })
 
-//       btnclasificacionprueba.addEventListener('click',function () {
-//         // alert('click en btnclasificacionprueba')
-//         socket.emit('recargarpaginaclasificacion')
-//         // borrarprueba(socket)
-//       })
-//       btnordenprueba.addEventListener('click',function () {
-//         var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
-//         alert(inputnombrenuevaprueba.value)
-//         funcionescomunes.showdiv('divordendesalida','contenido')
-//         socket.emit('generarordendesalida', document.getElementById('inputnombreCompeticion').value, inputnombrenuevaprueba.value)
+    //   btnclasificacionprueba.addEventListener('click',function () {
+    //     // alert('click en btnclasificacionprueba')
+    //     socket.emit('recargarpaginaclasificacion')
+    //     // borrarprueba(socket)
+    //   })
+    //   btnordenprueba.addEventListener('click',function () {
+    //     var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
+    //     alert(inputnombrenuevaprueba.value)
+    //     funcionescomunes.showdiv('divordendesalida','contenido')
+    //     socket.emit('generarordendesalida', document.getElementById('inputnombreCompeticion').value, inputnombrenuevaprueba.value)
 
-//       })
-//       this.appendChild(btnordenprueba)
-//       this.appendChild(btnempezarrueba)
-//       this.appendChild(btnclasificacionprueba)
-//       this.appendChild(btnborrarprueba)
-//       })
-//      }
-//   }
-// }
+    //   })
+    //   this.appendChild(btnordenprueba)
+    // //   this.appendChild(btnempezarrueba)
+    //   this.appendChild(btnclasificacionprueba)
+    //   this.appendChild(btnborrarprueba)
+      })
+     }
+  }
+  btnborrarprueba.addEventListener('click',function () {
+    alert('click en iconoborrarprueba')
+    if (confirm('Are you sure you want to save this thing into the database?')) {
+      borrarprueba(socket)
+        // BORRAR PRUEBA
+    } else {
+        // Do nothing!
+        alert('Borrado cancelado!')
+    }
+  })
+}
 
-},{}],11:[function(require,module,exports){
+},{"./funciones-compartidas.js":4}],11:[function(require,module,exports){
 
 /*Fichero en el que se realizan todas las operaciones relacionadas
 con la base de datos de jinete*/
@@ -18024,15 +18105,15 @@ module.exports.generartablaJinetes = function(data,socket) {
     elementotr.appendChild(tdid)
     tbodyjinetes.appendChild(elementotr)
     elementotr.addEventListener('click', function (){
-      funcionescomunes.borrarclase('bg-secondary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
-      this.classList.add('bg-secondary')//anadimos nueva clase a este elemento (color)
+      funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+      this.classList.add('text-primary')//anadimos nueva clase a este elemento (color)
       funcionesformulariojinete.mostrardatosJinetes(this.id)//mostramos los datos de esta fila
       funcionescomunes.removeclasselements('tablajinetes','fas fa-trash') //eliminamos los glyphicon de tablajientes
      
       var span = document.createElement('span')
       span.classList.add('glyphicon')
       span.id = this.id + 'glyphicon'
-      span.appendChild(funcionescomunes.addiconelement('fas fa-trash','right'))//anadimos icono en la celda LicenciaJ
+      span.appendChild(funcionescomunes.addiconelement('fas fa-trash',''))//anadimos icono en la celda LicenciaJ
       document.getElementById(this.id + 'LicenciaJ').appendChild(span)
       span.addEventListener('click',function () {
         var inputnombreJinete = document.getElementById('inputnombreJinete')

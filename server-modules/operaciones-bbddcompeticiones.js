@@ -30,32 +30,12 @@ socket.on('leer_competiciones', function () {
               console.log(items)
             }
           }
-        }
-       
-
+        }     
       })
     console.log('recibido leer_competiciones')
   })
-//   MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
-//     if (err) throw err
-//     var numerodecompeticiones = 0
-//     db.collections(function (err, items) {
-//       console.log('Nº DE ITEMS :  ', items.length)
-//       for (var indice = 0; indice < items.length; indice++) {
-//         if ((items[indice].s.name !== 'Table_Jinetes') && (items[indice].s.name !== 'Table_Caballos')) {
-//           console.log('encontrados tablas DISTINTAS A  jinetes y caballos   :', items[indice].s.name)
-//           var collection = db.collection(items[indice].s.name)
-//           collection.find().toArray(function (err, result) {
-//             // console.log('RESULTADO[1]', result[0])
-//             socket.emit('dato_competicion', result[0], indice)
-//           })
-//           numerodecompeticiones = numerodecompeticiones + 1
-//         }
-//       }
-//       db.close()
-//     })
-//   })
 })
+
 //   /* RECIBE POR PARAMETRO LOS DATOS DE LA NUEVA COMPETICION
 // PRIMERO LA CREA Y LUEGO ASIGNA VALORES */
 //   socket.on('nueva_competicion', function (data) {
@@ -82,17 +62,28 @@ socket.on('leer_competiciones', function () {
 //     })
 //   })
 // // FIN CREAR NUEVA COMPETICION
-//   socket.on('solicita_competicion', function (nombrecoleccion) {
-//    console.log('SOLICITADA COMPETICON ')
-//    MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
-//      if (err) throw err
-//      db.collection(nombrecoleccion).findOne(function (err, coleccion) {
-//        socket.emit('configurar_competicion', coleccion)
-//       //  console.log('COMPETICION : ', coleccion)
-//      })
-//      db.close()
-//    })
-//  })
+  socket.on('solicita_competicion', function (nombrecoleccion) {
+    MongoClient.connect(url, function(err, client) {
+      if (err) throw err
+      const db = client.db(dbName);
+      const col = db.collection(nombrecoleccion).findOne(function (err, coleccion) {
+        if (err) throw err
+        socket.emit('configurar_competicion', coleccion)
+        console.log('COMPETICION : ', coleccion)
+        client.close()
+      })
+          // col.each(function (err,items){
+       
+   console.log('SOLICITADA COMPETICON ')
+  
+    
+    //  db.collection(nombrecoleccion).findOne(function (err, coleccion) {
+    //    socket.emit('configurar_competicion', coleccion)
+    //   //  console.log('COMPETICION : ', coleccion)
+    //  })
+    //  db.close()
+   })
+ })
 
 //  socket.on('editar_competicion', function (competicion) {
 //    console.log('recibido "EDITAR COMPETICION"')

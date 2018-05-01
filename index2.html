@@ -20,85 +20,81 @@
     <div class="container-fluid">
         <!-- INICIO MENU HORIZONTAL BOOTSTRAP -->
         <ul class="nav nav-tabs">
-            <li class="nav-item">
-            
-                <a class="nav-link" id="navjinetes" href="#">
-                        <div class="fas fa-users">
-                </div>  Jinetes </a> 
-            </li>
-            <li class="nav-item">
-                    <a class="nav-link" id="navcompeticiones" href="#">
-                            <div class="fas fa-trophy">
-                            </div>  Competiciones</a>
+                <li class="nav-item">
+                
+                    <a class="nav-link" id="navjinetes" href="#">
+                            <div class="fas fa-users"></div>  Jinetes </a> 
                 </li>
-            <li class="nav-item">
-                <a class="nav-link" id="navcaballos" href="#"> <div class="fas fa-table">
-                    </div>  Caballos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="navotros" href="#">
-                        <div class="fas fa-cogs">
-                        </div> Otrosssss</a>
-            </li>
-        </ul> 
+                <li class="nav-item">
+                        <a class="nav-link" id="navcompeticiones" href="#"> <div class="fas fa-trophy"></div>  Competiciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="navcaballos" href="#"> <div class="fas fa-table"></div>  Caballos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="navotros" href="#">
+                            <div class="fas fa-cogs"></div> Otrosssss</a>
+                </li>
+                <form class="form-inline my-2 my-lg-0">
+                    <input id="inputsearch" class="form-control mr-sm-2" type="text" placeholder="Search">
+                </form>
+            </ul> 
+        
             <!-- FIN MENU HORIZONTAL BOOTSTRAP -->
             <!-- CONTENIDO DE LOS TABS BOOTSTRAP -->
         <div id="tab-contenedor" class="tab-content">
                
 
          <!-- COMIENZO DIV JINETES -->
-            <div id="rowjinetes" class="row"> 
-
-            
-        <div id="tab-jinetes" class= "col-8">
-            <table id="tablajinetes" class="table table-sm table-hover">   <!--table-hover-->
-                <thead>
-                    <tr class="">
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Apellido 2</th>
-                    <th>Licencia</th>
-                    <th>ID</th>
-                    </tr>
-                </thead>
-                <tbody id ="tbodyjinetes" class ="tbody"></tbody>
-                </table>            
-        </div>
-    
-        <div id="formulariojinetes"  class = "col-4">
-            <br>
-            <div class= "form-group">
-                <label for="inputnombreJinete">Nombre</label>
-                <input id = "inputnombreJinete" type="text" class = "form-control">
-            </div>
-            <div class= "form-group">
-                <label for="inputapellido1Jinete">Primer Apellido</label>
-                <input id = "inputapellido1Jinete" type="text" class = "form-control" >
-            </div>
+            <div id="rowjinetes" class="row">             
+                <div id="tab-jinetes" class= "col-8">
+                    <table id="tablajinetes" class="table table-sm table-hover">   <!--table-hover-->
+                        <thead>
+                            <tr class="">
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Apellido 2</th>
+                            <th>Licencia</th>
+                            <th>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id ="tbodyjinetes" class ="tbody"></tbody>
+                    </table>            
+                </div>    
+            <div id="formulariojinetes"  class = "col-4">
+                <br>
                 <div class= "form-group">
-                <label for="inputapellido1Jinete">Segundo Apellido</label>
-                <input id = "inputapellido2Jinete" type="text" class = "form-control" >
-            </div>
+                    <label for="inputnombreJinete">Nombre</label>
+                    <input id = "inputnombreJinete" type="text" class = "form-control">
+                </div>
                 <div class= "form-group">
-                <label for="inputapellido1Jinete">Licencia</label>
-                <input id = "inputlicenciaJinete" type="text" class = "form-control" >
-            </div>
-                <div class= "form-group">
-                <label for="inputapellido1Jinete">Id</label>
-                <input id = "inputidJinete" type="text" class = "form-control" readonly="readonly">
-            </div>
-                <input type="button" id = "btnguardarjinete" class="btnmenuizquierda" value= "Guardar Jinete" disabled="">
-                <input type="button" id = "btnnuevojinete" class= "btnmenuizquierda" value="Nuevo Jinete">
-                <input type="button" id = "btnactualizarjinetes" class="btnmenuizquierda" value= "Actualizar Listado">
-            </div>
-        </div>  
-            <!-- FIN TAB JINETES -->
+                    <label for="inputapellido1Jinete">Primer Apellido</label>
+                    <input id = "inputapellido1Jinete" type="text" class = "form-control" >
+                </div>
+                    <div class= "form-group">
+                    <label for="inputapellido1Jinete">Segundo Apellido</label>
+                    <input id = "inputapellido2Jinete" type="text" class = "form-control" >
+                </div>
+                    <div class= "form-group">
+                    <label for="inputapellido1Jinete">Licencia</label>
+                    <input id = "inputlicenciaJinete" type="text" class = "form-control" >
+                </div>
+                    <div class= "form-group">
+                    <label for="inputapellido1Jinete">Id</label>
+                    <input id = "inputidJinete" type="text" class = "form-control" readonly="readonly">
+                </div>
+                    <input type="button" id = "btnguardarjinete" class="btnmenuizquierda" value= "Guardar Jinete" disabled="">
+                    <input type="button" id = "btnnuevojinete" class= "btnmenuizquierda" value="Nuevo Jinete">
+                    <input type="button" id = "btnactualizarjinetes" class="btnmenuizquierda" value= "Actualizar Listado">
+                </div>
+            </div>  
+                <!-- FIN TAB JINETES -->
 
         </div>
         <!-- INICIO TAB CABALLOS -->
         <div class="tab-content" id="tab-caballos">
             <div id="rowcaballos" class="row">
-                    <div id="col1caballos" class= "col-9">
+                    <div id="col1caballos" class= "col-8">
                         <table id="tablacaballos" class="">
                             <thead>
                               <tr class="">
@@ -110,7 +106,7 @@
                             <tbody id ="tbodycaballos" class ="tbody"></tbody>
                           </table>
                         </div>
-                    <div id="col2caballos" class= "col-3">
+                    <div id="col2caballos" class= "col-4">
                         <div class= "form-group">
                          <input id = "inputnombreCaballo" type="text" class = "form-control " placeholder= "Nombre">
                         </div>
@@ -128,63 +124,110 @@
        
         </div> 
          <!-- FIN TAB CABALLOS -->
+        <div class="tab-content" id="tab-competiciones">
+            <div id="rowcompeticiones" class="row contenido"> 
+                    <div id="col1competiciones" class= "col-8">
+                        <table id="tablacompeticiones" class="">
+                            <thead>
+                            <tr class="bg-primary">
+                                <th>NOMBRE</th>
+                                <th>LUGAR </th>
+                                <th>FECHA </th>
+                                <th>CATEGORIA</th>
+                                <th>ID</th>
+                            </tr>
+                            </thead>
+                            <tbody id ="tbodycompeticion" class ="tbody"></tbody>
+                        </table>
+                    </div>
+                    <div id="col2competiciones" class= "col-4">
+                            <form class="pure-form pure-u-1-8">
+                                <div id = "formulariodatoscompeticion" class= "form-group">
+                                    <div class= "form-group">
+                                        <input id = "inputnombreCompeticion" type="text" class = "form-control" placeholder= "Nombre">
+                                    </div>
+                                    <div class= "form-group">
+                                        <input id = "inputlugarCompeticion" type="text" class = "form-control" placeholder= "Lugar">
+                                    </div>
+                                    <div class= "form-group">
+                                        <input id = "inputfechaCompeticion" type="text" class = "form-control" placeholder= "Fecha">
+                                    </div>
+                                    <div class= "form-group">
+                                        <input id = "inputcategoriaCompeticion" type="text" class = "form-control" placeholder= "Categoria">
+                                    </div>
+                                    <div class= "form-group">
+                                        <input id = "inputidCompeticion" type="text" class = "form-control " placeholder= "id" readonly="readonly">
+                                    </div>
+                                <input type="button" id= "btnnuevacompeticion" class= "pure-button margintop5 btnmenuizquierda" value= "Nueva Competicion">
+                                <input type="button" id = "btnguardarcompeticion" class= "pure-button margintop5 btnmenuizquierda" value= "Guardar Competicion">
+                            </div>
+                            </form>
+                    </div>
 
-            <div class="tab-content" id="tab-competiciones">
-                <div id="rowcompeticiones" class="row"> 
-                        <div id="col1competicionees" class= "col-9">
-                            <table id="tablacompeticiones" class="">
-                                <thead>
-                                <tr class="bg-primary">
-                                    <th>NOMBRE</th>
-                                    <th>LUGAR </th>
-                                    <th>FECHA </th>
-                                    <th>CATEGORIA</th>
-                                    <th>ID</th>
-                                </tr>
-                                </thead>
-                                <tbody id ="tbodycompeticion" class ="tbody"></tbody>
-                            </table>
+                </div>     <!-- FIN ROW COMPETICIONES -->
+            </div>   <!-- FIN TAB COMPETICIONES -->
+            <div class="tab-content" id="tab-competicionseleccionada" style="display: none">
+                <div id="rowcompeticionseleccionada" class="row contenido"> 
+                    <div id="col1competicionseleccioanda" class= "col-8">
+                        <div class="" id= "divcompeticionseleccionada">
+                        <table id="tablacompeticioneseleccionada" class= "table-hover">
+                          <thead>
+                            <tr class="">
+                              <th>#</th>
+                              <th>Nombre</th>
+                              <th>Trofeo</th>
+                              <th>Altura</th>
+                              <th>Baremo</th>
+                            </tr>
+                          </thead>
+                          <tbody id ="tbodycompeticionseleccionada" class ="tbody"></tbody>
+                        </table>
+                    </div>
+                 </div>
+                  <div id="col2competicionseleccionada" class= "col-4"> 
+                    <form id = "formulariodatosprueba" class = "">
+                    <!-- <h4>DATOS COMPETICION SELECCIONADA</h4>           
+                    <input id = "inputnombreCompeticion2" type="text" class = "form-control" placeholder= "Nombre">
+                    <input id = "inputlugarCompeticion2" type="text" class = "form-control" placeholder= "Lugar">
+                    <input id = "inputfechaCompeticion2" type="text" class = "form-control" placeholder= "Fecha">
+                    <input id = "inputcategoriaCompeticion2" type="text" class = "form-control" placeholder= "Categoria">
+                    <input id = "inputidCompeticion2" type="text" class = "form-control " placeholder= "id" readonly="readonly"> -->
+                    <h2>DATOS PRUEBA SELECCIONADA</h2>
+                    <input id = "inputnombrenuevaprueba" type="text" class = "form-control" placeholder= "Nombre">
+                    <input id = "inputtrofeonuevaprueba" type="text" class = "form-control" placeholder= "trofeo">
+                    <input id = "inputbaremonuevaprueba" type="text" class = "form-control" placeholder= "baremo">
+                    <input id = "inputalturanuevaprueba" type="text" class = "form-control" placeholder= "altura">
+                    <input id = "inputindicenuevaprueba" type="text" class = "form-control " placeholder= "indice">
+                    <!-- Single button -->
+                    <div class="dropdown show" >
+                        <a id="dropdownprueba" class="btn btn-primary dropdown-toggle disabled" href="" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div id="div" class="fas fa-chevron-circle-right"></div>   COMENZAR
+                        </a>                          
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a id="btnordenprueba" class="dropdown-item" href="#">Orden de salida</a>
+                            <a id="btnclasificarprueba" class="dropdown-item" href="#"> Clasificacion</a>
+                            <a id="btnmodificarprueba" class="dropdown-item" href="#"> Configurar</a>
+                            <div class="dropdown-divider"></div>
+                            <a id="btnempezarprueba" class="dropdown-item" href="#">Empezar Prueba</a>
+                            <div class="dropdown-divider"></div>
+                            <a id="btnanadirprueba"class="dropdown-item" href="#">Nueva Prueba</a>
+                            <div class="dropdown-divider"></div>
+                            <a id="btnborrarprueba"class="dropdown-item" href="#">Borrar Prueba</a>
                         </div>
-                        <div id="col2caballos" class= "col-3">
-                                <form class="pure-form pure-u-1-8">
-                                    <div id = "formulariodatoscompeticion" class= "form-group">
-                                        <div class= "form-group">
-                                            <input id = "inputnombreCompeticion" type="text" class = "form-control" placeholder= "Nombre">
-                                        </div>
-                                        <div class= "form-group">
-                                            <input id = "inputlugarCompeticion" type="text" class = "form-control" placeholder= "Lugar">
-                                        </div>
-                                        <div class= "form-group">
-                                            <input id = "inputfechaCompeticion" type="text" class = "form-control" placeholder= "Fecha">
-                                        </div>
-                                        <div class= "form-group">
-                                            <input id = "inputcategoriaCompeticion" type="text" class = "form-control" placeholder= "Categoria">
-                                        </div>
-                                        <div class= "form-group">
-                                            <input id = "inputidCompeticion" type="text" class = "form-control " placeholder= "id" readonly="readonly">
-                                        </div>
-                                    <input type="button" id= "btnnuevacompeticion" class= "pure-button margintop5 btnmenuizquierda" value= "Nueva Competicion">
-                                    <input type="button" id = "btnguardarcompeticion" class= "pure-button margintop5 btnmenuizquierda" value= "Guardar Competicion">
-                                </div>
-                                </form>
-                        </div>
-                    <h1>Red</h1>
-                    <i class="fas fa-trash"></i>
-                    <!-- <div style="font-size:3em; color:Tomato"> -->
-                            <i class="fas fa-camera-retro"></i>
-                          <!-- </div> -->
-                    <p>red red red red red red</p>
-                    </div>     <!-- FIN ROW COMPETICIONES -->
+                    </div>
+                    </form>
                 </div>
-
-            <div class="tab-content" id="tab-otros">
+                </div>          
+           </div>
+           
+           <div class="tab-content" id="tab-otros">
                 <h1>Green</h1>
                 <p>green green green green green</p>
                 <button>Blue</button>
             </div>
-        </div>
         <!-- FIN DE CONTENIDO DE LOS TABS BOOTSTRAP -->
     </div>
+</div>
     <script src="./socket.io/socket.io.js"></script>
     <script src="./js/Cliente/bundle.js"></script>
  

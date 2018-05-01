@@ -86,7 +86,7 @@ module.exports.generartablaCaballos = function (data,socket) {
       var span = document.createElement('span')
       span.classList.add('glyphicon')
       span.id = this.id + 'glyphicon'
-      span.appendChild(funcionescomunes.addiconelement('fas fa-trash','right'))//anadimos icono en la celda LicenciaJ
+      span.appendChild(funcionescomunes.addiconelement('fas fa-trash',''))//anadimos icono en la celda LicenciaJ
       document.getElementById(this.id + 'LicenciaC').appendChild(span)
       span.addEventListener('click',function () {
         var inputnombreCaballo = document.getElementById('inputnombreCaballo')

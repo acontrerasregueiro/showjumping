@@ -3,7 +3,7 @@
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariocompeticion = require('.//operaciones-formulario-competicion.js')
 var funcionesbbddcompeticiones = require('.//operaciones-bbdd-competicion.js')
-// var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
+var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
 
 //BUSCA EN TODOS LOS CAMPOS SPAN DE UNA LISTA
 //SI ENCUENTRA EL VALOR EN ALGUNO MUESTRA EL ELEMENTO LI
@@ -226,20 +226,26 @@ module.exports.generartablaCompeticiones = function(competicion,socket) {
   elementotr.appendChild(tdcategoria)
   elementotr.appendChild(tdid)
   tbodycompeticion.appendChild(elementotr)
+
   elementotr.addEventListener('click', function (){
     funcionescomunes.borrarclase('bg-success', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
     this.classList.add('bg-success')//anadimos nueva clase a este elemento (color)
     funcionesformulariocompeticion.mostrardatosCompeticion(this.id)//mostramos los datos de esta fila
-    funcionescomunes.removeclasselements('tablacompeticiones','glyphicon') //eliminamos los glyphicon de tablajientes
-    var span = document.createElement('span')
+    funcionescomunes.removeclasselements('tablacompeticiones','fas fa-chevron-circle-right') //eliminamos los glyphicon de tablajientes
+     var span = document.createElement('span')
     span.classList.add('iconoborrarjinete')
     span.id =  this.id + 'iconoborrar'
-    span.appendChild(funcionescomunes.addiconelement('glyphicon glyphicon-ok','left'))//anadimos icono en la celda LicenciaJ
+    span.appendChild(funcionescomunes.addiconelement('fas fa-chevron-circle-right',''))//anadimos icono en la celda LicenciaJ
     document.getElementById(this.id + 'nombreCompeticion').appendChild(span)
+    // document.getElementById(this.id + 'nombreCompeticion').appendChild(div)
     span.addEventListener('click',function () {
       var nombrecompeticionseleccionada = document.getElementById('inputnombreCompeticion').value
       socket.emit('solicita_competicion', nombrecompeticionseleccionada)
-      funcionescomunes.showdiv('divcompeticionseleccionada','contenido')
+      var formulariodatosprueba = document.getElementById('formulariodatosprueba')//LIMPIAMOS LOS DATOS DEL FORMULARIO DE PRUEBA
+      funcionescomunes.limpiarinputs(formulariodatosprueba)
+      var dropdownprueba = document.getElementById('dropdownprueba') //DESACTIVAMOS EL DROPDOWN DE PRUEBAS
+      dropdownprueba.classList.add('disabled')//
+      funcionescomunes.showdiv('tab-competicionseleccionada','tab-content')//MOSTRAMOS EL TAB DE LA COMPETICION SELECCIONADA     
     })
   })
 }
