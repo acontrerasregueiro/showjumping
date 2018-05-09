@@ -97,5 +97,5 @@ module.exports.generartablaCaballos = function (data,socket) {
       document.getElementById('btnguardarcaballo').setAttribute("disabled","disabled");
     })
   })
-  // generarlistacaballosordendesalida(data)
+  generarlistacaballosordendesalida(data)
 }

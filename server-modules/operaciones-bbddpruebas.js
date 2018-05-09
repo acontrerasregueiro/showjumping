@@ -1,8 +1,10 @@
 
 var funciones = require('./funciones.js')
-module.exports = function(socket,MongoClient) {
+module.exports = function(socket,MongoClient,url,dbName) {
   var url = 'mongodb://127.0.0.1:27017/hipica'
   var ObjectID = require('mongodb').ObjectID
+  // const db = client.db(dbName);
+  // const col = db.collection(nombrecompeticion)
    // PARA ENVIAR LOS DATOS A LA PANTALLA
    socket.on('actualizarpantallaordensalida', function (arrayordendesalida) {
     console.log('RECIBIDO ACTUALIZARPANTALLA ORDEN')
@@ -130,21 +132,38 @@ module.exports = function(socket,MongoClient) {
     })
   })
  })
-
+//  MongoClient.connect(url, function(err, client) {
+//   const db = client.db(dbName);
+//   const col = db.collection('Table_Jinetes').find()
+//    col.toArray(function(err,result) {
+//     if (err) {
+//       console.log(err)
+//     } else if (result.length) {
+//     //  console.log('Found:', result);
+//       socket.emit('listadoJinetes', result)
+//       console.log('ENVIANDO LISTADO JINETES')
+//     } else {
+//       console.log('No document(s) found with defined "find" criteria!')
+//     }
+//     client.close()
+//   }) 
+// })
  socket.on('generarordendesalida', function (nombrecompeticion, nombreprueba) {
+
+  MongoClient.connect(url, function(err, client) { 
+    const db = client.db(dbName)
+    const col = db.collection(nombrecompeticion)
+        if (err) throw err
+        db.collection(nombrecompeticion).findOne(function (err, competicion) {
+          socket.emit('ordendesalidacompeticion', competicion, nombreprueba)
+          console.log('enviando ordendesalidacompeticion')
+        })
+        client.close()
+      })
   console.log('recibido generarordendesalida')
   console.log('COMPETICION  :', nombrecompeticion)
   console.log('PRUEBA :', nombreprueba)
-  MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
-    if (err) throw err
-    db.collection(nombrecompeticion).findOne(function (err, competicion) {
-      // console.log('encontrado competicion : ', competicion)
-      // console.log('ENVIANBDO competicion : ', competicion)
-      socket.emit('ordendesalidacompeticion', competicion, nombreprueba)
-      console.log('enviando ordendesalidacompeticion')
-    })
-    db.close()
-  })
+
  })
 
 

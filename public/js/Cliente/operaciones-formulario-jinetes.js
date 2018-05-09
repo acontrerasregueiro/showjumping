@@ -104,5 +104,5 @@ module.exports.generartablaJinetes = function(data,socket) {
       document.getElementById('btnguardarjinete').setAttribute("disabled","disabled");
     })
   })
-  // generarListaJinetesordendesalida(data)
+  generarListaJinetesordendesalida(data)
 }

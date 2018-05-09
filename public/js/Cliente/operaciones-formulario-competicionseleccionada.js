@@ -210,57 +210,57 @@ function mostrardatospruebaenformulario(fila,socket){
 //   listadoordendesalida.scrollTop = pixeles + 500
 // }
 // //FIN MOSTRARJINETE(FILA)
-// module.exports.leerygenerarordendesalida = function (objetoprueba,socket) {
-//      var listadoordendesalida = document.getElementById('listadoordendesalida')
-//      listadoordendesalida.innerHTML = ''
+module.exports.leerygenerarordendesalida = function (objetoprueba,socket) {
+     var listadoordendesalida = document.getElementById('listadoordendesalida')
+     listadoordendesalida.innerHTML = ''
 
-//     if (objetoprueba.os.length > 0) {
-//       //   COMENZamos coN PRUEBAS PARA PASAR VCALORES Y ORDENAR ARRAY//
-//       var arrayprueba = []
-//       for (var indice = 0; indice < objetoprueba.os.length; indice++) {
-//       //* ************** SI EL ORDEN ES IGUAL AL INDICE -1 (PARA QUE SE INTRODUZCAN DATOS EN ORDEN)
-//         var objetoparticipante = {}
-//         objetoparticipante.jinete = objetoprueba.os[indice].jinete
-//         objetoparticipante.caballo = objetoprueba.os[indice].caballo
-//         objetoparticipante.orden = objetoprueba.os[indice].orden
-//         arrayprueba.push(objetoparticipante)
-//         console.log('OBJETO PARTICPANTE          :', objetoparticipante)
-//       }
-//       arrayprueba.sort(funcionescomunes.SortByID)
-//       console.log('ARRAY ORDENADOOOOOOOOOOOO    :', arrayprueba)
-//       for (var indice = 0; indice < arrayprueba.length; indice++) {
-//         var li = document.createElement('li')
-//         li.id = 'fila' + indice + 'OS'
-//         var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
-//         var idjinete = 'fila' + cuantosli + 'JineteOS'
-//         var idcaballo = 'fila' + cuantosli + 'CaballoOS'
-//         var idnumero = 'fila' + cuantosli + 'NumeroOS'
-//         var idimg = 'fila' + cuantosli + 'imgOS'
-//         var jinete = arrayprueba[indice].jinete
-//         var caballo = arrayprueba[indice].caballo
-//         var os = arrayprueba[indice].orden
-//         li.appendChild(funcionescomunes.creaSpan(os, idnumero, 'NumeroOS'))
-//         li.appendChild(funcionescomunes.creaSpan(caballo, idcaballo, 'caballoOS'))
-//         var btnborrarbinomio = document.createElement('button')
-//         btnborrarbinomio.id = idimg
-//         btnborrarbinomio.classList.add('iconoborrarprueba')
-//         btnborrarbinomio.innerHTML = 'X'
-//         btnborrarbinomio.addEventListener('click',function (){
-//           funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-//           socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
-//         })
-//         li.appendChild(btnborrarbinomio)
-//         listadoordendesalida.appendChild(li)
-//         li.appendChild(funcionescomunes.creaSpan(jinete, idjinete, 'jineteOS'))
-//         li.addEventListener('click',function (){
-//           console.log('click en LI : ', this.id)
-//           borrarLiactivo(listadoordendesalida)
-//           this.classList.add('activo')
-//         })
-//         // detectarClick(li)
-//       }
-//     }
-//   }
+    if (objetoprueba.os.length > 0) {
+      //   COMENZamos coN PRUEBAS PARA PASAR VCALORES Y ORDENAR ARRAY//
+      var arrayprueba = []
+      for (var indice = 0; indice < objetoprueba.os.length; indice++) {
+      //* ************** SI EL ORDEN ES IGUAL AL INDICE -1 (PARA QUE SE INTRODUZCAN DATOS EN ORDEN)
+        var objetoparticipante = {}
+        objetoparticipante.jinete = objetoprueba.os[indice].jinete
+        objetoparticipante.caballo = objetoprueba.os[indice].caballo
+        objetoparticipante.orden = objetoprueba.os[indice].orden
+        arrayprueba.push(objetoparticipante)
+        console.log('OBJETO PARTICPANTE          :', objetoparticipante)
+      }
+      arrayprueba.sort(funcionescomunes.SortByID)
+      console.log('ARRAY ORDENADOOOOOOOOOOOO    :', arrayprueba)
+      for (var indice = 0; indice < arrayprueba.length; indice++) {
+        var li = document.createElement('li')
+        li.id = 'fila' + indice + 'OS'
+        var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
+        var idjinete = 'fila' + cuantosli + 'JineteOS'
+        var idcaballo = 'fila' + cuantosli + 'CaballoOS'
+        var idnumero = 'fila' + cuantosli + 'NumeroOS'
+        var idimg = 'fila' + cuantosli + 'imgOS'
+        var jinete = arrayprueba[indice].jinete
+        var caballo = arrayprueba[indice].caballo
+        var os = arrayprueba[indice].orden
+        li.appendChild(funcionescomunes.creaSpan(os, idnumero, 'NumeroOS'))
+        li.appendChild(funcionescomunes.creaSpan(caballo, idcaballo, 'caballoOS'))
+        var btnborrarbinomio = document.createElement('button')
+        btnborrarbinomio.id = idimg
+        btnborrarbinomio.classList.add('iconoborrarprueba')
+        btnborrarbinomio.innerHTML = 'X'
+        btnborrarbinomio.addEventListener('click',function (){
+          funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
+          socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+        })
+        li.appendChild(btnborrarbinomio)
+        listadoordendesalida.appendChild(li)
+        li.appendChild(funcionescomunes.creaSpan(jinete, idjinete, 'jineteOS'))
+        li.addEventListener('click',function (){
+          console.log('click en LI : ', this.id)
+          // borrarLiactivo(listadoordendesalida)
+          this.classList.add('activo')
+        })
+        // detectarClick(li)
+      }
+    }
+  }
 // module.exports.mostrarJineteordendesalida = function (filaid) {
 //   var inputjineteordensalida = document.getElementById('inputjineteordendesalida')
 //   var nombre = filaid
@@ -315,10 +315,20 @@ module.exports.generartablaCompeticionSeleccionada = function(competicion,socket
       elementotr.appendChild(trofeoprueba)
       elementotr.appendChild(alturaprueba)
       elementotr.appendChild(baremoprueba)
+      elementotr.id = indice
       tbodycompeticionseleccionada.appendChild(elementotr)
-
       elementotr.addEventListener(`click`, function (){
-
+        
+        funcionescomunes.removeclasselements('tbodycompeticionseleccionada','fas fa-chevron-circle-right') //eliminamos los glyphicon de tablajientes
+     var span = document.createElement('span')
+    span.classList.add('iconoborrarjinete')
+    span.id =  this.id + 'iconoborrar'
+    span.appendChild(funcionescomunes.addiconelement('fas fa-chevron-circle-right',''))//anadimos icono en la celda LicenciaJ
+    // span.insertBefore(span, (this.id).firstChild);
+    document.getElementById(this.id).appendChild(span)
+      // eElement.insertBefore(newFirstElement, eElement.firstChild);
+    funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+        this.classList.add('text-primary')//anadimos nueva clase a este elemento (color)
         var dropdownprueba = document.getElementById('dropdownprueba')
         dropdownprueba.classList.remove('disabled')
        mostrardatospruebaenformulario(this)
@@ -384,6 +394,27 @@ module.exports.generartablaCompeticionSeleccionada = function(competicion,socket
       })
      }
   }
+
+  btnclasificarprueba.addEventListener('click',function (){
+    alert('btnclasficarprueba')
+  })
+
+  btnordenprueba.addEventListener('click',function () {
+    var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
+    alert(inputnombrenuevaprueba.value)
+    funcionescomunes.showdiv('tab-ordendesalida','tab-content')
+    socket.emit('generarordendesalida', document.getElementById('inputnombreCompeticion').value, inputnombrenuevaprueba.value)
+
+  })
+
+  btnanadirprueba.addEventListener('click',function (){
+    alert('btnanadirprueba')
+  })
+
+  btnconfigurarprueba.addEventListener('click',function (){
+    alert('btnconfigurarprueba')
+  })
+
   btnborrarprueba.addEventListener('click',function () {
     alert('click en iconoborrarprueba')
     if (confirm('Are you sure you want to save this thing into the database?')) {
@@ -394,4 +425,26 @@ module.exports.generartablaCompeticionSeleccionada = function(competicion,socket
         alert('Borrado cancelado!')
     }
   })
+  // var btnempezarrueba = document.getElementById('btnempezarprueba')
+  btnempezarprueba.addEventListener('click',function () {
+    // socket.emit('recargarpaginaclasificacion')
+    alert('click enboton EMPEZAR PRUEBA')
+    var nombreprueba = document.getElementById('inputnombrenuevaprueba').value
+    var nombrecompeticion = document.getElementById('inputnombreCompeticion2').value
+    var baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
+    var altura = document.getElementById('inputalturanuevaprueba').value
+    var trofeo = document.getElementById('inputtrofeonuevaprueba').value
+    var baremo = document.getElementById('inputbaremonuevaprueba').value
+    //enviamos solicitud de prueba a servdior
+    // socket.emit('empezarprueba', nombrecompeticion, nombreprueba, baremodeprueba)
+
+    // funcionescomunes.showdiv('divempezarprueba','contenido')
+    //enviamos solicitud de nuevo encabezado pantalla clasificacion
+
+
+    // socket.emit('encabezadoclasificaciondeprueba',altura, trofeo,baremo)
+    //enviamos solicitud de recargar pagina de clasificacion
+
+  })
+
 }
