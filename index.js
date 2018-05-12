@@ -1,10 +1,5 @@
  'use strict'
-// Bootstrap wants jQuery global =(
-  // window.jQuery = $ = require('jquery')
-  // Bootstrap doesn't have a "main" field / export anything =(
-  // var bootstrap = require('bootstrap/dist/js/bootstrap')
-//   MongoClient = require('mongodb').MongoClient;
-//   const assert = require('assert');
+
 var rutas = require('./server-modules/rutas.js') // contiene la resolucion de rutas
  //contiene las operaciones sobre la bbdd Table_Jinetes
 var bbddjinetes = require('./server-modules/operaciones-bbddjinete.js')
@@ -12,10 +7,11 @@ var bbddcaballos = require('./server-modules/operaciones-bbddcaballo.js')
 var bbddcompeticiones = require('./server-modules/operaciones-bbddcompeticiones.js')
 var bbddpruebas = require('./server-modules/operaciones-bbddpruebas.js')
 // var bbddpruebaencurso = require('./server-modules/operaciones-bbddpruebaactiva.js')
-// var serialport = require('./server-modules/operaciones-serialport.js')
+var serialport = require('./server-modules/operaciones-serialport.js')
 
 var funciones = require('./server-modules/funciones.js')
-var csvtojson = require('./server-modules/operaciones-csvjson')
+var csvtojson = require('./server-modules/operaciones-csvjson.js')
+
 var express = require('express')
 var path = require('path')
 // var Stream = require('stream')
@@ -44,7 +40,7 @@ bbddjinetes(socket,MongoClient,url,dbName)
 bbddcaballos(socket,MongoClient,url,dbName)
 bbddcompeticiones(socket,MongoClient,url,dbName)
 bbddpruebas(socket,MongoClient,url,dbName)
-// csvtojson(socket,MongoClient)
+csvtojson(socket,MongoClient,url,dbName)
 // bbddpruebaencurso(socket,MongoClient)
 // serialport(socket)
 })

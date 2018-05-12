@@ -5,6 +5,8 @@ con la base de datos de jinete*/
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
 var socket = io()
+var funcionesformulariocompeticionseleccionada = require('./operaciones-formulario-competicionseleccionada.js')
+
 
 module.exports.leerformulariojinete = function () {
   //asignamos valores
@@ -52,10 +54,13 @@ function generarListaJinetesordendesalida(data) {
       elemListado.id = 'fila' + indice + 'jinete'
       data.nombre = data.nombre + ' ' + data.apellido1 + ' ' + data.apellido2
       elemListado.appendChild(funcionescomunes.creaSpan(data.nombre, elemListado.id,'nombreJinete'))
-      // // elemListado.appendChild(funcionescomunes.creaSpan(jinete.nombre,elemListado.id + 'NombreJOS','linombreJOS'))
+      elemListado.classList.add('list-group-item')
+       // // elemListado.appendChild(funcionescomunes.creaSpan(jinete.nombre,elemListado.id + 'NombreJOS','linombreJOS'))
       listadoJinetesconfiguracionordendesalida.appendChild(elemListado)
       elemListado.addEventListener('click', function () {
         funcionesformulariocompeticionseleccionada.mostrarJineteordendesalida('fila' + indice + 'jinete')
+        funcionescomunes.borrarLiactivo(listadoJinetesconfiguracionordendesalida)
+        this.classList.add('active')
       })
       // detectarClick(elemListado)
     })

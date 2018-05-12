@@ -69,4 +69,6 @@ module.exports.iniciarcompeticiones = function(socket) {
   // socket.emit('leer_competiciones') //Solicitamos listado de competiciones
   // alert('enviando leercompetici')
   iniciarsocketcompeticiones(socket)
+  funcionesformulariocompeticionseleccionada.iniciardropwdown(socket)
+
 }

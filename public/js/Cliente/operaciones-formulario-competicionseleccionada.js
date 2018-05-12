@@ -154,12 +154,12 @@ function mostrardatospruebaenformulario(fila,socket){
   inputbaremonuevaprueba.value = fila.childNodes[4].innerHTML
   inputindicenuevaprueba.value = fila.childNodes[0].innerHTML
 }
-// function borrarLiactivo(ul) {
-//   var liItems = ul.getElementsByTagName('li')
-//   for (var i = 0 ; i < liItems.length; i++){
-//     liItems[i].classList.remove('activo')
-//   }
-// }
+function borrarLiactivo(ul) {
+  var liItems = ul.getElementsByTagName('li')
+  for (var i = 0 ; i < liItems.length; i++){
+    liItems[i].classList.remove('active')
+  }
+}
 // module.exports.anadirbinomiosaordendesalida = function (jinete,caballo,socket) {
 //   // alert(jinete)
 //   var inputbaremonuevaprueba = document.getElementById('inputbaremonuevaprueba')
@@ -250,29 +250,30 @@ module.exports.leerygenerarordendesalida = function (objetoprueba,socket) {
           socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
         })
         li.appendChild(btnborrarbinomio)
+        li.classList.add('list-group-item')
         listadoordendesalida.appendChild(li)
         li.appendChild(funcionescomunes.creaSpan(jinete, idjinete, 'jineteOS'))
         li.addEventListener('click',function (){
           console.log('click en LI : ', this.id)
-          // borrarLiactivo(listadoordendesalida)
-          this.classList.add('activo')
+          borrarLiactivo(listadoordendesalida)
+          this.classList.add('active')
         })
         // detectarClick(li)
       }
     }
   }
-// module.exports.mostrarJineteordendesalida = function (filaid) {
-//   var inputjineteordensalida = document.getElementById('inputjineteordendesalida')
-//   var nombre = filaid
-//   var nombrejinete = document.getElementById(nombre).innerText
-//   inputjineteordensalida.value = nombrejinete
-// }
-// module.exports.mostrarCaballoordendesalida = function (filaid) {
-//   var inputcaballoordensalida = document.getElementById('inputcaballoordendesalida')
-//   var nombre = filaid
-//   var nombrecaballo = document.getElementById(nombre).innerText
-//   inputcaballoordensalida.value = nombrecaballo
-// }
+module.exports.mostrarJineteordendesalida = function (filaid) {
+  var inputjineteordensalida = document.getElementById('inputjineteordendesalida')
+  var nombre = filaid
+  var nombrejinete = document.getElementById(nombre).innerText
+  inputjineteordensalida.value = nombrejinete
+}
+module.exports.mostrarCaballoordendesalida = function (filaid) {
+  var inputcaballoordensalida = document.getElementById('inputcaballoordendesalida')
+  var nombre = filaid
+  var nombrecaballo = document.getElementById(nombre).innerText
+  inputcaballoordensalida.value = nombrecaballo
+}
 function mostrardatosenformulariocompeticionseleccionada (competicion) {
 //   var inputnombreCompeticion2 = document.getElementById('inputnombreCompeticion2')
 //   var inputlugarCompeticion2 = document.getElementById('inputlugarCompeticion2')
@@ -290,7 +291,69 @@ function mostrardatosenformulariocompeticionseleccionada (competicion) {
 //   var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
 //   socket.emit('borrarprueba', inputnombreCompeticion2.value, inputnombrenuevaprueba.value)
 // }
+function leerformulariodatosprueba() {
+  var datosprueba = {}
+  datosprueba.nombreprueba = document.getElementById('inputnombrenuevaprueba').value
+  datosprueba.nombrecompeticion = document.getElementById('inputnombreCompeticion2').value
+  datosprueba.baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
+  datosprueba.altura = document.getElementById('inputalturanuevaprueba').value
+  datosprueba.trofeo = document.getElementById('inputtrofeonuevaprueba').value
+  datosprueba.baremo = document.getElementById('inputbaremonuevaprueba').value
+  return datosprueba
+}
+module.exports.iniciardropwdown = function(socket) {
+  btnclasificarprueba.addEventListener('click',function (){
+    alert('btnclasficarprueba')
+  })
 
+  btnordenprueba.addEventListener('click',function () {
+    var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
+    // alert(inputnombrenuevaprueba.value)
+    funcionescomunes.showdiv('tab-ordendesalida','tab-content')
+    socket.emit('generarordendesalida', document.getElementById('inputnombreCompeticion').value, inputnombrenuevaprueba.value)
+
+  })
+
+  btnanadirprueba.addEventListener('click',function (){
+    alert('btnanadirprueba')
+  })
+
+  btnconfigurarprueba.addEventListener('click',function (){
+    alert('btnconfigurarprueba')
+  })
+
+  btnborrarprueba.addEventListener('click',function () {
+    alert('click en iconoborrarprueba')
+    if (confirm('Are you sure you want to save this thing into the database?')) {
+      borrarprueba(socket)
+        // BORRAR PRUEBA
+    } else {
+        // Do nothing!
+        alert('Borrado cancelado!')
+    }
+  })
+  // var btnempezarrueba = document.getElementById('btnempezarprueba')
+  btnempezarprueba.addEventListener('click',function () {
+    // socket.emit('recargarpaginaclasificacion')
+    alert('click enboton EMPEZAR PRUEBA')
+    var nombreprueba = document.getElementById('inputnombrenuevaprueba').value
+    var nombrecompeticion = document.getElementById('inputnombreCompeticion2').value
+    var baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
+    var altura = document.getElementById('inputalturanuevaprueba').value
+    var trofeo = document.getElementById('inputtrofeonuevaprueba').value
+    var baremo = document.getElementById('inputbaremonuevaprueba').value
+    //enviamos solicitud de prueba a servdior
+    // socket.emit('empezarprueba', nombrecompeticion, nombreprueba, baremodeprueba)
+
+    // funcionescomunes.showdiv('divempezarprueba','contenido')
+    //enviamos solicitud de nuevo encabezado pantalla clasificacion
+
+
+    // socket.emit('encabezadoclasificaciondeprueba',altura, trofeo,baremo)
+    //enviamos solicitud de recargar pagina de clasificacion
+
+  })
+}
 module.exports.generartablaCompeticionSeleccionada = function(competicion,socket) {
   mostrardatosenformulariocompeticionseleccionada(competicion) //cargamos datos de competicion en formulario de la derecha
   var tbodycompeticionseleccionada = document.getElementById('tbodycompeticionseleccionada')
@@ -391,60 +454,11 @@ module.exports.generartablaCompeticionSeleccionada = function(competicion,socket
     // //   this.appendChild(btnempezarrueba)
     //   this.appendChild(btnclasificacionprueba)
     //   this.appendChild(btnborrarprueba)
+
+
       })
      }
   }
 
-  btnclasificarprueba.addEventListener('click',function (){
-    alert('btnclasficarprueba')
-  })
-
-  btnordenprueba.addEventListener('click',function () {
-    var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
-    alert(inputnombrenuevaprueba.value)
-    funcionescomunes.showdiv('tab-ordendesalida','tab-content')
-    socket.emit('generarordendesalida', document.getElementById('inputnombreCompeticion').value, inputnombrenuevaprueba.value)
-
-  })
-
-  btnanadirprueba.addEventListener('click',function (){
-    alert('btnanadirprueba')
-  })
-
-  btnconfigurarprueba.addEventListener('click',function (){
-    alert('btnconfigurarprueba')
-  })
-
-  btnborrarprueba.addEventListener('click',function () {
-    alert('click en iconoborrarprueba')
-    if (confirm('Are you sure you want to save this thing into the database?')) {
-      borrarprueba(socket)
-        // BORRAR PRUEBA
-    } else {
-        // Do nothing!
-        alert('Borrado cancelado!')
-    }
-  })
-  // var btnempezarrueba = document.getElementById('btnempezarprueba')
-  btnempezarprueba.addEventListener('click',function () {
-    // socket.emit('recargarpaginaclasificacion')
-    alert('click enboton EMPEZAR PRUEBA')
-    var nombreprueba = document.getElementById('inputnombrenuevaprueba').value
-    var nombrecompeticion = document.getElementById('inputnombreCompeticion2').value
-    var baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
-    var altura = document.getElementById('inputalturanuevaprueba').value
-    var trofeo = document.getElementById('inputtrofeonuevaprueba').value
-    var baremo = document.getElementById('inputbaremonuevaprueba').value
-    //enviamos solicitud de prueba a servdior
-    // socket.emit('empezarprueba', nombrecompeticion, nombreprueba, baremodeprueba)
-
-    // funcionescomunes.showdiv('divempezarprueba','contenido')
-    //enviamos solicitud de nuevo encabezado pantalla clasificacion
-
-
-    // socket.emit('encabezadoclasificaciondeprueba',altura, trofeo,baremo)
-    //enviamos solicitud de recargar pagina de clasificacion
-
-  })
 
 }

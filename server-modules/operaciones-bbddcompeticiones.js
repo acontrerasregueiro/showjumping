@@ -21,13 +21,13 @@ socket.on('leer_competiciones', function () {
                   console.log(err)
                 } else if (result.length) {
                 socket.emit('dato_competicion', result)//enviamos la competicion por socket
-                  console.log(result)
+                  // console.log(result)
                 } else {
                   console.log('No document(s) found with defined "find" criteria!')
                 }
                 client.close()
               }) 
-              console.log(items)
+              // console.log(items)
             }
           }
         }     
@@ -36,10 +36,26 @@ socket.on('leer_competiciones', function () {
   })
 })
 
-//   /* RECIBE POR PARAMETRO LOS DATOS DE LA NUEVA COMPETICION
+//* RECIBE POR PARAMETRO LOS DATOS DE LA NUEVA COMPETICION
 // PRIMERO LA CREA Y LUEGO ASIGNA VALORES */
-//   socket.on('nueva_competicion', function (data) {
-//     console.log('recibido nueva competicion : ', data)
+  socket.on('nueva_competicion', function (data) {
+    MongoClient.connect(url, function(err, client) {
+      console.log('recibido nueva competicion : ', data)
+      if (err) throw err
+      const db = client.db(dbName);
+      const col = db.createCollection(data.nombre, function (err, collection) {
+       if (err) throw err
+       collection.insert({
+          'nombre': data.nombre,
+          'lugar': data.lugar,
+          'fecha': data.fecha,
+          'categoria': data.categoria,
+          'pruebas': []
+        },function (err, result) {
+          if (err) throw err
+          if (result) console.log('Added!')
+          client.close()
+        })
 //     MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
 //       if (err) throw err
 //       // PRIMERO CREAMOS LA COLECCION
@@ -58,9 +74,9 @@ socket.on('leer_competiciones', function () {
 //           if (result) console.log('Added!')
 //           db.close()
 //         })
-//       })
-//     })
-//   })
+      })
+    })
+  })
 // // FIN CREAR NUEVA COMPETICION
   socket.on('solicita_competicion', function (nombrecoleccion) {
     MongoClient.connect(url, function(err, client) {
@@ -71,17 +87,8 @@ socket.on('leer_competiciones', function () {
         socket.emit('configurar_competicion', coleccion)
         console.log('COMPETICION : ', coleccion)
         client.close()
-      })
-          // col.each(function (err,items){
-       
+      })       
    console.log('SOLICITADA COMPETICON ')
-  
-    
-    //  db.collection(nombrecoleccion).findOne(function (err, coleccion) {
-    //    socket.emit('configurar_competicion', coleccion)
-    //   //  console.log('COMPETICION : ', coleccion)
-    //  })
-    //  db.close()
    })
  })
 

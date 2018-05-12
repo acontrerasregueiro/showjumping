@@ -80,74 +80,59 @@ module.exports = function(socket,MongoClient,url,dbName) {
       })
     db.close()
     })
- })
- socket.on('nuevo_binomio', function (binomio, prueba, coleccion, baremo) {
-  console.log('baremo : ', baremo)
-  console.log('LEER BAREMO ', funciones.leerbaremo(baremo))
-  if (funciones.leerbaremo(baremo) == '1') {
-    var objetobinomio = {
-    //  '_id': new ObjectID(),
-      'orden': binomio.numero,
-      'jinete': binomio.jinete,
-      'caballo': binomio.caballo,
-      'puntos': '',
-      'tiempo': ''
-    }
-  } else {
-    var objetobinomio = {
-      'orden': binomio.numero,
-      'jinete': binomio.jinete,
-      'caballo': binomio.caballo,
-      'puntos': '',
-      'tiempo': '',
-      'puntos2': '',
-      'tiempo2': '',
-      'totalpuntos': '',
-      'totaltiempo': ''
-    }
-  }
-  var indiceprueba = 0
-  console.log('RECIBIDO BINOMIO PARA ORDEN DE SALIDA')
-  console.log('PRUEBA  :', prueba)
-  console.log('COLECCION : ', coleccion)
-  MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
-    if (err) throw err
-    db.collection(coleccion).find().toArray(function (err, caballos) {
-      caballos.forEach(function (err, indice) {
-        // console.log('LENGTH PRUEBAS :',caballos[indice].pruebas.length)
-        for (indiceprueba; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
-          if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
-            console.log('AL FIN ENCONTRAMOS INDICE :             -> ', indiceprueba)
-            var path = 'pruebas.' + indiceprueba + '.os'
-            console.log('PATH DDDDDDDDDDDDDDDDD: ', path)
-            db.collection(coleccion).update({},
-              { $push: {
-                [path]: objetobinomio
-              }}
-            )
-          }
-        }
-      })
-      db.close()
-    })
   })
- })
-//  MongoClient.connect(url, function(err, client) {
-//   const db = client.db(dbName);
-//   const col = db.collection('Table_Jinetes').find()
-//    col.toArray(function(err,result) {
-//     if (err) {
-//       console.log(err)
-//     } else if (result.length) {
-//     //  console.log('Found:', result);
-//       socket.emit('listadoJinetes', result)
-//       console.log('ENVIANDO LISTADO JINETES')
-//     } else {
-//       console.log('No document(s) found with defined "find" criteria!')
+//  socket.on('nuevo_binomio', function (binomio, prueba, coleccion, baremo) {
+//   console.log('baremo : ', baremo)
+//   console.log('LEER BAREMO ', funciones.leerbaremo(baremo))
+//   if (funciones.leerbaremo(baremo) == '1') {
+//     var objetobinomio = {
+//     //  '_id': new ObjectID(),
+//       'orden': binomio.numero,
+//       'jinete': binomio.jinete,
+//       'caballo': binomio.caballo,
+//       'puntos': '',
+//       'tiempo': ''
 //     }
-//     client.close()
-//   }) 
-// })
+//   } else {
+//     var objetobinomio = {
+//       'orden': binomio.numero,
+//       'jinete': binomio.jinete,
+//       'caballo': binomio.caballo,
+//       'puntos': '',
+//       'tiempo': '',
+//       'puntos2': '',
+//       'tiempo2': '',
+//       'totalpuntos': '',
+//       'totaltiempo': ''
+//     }
+//   }
+//   var indiceprueba = 0
+//   console.log('RECIBIDO BINOMIO PARA ORDEN DE SALIDA')
+//   console.log('PRUEBA  :', prueba)
+//   console.log('COLECCION : ', coleccion)
+//   MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
+//     if (err) throw err
+//     db.collection(coleccion).find().toArray(function (err, caballos) {
+//       caballos.forEach(function (err, indice) {
+//         // console.log('LENGTH PRUEBAS :',caballos[indice].pruebas.length)
+//         for (indiceprueba; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
+//           if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
+//             console.log('AL FIN ENCONTRAMOS INDICE :             -> ', indiceprueba)
+//             var path = 'pruebas.' + indiceprueba + '.os'
+//             console.log('PATH DDDDDDDDDDDDDDDDD: ', path)
+//             db.collection(coleccion).update({},
+//               { $push: {
+//                 [path]: objetobinomio
+//               }}
+//             )
+//           }
+//         }
+//       })
+//       db.close()
+//     })
+//   })
+//  })
+
  socket.on('generarordendesalida', function (nombrecompeticion, nombreprueba) {
 
   MongoClient.connect(url, function(err, client) { 

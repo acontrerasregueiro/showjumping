@@ -2,7 +2,7 @@
 var funcionesbbddcaballos = require('./operaciones-bbdd-caballos.js')
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
-// var funcionesformulariocompeticionseleccionada = require('./operaciones-formulario-competicionseleccionada.js')
+var funcionesformulariocompeticionseleccionada = require('./operaciones-formulario-competicionseleccionada.js')
 
 
 module.exports.leerformulariocaballo = function () {
@@ -51,12 +51,16 @@ function generarlistacaballosordendesalida (data) {
   // CREAMOS UN ELEMENTO LI DENTRO DE LA LISTA POR CADA CABALLO
   data.forEach(function (caballo, indice) {
     elemListado = document.createElement('li')
+    elemListado.classList.add('list-group-item')
     elemListado.id = 'fila' + indice + 'caballo'
     // CREAMOS UN SPAN POR CADA PROPIEDAD DE CADA CABALLO,NOMBRE,LICENCIA,ID
+
     elemListado.appendChild(funcionescomunes.creaSpan(caballo.nombre, elemListado.id + 'NombreCaballoOS', 'liNombreOS'))
     listadoCaballosconfiguracionordendesalida.appendChild(elemListado)
     elemListado.addEventListener('click', function () {
-      // funcionesformulariocompeticionseleccionada.mostrarCaballoordendesalida('fila' + indice + 'caballo')
+      funcionesformulariocompeticionseleccionada.mostrarCaballoordendesalida('fila' + indice + 'caballo')
+      funcionescomunes.borrarLiactivo(listadoCaballosconfiguracionordendesalida)
+      this.classList.add('active')
     })
     // detectarClick(elemListado)
   })

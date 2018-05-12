@@ -25,7 +25,12 @@ module.exports.addiconelement = function(clase,float) {
   // iconoborrar.style.verticalAlign = 'middle'
   return iconoborrar
 }
-
+module.exports.borrarLiactivo = function(ul) {
+  var liItems = ul.getElementsByTagName('li')
+  for (var i = 0 ; i < liItems.length; i++){
+    liItems[i].classList.remove('active')
+  }
+}
 //PASAMOS POR PARAMETRO EL ID DE LA TABLA DONDE BUSCAR
 //PASAMOS POR PARAMETRO LA PALABRA CLAVE A BUSCAR
 //SI LA ENCUENTRA MUESTRA LAS FILAS DE LA TABLA QUE CONTIENEN LA CLAVE
