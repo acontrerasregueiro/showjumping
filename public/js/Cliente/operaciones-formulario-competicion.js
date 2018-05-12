@@ -61,18 +61,18 @@ function iniciarformulariocompeticiones(socket) {
   btnimportarordendesalida.addEventListener('change',function (){
    importarorden(socket)
   })
-//   btnmoverabajoordendesalida.addEventListener('click', function (){
-//     funcionesformulariocompeticionseleccionada.moverabajoordendesalida(socket)
+  btnmoverabajoordendesalida.addEventListener('click', function (){
+    funcionesformulariocompeticionseleccionada.moverabajoordendesalida(socket)
 
-//   })
-//   btnmoverarribaordendesalida.addEventListener('click',function (){
-//     funcionesformulariocompeticionseleccionada.moverarribaordendesalida(socket)
-//   })
+  })
+  btnmoverarribaordendesalida.addEventListener('click',function (){
+    funcionesformulariocompeticionseleccionada.moverarribaordendesalida(socket)
+  })
 
-  // btnactualizarordendesalida.addEventListener('click', function (){
-  //   alert('HOLAAAAA')
-  //   funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
-  // })
+  btnactualizarordendesalida.addEventListener('click', function (){
+    // alert('HOLAAAAA')
+    funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
+  })
 
   btnanadirbinomioaordendesalida.addEventListener('click', function (){
     var inputbaremonuevaprueba = document.getElementById('inputbaremonuevaprueba')

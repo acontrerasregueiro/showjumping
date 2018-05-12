@@ -1,7 +1,6 @@
 /*ESTE FICHERO INTERPRETA LOS FICHEROS CSV */
 'use strict'
 module.exports = function(socket,MongoClient,url,dbName) {
-  console.log('found csvjson')
   var fs = require('fs')
   var csvjson = require('csvjson')
    var url = 'mongodb://127.0.0.1:27017/hipica'
@@ -18,4 +17,6 @@ module.exports = function(socket,MongoClient,url,dbName) {
     socket.emit('importarordendesalida', objetojson)
   })
   /** FIN DE OPERACIONES LEER CSV_CABALLOS **/
+  console.log('found csvjson')
+
 }

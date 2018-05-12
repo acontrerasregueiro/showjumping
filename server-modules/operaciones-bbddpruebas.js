@@ -41,97 +41,121 @@ module.exports = function(socket,MongoClient,url,dbName) {
   })
 
 
-  socket.on('enviar_nueva_prueba', function (prueba, coleccion, idcompeticionainsertar) {
-    MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
-      if (err) throw err
-  //     var collection = db.collection(coleccion)
-      console.log('COLECCION : ', coleccion)
-      console.log('ID DONDE INSERTAR  :', idcompeticionainsertar)
-      console.log('RECIBIDO ENVIAR_NUEVA_PRUEBA  DATOS NUEVA PRUEBA :', prueba)
-       // FUNCIONA 100%
-      var nombreprueba = 'prueba' + prueba.numero
-      var jsonnuevaprueba = {
-        '_id': new ObjectID(),
-        'nombreprueba': nombreprueba,
-        'trofeo': prueba.trofeo,
-        'altura': prueba.altura,
-        'baremo': prueba.baremo,
-        'numero': prueba.numero
-      }
-      db.collection(coleccion).update({'_id': ObjectID(idcompeticionainsertar)},
-        { $push: {
-          pruebas: jsonnuevaprueba
-        }})
-      db.close()
-    })
-   })
-   socket.on('borrarprueba', function (coleccion, nombreprueba) {
-     console.log('RECIBIDO BORRAR PRUEBA')
-     console.log('COLECCION  SLECCIONADA PARA BORRAR  : ', coleccion)
-     console.log('PRUEBA SLECCIONADA PARA BORRAR  : ', nombreprueba)
-     MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
+  // socket.on('enviar_nueva_prueba', function (prueba, coleccion, idcompeticionainsertar) {
+  //   MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
+  //     if (err) throw err
+  // //     var collection = db.collection(coleccion)
+  //     console.log('COLECCION : ', coleccion)
+  //     console.log('ID DONDE INSERTAR  :', idcompeticionainsertar)
+  //     console.log('RECIBIDO ENVIAR_NUEVA_PRUEBA  DATOS NUEVA PRUEBA :', prueba)
+  //      // FUNCIONA 100%
+  //     var nombreprueba = 'prueba' + prueba.numero
+  //     var jsonnuevaprueba = {
+  //       '_id': new ObjectID(),
+  //       'nombreprueba': nombreprueba,
+  //       'trofeo': prueba.trofeo,
+  //       'altura': prueba.altura,
+  //       'baremo': prueba.baremo,
+  //       'numero': prueba.numero
+  //     }
+  //     db.collection(coleccion).update({'_id': ObjectID(idcompeticionainsertar)},
+  //       { $push: {
+  //         pruebas: jsonnuevaprueba
+  //       }})
+  //     db.close()
+  //   })
+  //  })
+  //  socket.on('borrarprueba', function (coleccion, nombreprueba) {
+  //    console.log('RECIBIDO BORRAR PRUEBA')
+  //    console.log('COLECCION  SLECCIONADA PARA BORRAR  : ', coleccion)
+  //    console.log('PRUEBA SLECCIONADA PARA BORRAR  : ', nombreprueba)
+  //    MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
+  //   if (err) throw err
+  //   var collection = db.collection(coleccion)
+  //   collection.update({},
+  //     { $pull: {
+  //       'pruebas': {'nombreprueba': nombreprueba}
+  //     }}, function (err, records) {
+  //       console.log(records)
+  //     })
+  //   db.close()
+  //   })
+  // })
+
+ socket.on('nuevo_binomio', function (binomio, prueba, coleccion, baremo) {
+  console.log('baremo : ', baremo)
+  console.log('LEER BAREMO ', funciones.leerbaremo(baremo))
+  if (funciones.leerbaremo(baremo) == '1') {
+    var objetobinomio = {
+    //  '_id': new ObjectID(),
+      'orden': binomio.numero,
+      'jinete': binomio.jinete,
+      'caballo': binomio.caballo,
+      'puntos': '',
+      'tiempo': ''
+    }
+  } else {
+    var objetobinomio = {
+      'orden': binomio.numero,
+      'jinete': binomio.jinete,
+      'caballo': binomio.caballo,
+      'puntos': '',
+      'tiempo': '',
+      'puntos2': '',
+      'tiempo2': '',
+      'totalpuntos': '',
+      'totaltiempo': ''
+    }
+  }
+  var indiceprueba = 0
+  console.log('RECIBIDO BINOMIO PARA ORDEN DE SALIDA')
+  // console.log('PRUEBA  :', prueba)
+  console.log('COLECCION : ', coleccion)
+  MongoClient.connect(url, function(err, client) { 
+    const db = client.db(dbName)
+    const col = db.collection(coleccion)
     if (err) throw err
-    var collection = db.collection(coleccion)
-    collection.update({},
-      { $pull: {
-        'pruebas': {'nombreprueba': nombreprueba}
-      }}, function (err, records) {
-        console.log(records)
+    col.find().toArray(function (err, caballos) {
+      caballos.forEach(function (err, indice) {
+        // console.log('LENGTH PRUEBAS :',caballos[indice].pruebas.length)
+        for (indiceprueba; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
+          if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
+            console.log('AL FIN ENCONTRAMOS INDICE :             -> ', indiceprueba)
+            var path = 'pruebas.' + indiceprueba + '.os'
+            console.log('PATH DDDDDDDDDDDDDDDDD: ', path)
+            db.collection(coleccion).update({},
+              { $push: {
+                [path]: objetobinomio
+              }}
+            )
+          }
+        }
       })
-    db.close()
+    client.close()
     })
   })
-//  socket.on('nuevo_binomio', function (binomio, prueba, coleccion, baremo) {
-//   console.log('baremo : ', baremo)
-//   console.log('LEER BAREMO ', funciones.leerbaremo(baremo))
-//   if (funciones.leerbaremo(baremo) == '1') {
-//     var objetobinomio = {
-//     //  '_id': new ObjectID(),
-//       'orden': binomio.numero,
-//       'jinete': binomio.jinete,
-//       'caballo': binomio.caballo,
-//       'puntos': '',
-//       'tiempo': ''
-//     }
-//   } else {
-//     var objetobinomio = {
-//       'orden': binomio.numero,
-//       'jinete': binomio.jinete,
-//       'caballo': binomio.caballo,
-//       'puntos': '',
-//       'tiempo': '',
-//       'puntos2': '',
-//       'tiempo2': '',
-//       'totalpuntos': '',
-//       'totaltiempo': ''
-//     }
-//   }
-//   var indiceprueba = 0
-//   console.log('RECIBIDO BINOMIO PARA ORDEN DE SALIDA')
-//   console.log('PRUEBA  :', prueba)
-//   console.log('COLECCION : ', coleccion)
-//   MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
-//     if (err) throw err
-//     db.collection(coleccion).find().toArray(function (err, caballos) {
-//       caballos.forEach(function (err, indice) {
-//         // console.log('LENGTH PRUEBAS :',caballos[indice].pruebas.length)
-//         for (indiceprueba; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
-//           if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
-//             console.log('AL FIN ENCONTRAMOS INDICE :             -> ', indiceprueba)
-//             var path = 'pruebas.' + indiceprueba + '.os'
-//             console.log('PATH DDDDDDDDDDDDDDDDD: ', path)
-//             db.collection(coleccion).update({},
-//               { $push: {
-//                 [path]: objetobinomio
-//               }}
-//             )
-//           }
-//         }
-//       })
-//       db.close()
-//     })
-//   })
-//  })
+  // MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
+  //   if (err) throw err
+  //   db.collection(coleccion).find().toArray(function (err, caballos) {
+  //     caballos.forEach(function (err, indice) {
+  //       // console.log('LENGTH PRUEBAS :',caballos[indice].pruebas.length)
+  //       for (indiceprueba; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
+  //         if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
+  //           console.log('AL FIN ENCONTRAMOS INDICE :             -> ', indiceprueba)
+  //           var path = 'pruebas.' + indiceprueba + '.os'
+  //           console.log('PATH DDDDDDDDDDDDDDDDD: ', path)
+  //           db.collection(coleccion).update({},
+  //             { $push: {
+  //               [path]: objetobinomio
+  //             }}
+  //           )
+  //         }
+  //       }
+  //     })
+  //     db.close()
+  //   })
+  // })
+ })
 
  socket.on('generarordendesalida', function (nombrecompeticion, nombreprueba) {
 
@@ -209,22 +233,25 @@ socket.on('actualizarnumerosordendesalida', function (binomio, binomioordenado, 
       'totaltiempo': ''
     }
   }
-  MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
-  if (err) throw err
-  db.collection(coleccion).find().toArray(function (err, caballos) {
+  MongoClient.connect(url, function(err, client) { 
+    const db = client.db(dbName)
+    const col = db.collection(coleccion)
+  // MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
+  // if (err) throw err
+  col.find().toArray(function (err, caballos) {
     caballos.forEach(function (err, indice) {
   //   console.log('LENGTH PRUEBAS :',caballos[indice].pruebas.length)
       for (var indiceprueba = 0; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
         if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
           var path = 'pruebas.' + indiceprueba + '.os'
           var pathorden = 'pruebas.' + indiceprueba + '.os.$.orden'
-          db.collection(coleccion).update({
-            [path]: objetobinomio
-          },
+
+          col.update({ [path]: {$elemMatch: {jinete: binomio.jinete, caballo: binomio.caballo}}},
             { $set: {
               [pathorden]: ordenbinomionuevo
-            }})
-            db.close()
+            }            
+          })
+            client.close()
         }
       }
     })

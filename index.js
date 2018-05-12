@@ -36,11 +36,12 @@ rutas(app,path,express)
 //  var $ = require('jquery');
 
 io.on('connection', function (socket) {
+csvtojson(socket,MongoClient,url,dbName)
+
 bbddjinetes(socket,MongoClient,url,dbName)
 bbddcaballos(socket,MongoClient,url,dbName)
 bbddcompeticiones(socket,MongoClient,url,dbName)
 bbddpruebas(socket,MongoClient,url,dbName)
-csvtojson(socket,MongoClient,url,dbName)
 // bbddpruebaencurso(socket,MongoClient)
 // serialport(socket)
 })

@@ -17223,6 +17223,7 @@ function iniciarsocketcompeticiones(socket){
   data.forEach(function (binomio,indice){
     var jinete = binomio.jinete
     var caballo = binomio.caballo
+    
     funcionesformulariocompeticionseleccionada.anadirbinomiosaordendesalida(jinete,caballo,socket)
     })
   })
@@ -17441,18 +17442,18 @@ function iniciarformulariocompeticiones(socket) {
   btnimportarordendesalida.addEventListener('change',function (){
    importarorden(socket)
   })
-//   btnmoverabajoordendesalida.addEventListener('click', function (){
-//     funcionesformulariocompeticionseleccionada.moverabajoordendesalida(socket)
+  btnmoverabajoordendesalida.addEventListener('click', function (){
+    funcionesformulariocompeticionseleccionada.moverabajoordendesalida(socket)
 
-//   })
-//   btnmoverarribaordendesalida.addEventListener('click',function (){
-//     funcionesformulariocompeticionseleccionada.moverarribaordendesalida(socket)
-//   })
+  })
+  btnmoverarribaordendesalida.addEventListener('click',function (){
+    funcionesformulariocompeticionseleccionada.moverarribaordendesalida(socket)
+  })
 
-  // btnactualizarordendesalida.addEventListener('click', function (){
-  //   alert('HOLAAAAA')
-  //   funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
-  // })
+  btnactualizarordendesalida.addEventListener('click', function (){
+    // alert('HOLAAAAA')
+    funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
+  })
 
   btnanadirbinomioaordendesalida.addEventListener('click', function (){
     var inputbaremonuevaprueba = document.getElementById('inputbaremonuevaprueba')
@@ -17657,141 +17658,171 @@ var funcionescomunes = require('./funciones-compartidas.js')
 // var funcionesmodalnuevaprueba = require('./modalnuevaprueba.js')
 // var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
 
-// module.exports.moverabajoordendesalida = function (socket) {
-//     //ALMACENO EN VARIABLE EL ELEMENTO SELECCIONADO Y EL ELEMENTO ANTERIOR
-//     var elementoordendesalidaseleccionado  = document.getElementById('listadoordendesalida').getElementsByClassName('activo')
-//     var elementosiguiente = elementoordendesalidaseleccionado[0].nextSibling
-//     var elementosiguienteid = elementoordendesalidaseleccionado[0].nextSibling.id
-//     var nombrefilareal = elementoordendesalidaseleccionado[0].id.substring(0,elementoordendesalidaseleccionado[0].id.length -2)
-//     var nombrefilasiguientereal = elementosiguienteid.substring(0,elementosiguienteid.length -2)
-//     //ALMACENO EL ELEMENTO ANTERIOR EN UNA VARIABLE PARA EL INTERCAMBIO DE DATOS
-//     console.log('ELEMENTO SELECCIONADO : ', elementoordendesalidaseleccionado[0].id)
-//     console.log('elemento SIGUIENTE : ', elementosiguienteid)
-//     //LIMPIO EL ELEMENTO ANTERIOR
-//     //AÑADO LOS DATOS
-//     var ordenelementoseleccionado = document.getElementById(nombrefilareal + 'NumeroOS')
-//     var jineteelementoseleccionado = document.getElementById(nombrefilareal + 'JineteOS')
-//     var caballoelementoseleccionado = document.getElementById(nombrefilareal + 'CaballoOS')
-//     var imagencaballoseleccionado = nombrefilareal + 'imgOS'
-//     var ordenelementointercambio = document.getElementById(nombrefilasiguientereal + 'NumeroOS')
-//     var jineteelementointercambio = document.getElementById(nombrefilasiguientereal + 'JineteOS')
-//     var caballoelementointercambio = document.getElementById(nombrefilasiguientereal + 'CaballoOS')
-//     var imagencaballointercambio = document.getElementById(nombrefilasiguientereal + 'imgOS')
-//     //ELEMENTO ANTERIOR  SE GUARDA PÀRA EL INTERCAMBIO
-//     elementosiguiente.innerHTML = ''
-//     // ASIGNO A LA FILA SELECCIONADA LOS DATOS GUARDOS PARA INTERCAMBIO DE LA FILA ANTERIOR
-//     elementosiguiente.appendChild(funcionescomunes.creaSpan(ordenelementoseleccionado.innerHTML,nombrefilasiguientereal + 'NumeroOS','NumeroOS'))
-//     elementosiguiente.appendChild(funcionescomunes.creaSpan(caballoelementoseleccionado.innerHTML,nombrefilasiguientereal + 'CaballoOS','caballoOS'))
-//     // elementosiguiente.appendChild(anadirimagenborrar(imagencaballoseleccionado,15,15,'binomio'))
-//     elementoordendesalidaseleccionado[0].innerHTML = ''
-//     elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(ordenelementointercambio.innerHTML,nombrefilareal + 'NumeroOS','NumeroOS'))
-//     elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(caballoelementointercambio.innerHTML,nombrefilareal + 'CaballoOS','caballoOS'))
-//     var btnborrarbinomio = document.createElement('button')
-//     btnborrarbinomio.id = nombrefilareal + 'imgOS'
-//     btnborrarbinomio.classList.add('iconoborrarprueba')
-//     btnborrarbinomio.innerHTML = 'X'
-//     btnborrarbinomio.addEventListener('click',function (){
-//       funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-//       socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
-//     })
-//     elementoordendesalidaseleccionado[0].appendChild(btnborrarbinomio)
-//     elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(jineteelementointercambio.innerHTML,nombrefilareal + 'JineteOS','JineteOS'))
-//     // elementoordendesalidaseleccionado[0].appendChild(anadirimagenborrar(imagencaballointercambio,15,15,'binomio'))
-//     var btnborrarbinomio = document.createElement('button')
-//     btnborrarbinomio.id = nombrefilasiguientereal + 'imgOS'
-//     btnborrarbinomio.classList.add('iconoborrarprueba')
-//     btnborrarbinomio.innerHTML = 'X'
-//     btnborrarbinomio.addEventListener('click',function (){
-//       funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-//       socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
-//     })
-//     elementosiguiente.appendChild(btnborrarbinomio)
-//     elementosiguiente.appendChild(funcionescomunes.creaSpan(jineteelementoseleccionado.innerHTML,nombrefilasiguientereal + 'JineteOS','JineteOS'))
-//     elementoordendesalidaseleccionado[0].classList.remove('activo')
-//     elementosiguiente.classList.add('activo')
-//     funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
-//     // actualizarnumerosdeordendesalida()
-//   }
+module.exports.moverabajoordendesalida = function (socket) {
+    //ALMACENO EN VARIABLE EL ELEMENTO SELECCIONADO Y EL ELEMENTO ANTERIOR
+    var elementoordendesalidaseleccionado  = document.getElementById('listadoordendesalida').getElementsByClassName('active')
+    var elementosiguiente = elementoordendesalidaseleccionado[0].nextSibling
+    var elementosiguienteid = elementoordendesalidaseleccionado[0].nextSibling.id
+    var nombrefilareal = elementoordendesalidaseleccionado[0].id.substring(0,elementoordendesalidaseleccionado[0].id.length -2)
+    var nombrefilasiguientereal = elementosiguienteid.substring(0,elementosiguienteid.length -2)
+    //ALMACENO EL ELEMENTO ANTERIOR EN UNA VARIABLE PARA EL INTERCAMBIO DE DATOS
+    console.log('ELEMENTO SELECCIONADO : ', elementoordendesalidaseleccionado[0].id)
+    console.log('elemento SIGUIENTE : ', elementosiguienteid)
+    //LIMPIO EL ELEMENTO ANTERIOR
+    //AÑADO LOS DATOS
+    var ordenelementoseleccionado = document.getElementById(nombrefilareal + 'NumeroOS')
+    var jineteelementoseleccionado = document.getElementById(nombrefilareal + 'JineteOS')
+    var caballoelementoseleccionado = document.getElementById(nombrefilareal + 'CaballoOS')
+    var imagencaballoseleccionado = nombrefilareal + 'imgOS'
+    var ordenelementointercambio = document.getElementById(nombrefilasiguientereal + 'NumeroOS')
+    var jineteelementointercambio = document.getElementById(nombrefilasiguientereal + 'JineteOS')
+    var caballoelementointercambio = document.getElementById(nombrefilasiguientereal + 'CaballoOS')
+    var imagencaballointercambio = document.getElementById(nombrefilasiguientereal + 'imgOS')
+    //ELEMENTO ANTERIOR  SE GUARDA PÀRA EL INTERCAMBIO
+    elementosiguiente.innerHTML = ''
+    // ASIGNO A LA FILA SELECCIONADA LOS DATOS GUARDOS PARA INTERCAMBIO DE LA FILA ANTERIOR
+    elementosiguiente.appendChild(funcionescomunes.creaSpan(ordenelementoseleccionado.innerHTML,nombrefilasiguientereal + 'NumeroOS','NumeroOS'))
+    elementosiguiente.appendChild(funcionescomunes.creaSpan(caballoelementoseleccionado.innerHTML,nombrefilasiguientereal + 'CaballoOS','caballoOS'))
+    // elementosiguiente.appendChild(anadirimagenborrar(imagencaballoseleccionado,15,15,'binomio'))
+    elementoordendesalidaseleccionado[0].innerHTML = ''
+    elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(ordenelementointercambio.innerHTML,nombrefilareal + 'NumeroOS','NumeroOS'))
+    elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(caballoelementointercambio.innerHTML,nombrefilareal + 'CaballoOS','caballoOS'))
+    var btnborrarbinomio = document.createElement('button')
+    btnborrarbinomio.id = nombrefilareal + 'imgOS'
+    btnborrarbinomio.classList.add('iconoborrarprueba')
+    btnborrarbinomio.innerHTML = 'X'
+    btnborrarbinomio.addEventListener('click',function (){
+      funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
+      socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+    })
+    elementoordendesalidaseleccionado[0].appendChild(btnborrarbinomio)
+    elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(jineteelementointercambio.innerHTML,nombrefilareal + 'JineteOS','JineteOS'))
+    // elementoordendesalidaseleccionado[0].appendChild(anadirimagenborrar(imagencaballointercambio,15,15,'binomio'))
+    var btnborrarbinomio = document.createElement('button')
+    btnborrarbinomio.id = nombrefilasiguientereal + 'imgOS'
+    btnborrarbinomio.classList.add('iconoborrarprueba')
+    btnborrarbinomio.innerHTML = 'X'
+    btnborrarbinomio.addEventListener('click',function (){
+      funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
+      socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+    })
+    elementosiguiente.appendChild(btnborrarbinomio)
+    elementosiguiente.appendChild(funcionescomunes.creaSpan(jineteelementoseleccionado.innerHTML,nombrefilasiguientereal + 'JineteOS','JineteOS'))
+    elementoordendesalidaseleccionado[0].classList.remove('active')
+    elementosiguiente.classList.add('active')
+    funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
+    // actualizarnumerosdeordendesalida()
+  }
 
-// module.exports.moverarribaordendesalida = function(socket) {
-//     //ALMACENO EN VARIABLE EL ELEMENTO SELECCIONADO Y EL ELEMENTO ANTERIOR
-//   var elementoordendesalidaseleccionado  = document.getElementById('listadoordendesalida').getElementsByClassName('activo')
-//   var elementoanterior = elementoordendesalidaseleccionado[0].previousSibling
-//   var elementoanteriorid = elementoordendesalidaseleccionado[0].previousSibling.id
-//   var nombrefilareal = elementoordendesalidaseleccionado[0].id.substring(0,elementoordendesalidaseleccionado[0].id.length -2)
-//   var nombrefilaanteriorreal = elementoanteriorid.substring(0,elementoanteriorid.length -2)
-//  //ALMACENO EL ELEMENTO ANTERIOR EN UNA VARIABLE PARA EL INTERCAMBIO DE DATOS
-//  console.log('ELEMENTO SELECCIONADO : ', elementoordendesalidaseleccionado[0].id)
-//  console.log('elemento anterior  : ', elementoanteriorid)
-//  //LIMPIO EL ELEMENTO ANTERIOR
-//  //AÑADO LOS DATOS
-//  var ordenelementoseleccionado = document.getElementById(nombrefilareal + 'NumeroOS')
-//  var jineteelementoseleccionado = document.getElementById(nombrefilareal + 'JineteOS')
-//  var caballoelementoseleccionado = document.getElementById(nombrefilareal + 'CaballoOS')
-//  var imagencaballoseleccionado = nombrefilareal + 'imgOS'
-//  var ordenelementointercambio = document.getElementById(nombrefilaanteriorreal + 'NumeroOS')
-//  var jineteelementointercambio = document.getElementById(nombrefilaanteriorreal + 'JineteOS')
-//  var caballoelementointercambio = document.getElementById(nombrefilaanteriorreal + 'CaballoOS')
-//  var imagencaballointercambio = document.getElementById(nombrefilaanteriorreal + 'imgOS')
-//   //ELEMENTO ANTERIOR  SE GUARDA PÀRA EL INTERCAMBIO
-//   elementoanterior.innerHTML = ''
-//   // ASIGNO A LA FILA SELECCIONADA LOS DATOS GUARDOS PARA INTERCAMBIO DE LA FILA ANTERIOR
-//   //  //creaspan texto id clase
-//   elementoanterior.appendChild(funcionescomunes.creaSpan(ordenelementoseleccionado.innerHTML,nombrefilaanteriorreal + 'NumeroOS','NumeroOS'))
-//   elementoanterior.appendChild(funcionescomunes.creaSpan(caballoelementoseleccionado.innerHTML,nombrefilaanteriorreal + 'CaballoOS','caballoOS'))
-//   var btnborrarbinomio = document.createElement('button')
-//   btnborrarbinomio.id = nombrefilaanteriorreal + 'imgOS'
-//   btnborrarbinomio.classList.add('iconoborrarprueba')
-//   btnborrarbinomio.innerHTML = 'X'
-//   btnborrarbinomio.addEventListener('click',function (){
-//     funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-//     socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
-//   })
-//   elementoanterior.appendChild(btnborrarbinomio)
-//   elementoanterior.appendChild(funcionescomunes.creaSpan(jineteelementoseleccionado.innerHTML,nombrefilaanteriorreal + 'JineteOS','JineteOS'))
-//   elementoordendesalidaseleccionado[0].innerHTML = ''
-//   elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(ordenelementointercambio.innerHTML,nombrefilareal + 'NumeroOS','NumeroOS'))
-//   elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(caballoelementointercambio.innerHTML,nombrefilareal + 'CaballoOS','caballoOS'))
-//   var btnborrarbinomio = document.createElement('button')
-//   btnborrarbinomio.id = imagencaballoseleccionado
-//   btnborrarbinomio.classList.add('iconoborrarprueba')
-//   btnborrarbinomio.innerHTML = 'X'
-//   btnborrarbinomio.addEventListener('click',function (){
-//     funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-//     socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
-//   })
-//   elementoordendesalidaseleccionado[0].appendChild(btnborrarbinomio)
-//   elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(jineteelementointercambio.innerHTML,nombrefilareal + 'JineteOS','JineteOS'))
-//   elementoordendesalidaseleccionado[0].classList.remove('activo')
-//   elementoanterior.classList.add('activo')
-//   funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
-// }
-
-// //actualiza los numeros del listadoordendesalida
-// // y los modifica en la bbdd
-// module.exports.actualizarnumerosdeordendesalida = function(socket) {
-//   var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
-//   console.log('ELEMENTOS LI : ', cuantosli)
-//   for (var indice = 0 ; indice < cuantosli ; indice ++) {
-//     var binomio = {}  //ALMACENAMOS EL BINOMIO ANTIGUO7
-//     var binomioordenado = {}
-//     var jinete = document.getElementById('fila' + indice + 'JineteOS')
-//     var caballo = document.getElementById('fila' + indice + 'CaballoOS')
-//     var spanorden = document.getElementById('fila' + indice + 'NumeroOS')
-//     binomio.orden = spanorden.innerHTML
-//     binomio.jinete = jinete.innerHTML
-//     binomio.caballo = caballo.innerHTML
-//     var orden = indice + 1  // + 1 YA QUE EL PRIMER ELEMENTO ES CERO
-//     spanorden.innerHTML = orden
-//     binomioordenado.orden = spanorden.innerHTML
-//     binomioordenado.jinete = jinete.innerHTML
-//     binomioordenado.caballo = caballo.innerHTML
-//     var coleccion = document.getElementById('inputnombreCompeticion').value
-//     var prueba = document.getElementById('inputnombrenuevaprueba').value
-//     var baremo = document.getElementById('inputbaremonuevaprueba').value
-//     socket.emit('actualizarnumerosordendesalida',binomio,binomioordenado,coleccion,prueba,baremo)
-//   }
-// }
+module.exports.moverarribaordendesalida = function(socket) {
+    //ALMACENO EN VARIABLE EL ELEMENTO SELECCIONADO Y EL ELEMENTO ANTERIOR
+  var elementoordendesalidaseleccionado  = document.getElementById('listadoordendesalida').getElementsByClassName('active')
+  var elementoanterior = elementoordendesalidaseleccionado[0].previousSibling
+  var elementoanteriorid = elementoordendesalidaseleccionado[0].previousSibling.id
+  var nombrefilareal = elementoordendesalidaseleccionado[0].id.substring(0,elementoordendesalidaseleccionado[0].id.length -2)
+  var nombrefilaanteriorreal = elementoanteriorid.substring(0,elementoanteriorid.length -2)
+ //ALMACENO EL ELEMENTO ANTERIOR EN UNA VARIABLE PARA EL INTERCAMBIO DE DATOS
+ console.log('ELEMENTO SELECCIONADO : ', elementoordendesalidaseleccionado[0].id)
+ console.log('elemento anterior  : ', elementoanteriorid)
+ //LIMPIO EL ELEMENTO ANTERIOR
+ //AÑADO LOS DATOS
+ var ordenelementoseleccionado = document.getElementById(nombrefilareal + 'NumeroOS')
+ var jineteelementoseleccionado = document.getElementById(nombrefilareal + 'JineteOS')
+ var caballoelementoseleccionado = document.getElementById(nombrefilareal + 'CaballoOS')
+ var imagencaballoseleccionado = nombrefilareal + 'imgOS'
+ var ordenelementointercambio = document.getElementById(nombrefilaanteriorreal + 'NumeroOS')
+ var jineteelementointercambio = document.getElementById(nombrefilaanteriorreal + 'JineteOS')
+ var caballoelementointercambio = document.getElementById(nombrefilaanteriorreal + 'CaballoOS')
+ var imagencaballointercambio = document.getElementById(nombrefilaanteriorreal + 'imgOS')
+  //ELEMENTO ANTERIOR  SE GUARDA PÀRA EL INTERCAMBIO
+  elementoanterior.innerHTML = ''
+  // ASIGNO A LA FILA SELECCIONADA LOS DATOS GUARDOS PARA INTERCAMBIO DE LA FILA ANTERIOR
+  //  //creaspan texto id clase
+  elementoanterior.appendChild(funcionescomunes.creaSpan(ordenelementoseleccionado.innerHTML,nombrefilaanteriorreal + 'NumeroOS','NumeroOS'))
+  elementoanterior.appendChild(funcionescomunes.creaSpan(caballoelementoseleccionado.innerHTML,nombrefilaanteriorreal + 'CaballoOS','caballoOS'))
+  var btnborrarbinomio = document.createElement('button')
+  btnborrarbinomio.id = nombrefilaanteriorreal + 'imgOS'
+  btnborrarbinomio.classList.add('iconoborrarprueba')
+  btnborrarbinomio.innerHTML = 'X'
+  btnborrarbinomio.addEventListener('click',function (){
+    funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
+    socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+  })
+  elementoanterior.appendChild(btnborrarbinomio)
+  elementoanterior.appendChild(funcionescomunes.creaSpan(jineteelementoseleccionado.innerHTML,nombrefilaanteriorreal + 'JineteOS','JineteOS'))
+  elementoordendesalidaseleccionado[0].innerHTML = ''
+  elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(ordenelementointercambio.innerHTML,nombrefilareal + 'NumeroOS','NumeroOS'))
+  elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(caballoelementointercambio.innerHTML,nombrefilareal + 'CaballoOS','caballoOS'))
+  var btnborrarbinomio = document.createElement('button')
+  btnborrarbinomio.id = imagencaballoseleccionado
+  btnborrarbinomio.classList.add('iconoborrarprueba')
+  btnborrarbinomio.innerHTML = 'X'
+  btnborrarbinomio.addEventListener('click',function (){
+    funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
+    socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+  })
+  elementoordendesalidaseleccionado[0].appendChild(btnborrarbinomio)
+  elementoordendesalidaseleccionado[0].appendChild(funcionescomunes.creaSpan(jineteelementointercambio.innerHTML,nombrefilareal + 'JineteOS','JineteOS'))
+  elementoordendesalidaseleccionado[0].classList.remove('active')
+  elementoanterior.classList.add('active')
+  funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
+}
+function anadirbinomioalistaordendesalida(dato) {
+  var li = document.createElement('li')
+  var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
+  li.id = 'fila' + cuantosli + 'OS'
+  var idjinete = 'fila' + cuantosli + 'JineteOS'
+  var idcaballo = 'fila' + cuantosli + 'CaballoOS'
+  var idnumero = 'fila' + cuantosli + 'NumeroOS'
+  var idimg = 'fila' + cuantosli + 'imgOS'
+  var jinete = dato.jinete
+  var caballo = dato.caballo
+  var os = dato.orden
+  li.appendChild(funcionescomunes.creaSpan(os, idnumero, 'NumeroOS'))
+  li.appendChild(funcionescomunes.creaSpan(caballo, idcaballo, 'caballoOS'))
+  var btnborrarbinomio = document.createElement('button')
+  btnborrarbinomio.id = idimg
+  btnborrarbinomio.classList.add('iconoborrarprueba')
+  btnborrarbinomio.innerHTML = 'X'
+  btnborrarbinomio.addEventListener('click',function (){
+    funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
+    socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+  })
+  li.appendChild(btnborrarbinomio)
+  li.classList.add('list-group-item')
+  listadoordendesalida.appendChild(li)
+  li.appendChild(funcionescomunes.creaSpan(jinete, idjinete, 'jineteOS'))
+  li.addEventListener('click',function (){
+    console.log('click en LI : ', this.id)
+    borrarLiactivo(listadoordendesalida)
+    this.classList.add('active')
+  })
+}
+//actualiza los numeros del listadoordendesalida
+// y los modifica en la bbdd
+module.exports.actualizarnumerosdeordendesalida = function(socket) {
+  var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
+  console.log('ELEMENTOS LI : ', cuantosli)
+  for (var indice = 0 ; indice < cuantosli ; indice ++) {
+    var binomio = {}  //ALMACENAMOS EL BINOMIO ANTIGUO7
+    var binomioordenado = {}
+    var jinete = document.getElementById('fila' + indice + 'JineteOS')
+    var caballo = document.getElementById('fila' + indice + 'CaballoOS')
+    var spanorden = document.getElementById('fila' + indice + 'NumeroOS')
+    binomio.orden = spanorden.innerHTML
+    binomio.jinete = jinete.innerHTML
+    binomio.caballo = caballo.innerHTML
+    var orden = indice + 1  // + 1 YA QUE EL PRIMER ELEMENTO ES CERO
+    spanorden.innerHTML = orden
+    binomioordenado.orden = spanorden.innerHTML
+    binomioordenado.jinete = jinete.innerHTML
+    binomioordenado.caballo = caballo.innerHTML
+    var coleccion = document.getElementById('inputnombreCompeticion').value
+    var prueba = document.getElementById('inputnombrenuevaprueba').value
+    var baremo = document.getElementById('inputbaremonuevaprueba').value
+    socket.emit('actualizarnumerosordendesalida',binomio,binomioordenado,coleccion,prueba,baremo)
+  }
+}
 
 function mostrardatospruebaenformulario(fila,socket){
   // iniciarbbddpruebas(socket) // iniciamos el modulo bbdd pruebas
@@ -17812,56 +17843,62 @@ function borrarLiactivo(ul) {
     liItems[i].classList.remove('active')
   }
 }
-// module.exports.anadirbinomiosaordendesalida = function (jinete,caballo,socket) {
-//   // alert(jinete)
-//   var inputbaremonuevaprueba = document.getElementById('inputbaremonuevaprueba')
-//   var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
-//   var baremodeprueba = inputbaremonuevaprueba.value
-//   var inputjineteordensalida = document.getElementById('inputjineteordendesalida')
-//   var inputcaballoordendesalida = document.getElementById('inputcaballoordendesalida')
-//   var li = document.createElement('li')
-//   //contamos los elementos LI para asignarle un ID a la filavar myUL = document.getElementById("myUL");
-//   var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
-//   li.id = 'fila' + cuantosli + 'OS'
-//   var idjinete = 'fila' + cuantosli + 'JineteOS'
-//   var idcaballo = 'fila' + cuantosli + 'CaballoOS'
-//   var idnumero = 'fila' + cuantosli + 'NumeroOS'
-//   var idimg = 'fila' + cuantosli +'imgOS'
+module.exports.anadirbinomiosaordendesalida = function (jinete,caballo,socket) {
+  // alert(jinete)
+  // var inputbaremonuevaprueba = document.getElementById('inputbaremonuevaprueba')
+  // var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
+  // var baremodeprueba = inputbaremonuevaprueba.value
+  // var inputjineteordensalida = document.getElementById('inputjineteordendesalida')
+  // var inputcaballoordendesalida = document.getElementById('inputcaballoordendesalida')
+  // var li = document.createElement('li')
+  // //contamos los elementos LI para asignarle un ID a la filavar myUL = document.getElementById("myUL");
+  var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
+  var dato = {}
+  dato.jinete = jinete
+  dato.caballo = caballo
+  dato.orden = cuantosli
+  anadirbinomioalistaordendesalida(dato)
+  // li.id = 'fila' + cuantosli + 'OS'
+  // var idjinete = 'fila' + cuantosli + 'JineteOS'
+  // var idcaballo = 'fila' + cuantosli + 'CaballoOS'
+  // var idnumero = 'fila' + cuantosli + 'NumeroOS'
+  // var idimg = 'fila' + cuantosli +'imgOS'
 
-//   var binomio = {}
-//   binomio.jinete = jinete
-//   binomio.caballo = caballo
-//   binomio.numero = cuantosli + 1
-//   var prueba = inputnombrenuevaprueba.value
-//   var coleccion = document.getElementById('inputnombreCompeticion2').value
-//   //primero añadimos el nºde orden de SALIDA
-//   var numerodeordensalida = cuantosli + 1
-//   li.appendChild(funcionescomunes.creaSpan(numerodeordensalida,idnumero,'NumeroOS'))
-//   li.appendChild(funcionescomunes.creaSpan(caballo,idcaballo,'caballoOS'))
-//   var btnborrarbinomio = document.createElement('button')
-//   var idimg = 'fila' + cuantosli + 'imgOS'
-//   btnborrarbinomio.id = idimg
-//   btnborrarbinomio.classList.add('iconoborrarprueba')
-//   btnborrarbinomio.innerHTML = 'X'
-//   btnborrarbinomio.addEventListener('click',function (){
-//   funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-//     socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
-//   })
-//   li.appendChild(btnborrarbinomio)
-//   li.appendChild(funcionescomunes.creaSpan(jinete,idjinete,'jineteOS'))
-//   socket.emit('nuevo_binomio', binomio,prueba,coleccion,baremodeprueba)
-//   li.addEventListener('click',function (){
-//     borrarLiactivo(listadoordendesalida)
-//     this.classList.add('activo')
-//   })
-//   listadoordendesalida.appendChild(li)
-//   // detectarClick(li)
-//   inputjineteordensalida.value = ''
-//   inputcaballoordendesalida.value = ''
-//   var  pixeles = listadoordendesalida.scrollTop;
-//   listadoordendesalida.scrollTop = pixeles + 500
-// }
-// //FIN MOSTRARJINETE(FILA)
+  // var binomio = {}
+  // binomio.jinete = jinete
+  // binomio.caballo = caballo
+  // binomio.numero = cuantosli + 1
+  // var prueba = inputnombrenuevaprueba.value
+  // var coleccion = document.getElementById('inputnombreCompeticion').value
+  // //primero añadimos el nºde orden de SALIDA
+  // var numerodeordensalida = cuantosli + 1
+  // li.appendChild(funcionescomunes.creaSpan(numerodeordensalida,idnumero,'NumeroOS'))
+  // li.appendChild(funcionescomunes.creaSpan(caballo,idcaballo,'caballoOS'))
+  // var btnborrarbinomio = document.createElement('button')
+  // var idimg = 'fila' + cuantosli + 'imgOS'
+  // btnborrarbinomio.id = idimg
+  // btnborrarbinomio.classList.add('iconoborrarprueba')
+  // btnborrarbinomio.innerHTML = 'X'
+  // btnborrarbinomio.addEventListener('click',function (){
+  // funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
+  //   socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+  // })
+  // li.appendChild(btnborrarbinomio)
+  // li.appendChild(funcionescomunes.creaSpan(jinete,idjinete,'jineteOS'))
+  socket.emit('nuevo_binomio', binomio,prueba,coleccion,baremodeprueba)
+  // li.addEventListener('click',function (){
+  //   borrarLiactivo(listadoordendesalida)
+  //   this.classList.add('activo')
+  // })
+  // listadoordendesalida.appendChild(li)
+  // // detectarClick(li)
+  inputjineteordensalida.value = ''
+  inputcaballoordendesalida.value = ''
+  var  pixeles = listadoordendesalida.scrollTop;
+  listadoordendesalida.scrollTop = pixeles + 500
+}
+
+//FIN MOSTRARJINETE(FILA)
 module.exports.leerygenerarordendesalida = function (objetoprueba,socket) {
      var listadoordendesalida = document.getElementById('listadoordendesalida')
      listadoordendesalida.innerHTML = ''
@@ -17881,35 +17918,36 @@ module.exports.leerygenerarordendesalida = function (objetoprueba,socket) {
       arrayprueba.sort(funcionescomunes.SortByID)
       console.log('ARRAY ORDENADOOOOOOOOOOOO    :', arrayprueba)
       for (var indice = 0; indice < arrayprueba.length; indice++) {
-        var li = document.createElement('li')
-        li.id = 'fila' + indice + 'OS'
-        var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
-        var idjinete = 'fila' + cuantosli + 'JineteOS'
-        var idcaballo = 'fila' + cuantosli + 'CaballoOS'
-        var idnumero = 'fila' + cuantosli + 'NumeroOS'
-        var idimg = 'fila' + cuantosli + 'imgOS'
-        var jinete = arrayprueba[indice].jinete
-        var caballo = arrayprueba[indice].caballo
-        var os = arrayprueba[indice].orden
-        li.appendChild(funcionescomunes.creaSpan(os, idnumero, 'NumeroOS'))
-        li.appendChild(funcionescomunes.creaSpan(caballo, idcaballo, 'caballoOS'))
-        var btnborrarbinomio = document.createElement('button')
-        btnborrarbinomio.id = idimg
-        btnborrarbinomio.classList.add('iconoborrarprueba')
-        btnborrarbinomio.innerHTML = 'X'
-        btnborrarbinomio.addEventListener('click',function (){
-          funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-          socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
-        })
-        li.appendChild(btnborrarbinomio)
-        li.classList.add('list-group-item')
-        listadoordendesalida.appendChild(li)
-        li.appendChild(funcionescomunes.creaSpan(jinete, idjinete, 'jineteOS'))
-        li.addEventListener('click',function (){
-          console.log('click en LI : ', this.id)
-          borrarLiactivo(listadoordendesalida)
-          this.classList.add('active')
-        })
+        anadirbinomioalistaordendesalida(arrayprueba[indice])
+        // var li = document.createElement('li')
+        // li.id = 'fila' + indice + 'OS'
+        // var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
+        // var idjinete = 'fila' + cuantosli + 'JineteOS'
+        // var idcaballo = 'fila' + cuantosli + 'CaballoOS'
+        // var idnumero = 'fila' + cuantosli + 'NumeroOS'
+        // var idimg = 'fila' + cuantosli + 'imgOS'
+        // var jinete = arrayprueba[indice].jinete
+        // var caballo = arrayprueba[indice].caballo
+        // var os = arrayprueba[indice].orden
+        // li.appendChild(funcionescomunes.creaSpan(os, idnumero, 'NumeroOS'))
+        // li.appendChild(funcionescomunes.creaSpan(caballo, idcaballo, 'caballoOS'))
+        // var btnborrarbinomio = document.createElement('button')
+        // btnborrarbinomio.id = idimg
+        // btnborrarbinomio.classList.add('iconoborrarprueba')
+        // btnborrarbinomio.innerHTML = 'X'
+        // btnborrarbinomio.addEventListener('click',function (){
+        //   funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
+        //   socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+        // })
+        // li.appendChild(btnborrarbinomio)
+        // li.classList.add('list-group-item')
+        // listadoordendesalida.appendChild(li)
+        // li.appendChild(funcionescomunes.creaSpan(jinete, idjinete, 'jineteOS'))
+        // li.addEventListener('click',function (){
+        //   console.log('click en LI : ', this.id)
+        //   borrarLiactivo(listadoordendesalida)
+        //   this.classList.add('active')
+        // })
         // detectarClick(li)
       }
     }

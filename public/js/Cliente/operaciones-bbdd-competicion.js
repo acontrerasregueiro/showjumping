@@ -26,6 +26,7 @@ function iniciarsocketcompeticiones(socket){
   data.forEach(function (binomio,indice){
     var jinete = binomio.jinete
     var caballo = binomio.caballo
+    
     funcionesformulariocompeticionseleccionada.anadirbinomiosaordendesalida(jinete,caballo,socket)
     })
   })
