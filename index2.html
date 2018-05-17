@@ -42,13 +42,14 @@
         
             <!-- FIN MENU HORIZONTAL BOOTSTRAP -->
             <!-- CONTENIDO DE LOS TABS BOOTSTRAP -->
-        <div id="tab-contenedor" class="tab-content">
-               
+    <div id="tab-jinetes" class="tab-content">             
 
          <!-- COMIENZO DIV JINETES -->
-            <div id="rowjinetes" class="row">             
-                <div id="tab-jinetes" class= "col-8">
-                    <table id="tablajinetes" class="table table-sm table-hover">   <!--table-hover-->
+        <div id="rowjinetes" class="row">             
+            <div id="col1jinetes" class= "col-8">
+                <!-- <div id="card" class="card-mb-5"> -->
+                <div id="" class = "table-responsive table-wrapper-2">
+                    <table id="tablajinetes" class="table table-sm table-hover">   <!--"table table-sm table-hover"-->
                         <thead>
                             <tr class="">
                             <th>Nombre</th>
@@ -59,43 +60,45 @@
                             </tr>
                         </thead>
                         <tbody id ="tbodyjinetes" class ="tbody"></tbody>
-                    </table>            
-                </div>    
+                    </table>  
+                 </div>   
+                <!-- </div>        -->
+            </div>    
             <div id="formulariojinetes"  class = "col-4">
-                <br>
+            <br>
+            <div class= "form-group">
+                <label for="inputnombreJinete">Nombre</label>
+                <input id = "inputnombreJinete" type="text" class = "form-control">
+            </div>
+            <div class= "form-group">
+                <label for="inputapellido1Jinete">Primer Apellido</label>
+                <input id = "inputapellido1Jinete" type="text" class = "form-control" >
+            </div>
                 <div class= "form-group">
-                    <label for="inputnombreJinete">Nombre</label>
-                    <input id = "inputnombreJinete" type="text" class = "form-control">
-                </div>
+                <label for="inputapellido1Jinete">Segundo Apellido</label>
+                <input id = "inputapellido2Jinete" type="text" class = "form-control" >
+            </div>
                 <div class= "form-group">
-                    <label for="inputapellido1Jinete">Primer Apellido</label>
-                    <input id = "inputapellido1Jinete" type="text" class = "form-control" >
-                </div>
-                    <div class= "form-group">
-                    <label for="inputapellido1Jinete">Segundo Apellido</label>
-                    <input id = "inputapellido2Jinete" type="text" class = "form-control" >
-                </div>
-                    <div class= "form-group">
-                    <label for="inputapellido1Jinete">Licencia</label>
-                    <input id = "inputlicenciaJinete" type="text" class = "form-control" >
-                </div>
-                    <div class= "form-group">
-                    <label for="inputapellido1Jinete">Id</label>
-                    <input id = "inputidJinete" type="text" class = "form-control" readonly="readonly">
-                </div>
-                    <input type="button" id = "btnguardarjinete" class="btnmenuizquierda" value= "Guardar Jinete" disabled="">
-                    <input type="button" id = "btnnuevojinete" class= "btnmenuizquierda" value="Nuevo Jinete">
-                    <input type="button" id = "btnactualizarjinetes" class="btnmenuizquierda" value= "Actualizar Listado">
-                </div>
-            </div>  
-                <!-- FIN TAB JINETES -->
+                <label for="inputapellido1Jinete">Licencia</label>
+                <input id = "inputlicenciaJinete" type="text" class = "form-control" >
+            </div>
+                <div class= "form-group">
+                <label for="inputapellido1Jinete">Id</label>
+                <input id = "inputidJinete" type="text" class = "form-control" readonly="readonly">
+            </div>
+                <input type="button" id = "btnguardarjinete" class="btnmenuizquierda" value= "Guardar Jinete" disabled="">
+                <input type="button" id = "btnnuevojinete" class= "btnmenuizquierda" value="Nuevo Jinete">
+                <input type="button" id = "btnactualizarjinetes" class="btnmenuizquierda" value= "Actualizar Listado">
+            </div>
+        </div>  <!-- FIN ROW JINETES -->
 
-        </div>
+        </div> <!-- FIN TAB JINETES -->
         <!-- INICIO TAB CABALLOS -->
         <div class="tab-content" id="tab-caballos">
             <div id="rowcaballos" class="row">
                     <div id="col1caballos" class= "col-8">
-                        <table id="tablacaballos" class="table table-sm table-hover">
+                            <div id="" class = "table-responsive table-wrapper-2">
+                            <table id="tablacaballos" class="table table-sm table-hover">
                             <thead>
                               <tr class="">
                                 <th style = "width:55%">Nombre</th>
@@ -105,6 +108,7 @@
                             </thead>
                             <tbody id ="tbodycaballos" class ="tbody"></tbody>
                           </table>
+                        </div>
                         </div>
                     <div id="col2caballos" class= "col-4">
                         <div class= "form-group">
@@ -127,7 +131,8 @@
         <div class="tab-content" id="tab-competiciones">
             <div id="rowcompeticiones" class="row contenido"> 
                     <div id="col1competiciones" class= "col-8">
-                        <table id="tablacompeticiones"  class="table table-sm table-hover">
+                            <div id="" class = "table-responsive table-wrapper-2">
+                            <table id="tablacompeticiones"  class="table table-sm table-hover">
                             <thead>
                             <tr class="">
                                 <th>NOMBRE</th>
@@ -139,6 +144,7 @@
                             </thead>
                             <tbody id ="tbodycompeticion" class ="tbody"></tbody>
                         </table>
+                    </div>
                     </div>
                     <div id="col2competiciones" class= "col-4">
                             <form class="pure-form pure-u-1-8">
@@ -162,11 +168,11 @@
                                 <input type="button" id = "btnguardarcompeticion" class= "pure-button margintop5 btnmenuizquierda" value= "Guardar Competicion">
                             </div>
                             </form>
-                    </div>
+                </div>
 
-                </div>     <!-- FIN ROW COMPETICIONES -->
-            </div>   <!-- FIN TAB COMPETICIONES -->
-            <div class="tab-content" id="tab-competicionseleccionada" style="display: none">
+            </div>     <!-- FIN ROW COMPETICIONES -->
+        </div>   <!-- FIN TAB COMPETICIONES -->
+        <div class="tab-content" id="tab-competicionseleccionada" style="display: none">
                 <div id="rowcompeticionseleccionada" class="row contenido"> 
                     <div id="col1competicionseleccioanda" class= "col-8">
                         <div class="" id= "divcompeticionseleccionada">
@@ -218,8 +224,8 @@
                     </form>
                 </div>
                 </div>          
-           </div>
-           <div class="tab-content" id="tab-ordendesalida" style="display: none">
+        </div>
+        <div class="tab-content" id="tab-ordendesalida" style="display: none">
             <div id="rowcompeticionseleccionada" class="row contenido"> 
                     <div id="col1ordendesalida" class= "col-3">
                         <div id="divjinetesordensalida" class="">
@@ -244,10 +250,10 @@
                             </div>
                             <button id="btnanadircaballoordendesalida" type="submit" class="">Nuevo Caballo</button>
                    </div>
-                            <div id="col3ordendesalida" class= "col-5">
+                    <div id="col3ordendesalida" class= "col-5">
                         <div id="divlistadoordendesalida" class="">
     
-                            </div>
+                            <!-- </div> -->
                             <div id="divlistadoordendesalida2" class="">
                               <ul id="encabezadoordendesalida" class="list-group">
                                <li class="list-group-item">
@@ -258,13 +264,9 @@
                              <button id="btnactualizarordendesalida" type="submit" class="pure-button pure-button-primary margintop5">Actualiar Orden</button>
                              <button id="btnmoverarribaordendesalida" type="submit" class="pure-button pure-button-primary margintop5">Arriba</button>
                              <button id="btnmoverabajoordendesalida" type="submit" class="pure-button pure-button-primary margintop5">Abajo</button>
-                       
-                            </div>
-                
-
-                
-            </div>
-               
+                            </div>                 
+                        </div>
+                    </div>  
                 <form action="">
                     </br>
                   <!-- <legend>A compact inline form</legend> -->
@@ -276,63 +278,91 @@
                   <input type="file" id="btnimportarordendesalida" class = "" >  
                 </form> 
            </div>
-           <!-- <div class="pure-u-7-8 contenido test" id= "divordendesalida">
-            <div id="divjinetesordensalida" class="pure-u-1-5">
-              <ul id="encabezadolistadoJinetesconfiguracionordendesalida">
-                <li>
-                  <span class="liNombreJordendesalida">JINETES</span>
-                </li>
-              </ul>
-           <ul id="listadoJinetesconfiguracionordendesalida"></ul>
-           <button id="btnanadirjineteordendesalida" type="submit" class="pure-button pure-button-primary margintop5">Nuevo Jinete</button>
-         </div>
-         <div id="divcaballosordensalida" class="pure-u-1-5">
-           <ul id="encabezadoListadocaballosconfiguracionordendesalida">
-             <li>
-               <span id = "encabezadoNombrecaballoordendesalida">CABALLOS</span>
-             </li>
-           </ul>
-           <ul id="listadoCaballosconfiguracionordendesalida"></ul>
-           <button id="btnanadircaballoordendesalida" type="submit" class="pure-button pure-button-primary margintop5">Nuevo Caballo</button>
-         </div>
-         <div id="divlistadoordendesalida" class="pure-u-1-8">
-    
-         </div>
-         <div id="divlistadoordendesalida2" class="pure-u-2-5">
-           <ul id="encabezadoordendesalida">
-            <li>
-              <span id = "encabezadoordendesalida">ORDEN DE SALIDA</span>
-            </li>
-          </ul>
-          <ul id="listadoordendesalida"></ul>
-          <button id="btnactualizarordendesalida" type="submit" class="pure-button pure-button-primary margintop5">Actualiar Orden</button>
-          <button id="btnmoverarribaordendesalida" type="submit" class="pure-button pure-button-primary margintop5">Arriba</button>
-          <button id="btnmoverabajoordendesalida" type="submit" class="pure-button pure-button-primary margintop5">Abajo</button>
-    
-         </div>
-         <form class="pure-form">
-          <fieldset>
-            <button id="btnlimpiarbuscarordensalida"type="submit" class="pure-button pure-button-primary">Clear</button>
-            <input  type="text" id ="inputBuscarenlistadojinetesycaballos" placeholder="Buscar">
-            <input type="text" id="inputjineteordendesalida" placeholder="Jinete">
-            <input type="text" id="inputcaballoordendesalida" placeholder="Caballo">
-            <button type="submit" id="btnanadirbinomioaordendesalida" class="pure-button pure-button-primary">Anadir!</button>
-            <input type="file" id="btnimportarordendesalida" class = "pure-buttom" >
-          </fieldset>
-        </form>
-         </div> -->
+        </div> 
+           <!-- FIN DE ORDEN DE SALIDA -->
+        <div class="tab-content" id="tab-empezarprueba" style="display: none">
+                <div id="rowcompeticionseleccionada" class="row contenido">
+                        <div id="row1empezarprueba" class= "col-12">
 
-           
+                        <a href="#" id="btnconectarpuertoserie" class="pure-button">OFF</a>
+                        <a href="#" id="btnleertiemposdealge" class="pure-button">Leer tiempos</a>                         
+                        <label for="" id="labeltrofeoempezarprueba"></label>
+                        <label for="" id="labelalturaempezarprueba"></label>
+                        <label for="" id="labelbaremoempezarprueba"></label>
+                        <a href="#" id="btngenerardesempate" class="boton_azul" >  DESEMPATE</a>
+                        <input type="checkbox" id='checkboxdesempate'/>
+
+                        </div>
+                    <div id="col1empezarprueba" class= "col-8">
+                        
+                        <!-- <div id="divempezarprueba" class="pure-u-7-8 contenido"> -->
+                    <!-- <div id="divcontenidoempezarprueba" >-->
+               
+                        <div id="divcontenedortablaemplezarprueba" >
+                            <table id="tablaempezarprueba" class = "table" >
+                             <thead>
+                                <tr id= "filaencabezadoempezarprueba" class= "encabezadotabla">                                <th id="encabezadoCursor" class= "tablecursor"><input type="checkbox" id= 'checkboxcontenteditableempezarprueba'/></th>
+                                <th id="encabezadoOrden" class= "tableorden"> Nº </th>
+                                <th id= "encabezadoCaballo"  class= "tablecaballo">Caballo</th>
+                                <th id= "encabezadoJinete"  class= "tablejinete">Jinete</th>
+                                <th id="encabezadoClass" class= "tableorden"> Rk </th>             
+                                <th id= "encabezadoPuntos"  class= "tablepuntos">Puntos</th>
+                                <th id= "encabezadoTiempo"  class= "tabletiempo">Tiempo</th>
+                                <!-- <th id= "encabezadoanadirrecorrido" contenteditable="true" class= "tablenuevo">NuevoD</th> -->
+                                <!-- </tr> -->
+                                </tr>
+                            </thead>
+                            <tbody id = "tbodyempezarprueba" ></tbody>
+                            </table>
+                        </div>  
+                    <!-- </div> -->
+                </div> 
+                <div id="col2ordendesalida" class= "col-4">
+
+                        dasdadasdsad
+                </div>
+                 <!-- fincontenidoempezarprueba  -->
+                
+            
+            </div>
+                        <!-- <div id="divpantallaclasificacion">
+                        </div> -->
+                    <!-- </div> -->
+                    <!-- <a href="#" id="btnconectarpuertoserie" class="pure-button">OFF</a>
+                    <a href="#" id="btnleertiemposdealge" class="pure-button">Leer tiempos</a>
+                    <a href="#" id="btnmoverarribaempezarprueba" class="boton_azul">ARRIBA </a>
+                    <a href="#" id="btnmoverabajooempezarprueba" class="boton_azul">ABAJO </a>
+                    <a href="#" id="btnclasificarempezarprueba" class="boton_azul">CLASIFICAR</a>
+                    <a href="#" id="btnAddNewWindow" class="boton_azul">NUEVO JINETE</a>
+                    <a href="#" id="btnexportarexcel" class="boton_azul">EXPORTAR XLS</a>
+                    <a href="#" id="btncrearfilainformacion" class="boton_azul">FILA INFO</a>
+                    <a href="#" id="btnactualizarpantallaordensalida" class="boton_azul">ACTU OSALIDA</a>
+                    <a href="#" id="btnborrarbinomio" class="boton_azul">BORRAR</a> -->
+            
+                    <!-- </div>
+                    <div id="empezarpruebajineteenpista">
+                        <label id="labelcaballoempezarprueba" class = "labelempezarpruebacaballo">CABALLO</label><br>
+                        <label id="labeljineteempezarprueba" class = "labelempezarpruebajinete">JINETE</label><br>
+                        <label id="labelpuntos" class= "labelpuntuacionempezarprueba">P :</label>
+                        <label id="labeltiempo" class= "labelpuntuacionempezarprueba">T :</label>
+                    </div>
+                        <textarea id="textarealogalge" cols="45" rows="8"></textarea>
+                </div> -->
+        
            <div class="tab-content" id="tab-otros">
                 <h1>Green</h1>
                 <p>green green green green green</p>
                 <button>Blue</button>
             </div>
         <!-- FIN DE CONTENIDO DE LOS TABS BOOTSTRAP -->
-    </div>
+        </div>
+    
 </div>
+
     <script src="./socket.io/socket.io.js"></script>
     <script src="./js/Cliente/bundle.js"></script>
+    <script src="./js/Cliente/thenBy.min.js"></script>
+
  
   </body>
 </html>

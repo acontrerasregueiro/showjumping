@@ -195,8 +195,10 @@ function moverarribaempezarprueba() {
 }
 
 function anadirfila (participante, indice,baremo) {
+  // alert('anadirfila')
 // //  var inputBaremodepruebaconfig = document.getElementById('inputBaremodepruebaconfig')
 //   var baremodeprueba = inputBaremodepruebaconfig.value
+var tbodyempezarprueba = document.getElementById('tbodyempezarprueba')
   var newrow = tbodyempezarprueba.insertRow(-1)
 
   var celdaseleccionarparticipante = newrow.insertCell(-1)
@@ -317,6 +319,7 @@ function crearceldasdesempate() {
 }
 
 function leerygenerarempezarprueba (objetoprueba,socket) {
+  alert('leer y generar empezar prueba')
   var labeltrofeoempezarprueba = document.getElementById('labeltrofeoempezarprueba')
   var labelalturaempezarprueba = document.getElementById('labelalturaempezarprueba')
   var labelbaremoempezarprueba = document.getElementById('labelbaremoempezarprueba')
@@ -370,13 +373,23 @@ function leerygenerarempezarprueba (objetoprueba,socket) {
 
 
 function iniciarprueba(socket) {
+    socket.on('pruebaaempezar', function (competicion, prueba) {
+    alert('PRUEBA EMPEZATR')
+    for (var indice = 0; indice < competicion.pruebas.length; indice++) {
+      if (competicion.pruebas[indice].nombreprueba == prueba) {
+        console.log('objeto prueba :', competicion.pruebas[indice])
+        var objetoprueba = competicion.pruebas[indice]
+        leerygenerarempezarprueba(objetoprueba,socket)
+      }
+    }
+  })
   
   var checkboxdesempate = document.getElementById('checkboxdesempate')
   var checkboxcontenteditableempezarprueba = document.getElementById('checkboxcontenteditableempezarprueba')
   var btnmoverarribaempezarprueba = document.getElementById('btnmoverarribaempezarprueba')
   var btnmoverabajooempezarprueba = document.getElementById('btnmoverabajooempezarprueba')
   var btnconectarpuertoserie = document.getElementById('btnconectarpuertoserie')
-  var btnactualizarpantallaordensalida = document.getElementById('btnactualizarpantallaordensalida')
+  // var btnactualizarpantallaordensalida = document.getElementById('btnactualizarpantallaordensalida')
   var textarealogalge = document.getElementById('textarealogalge')
   var btnleertiemposdealge = document.getElementById('btnleertiemposdealge')
   var btnexportarexcel = document.getElementById('btnexportarexcel')
@@ -402,11 +415,11 @@ function iniciarprueba(socket) {
     }
   })
 
-  btnactualizarpantallaordensalida.addEventListener('click', function (){
-  // alert()
-  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
-    actualizarpantallaordensalidaempezarprueba(elementoseleccionado[0].id,socket)
-  })
+  // btnactualizarpantallaordensalida.addEventListener('click', function (){
+  // // alert()
+  // var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  //   actualizarpantallaordensalidaempezarprueba(elementoseleccionado[0].id,socket)
+  // })
 
   btnclasificarempezarprueba.addEventListener('click',function () {
     //AL BORRAR CON CONTENT EDITABLE SI BORRAMOS EL CONTENIDO CREA UN <BR>
@@ -445,16 +458,16 @@ function iniciarprueba(socket) {
     funcionespruebas.export_table_to_csv(html2, 'table.csv')
   })
 
-  socket.on('pruebaaempezar', function (competicion, prueba) {
-  // alert(prueba)
-  for (var indice = 0; indice < competicion.pruebas.length; indice++) {
-    if (competicion.pruebas[indice].nombreprueba == prueba) {
-      console.log('objeto prueba :', competicion.pruebas[indice])
-      var objetoprueba = competicion.pruebas[indice]
-      leerygenerarempezarprueba(objetoprueba,socket)
-    }
-  }
- })
+//   socket.on('pruebaaempezar', function (competicion, prueba) {
+//   alert('PRUEBA EMPEZATR')
+//   for (var indice = 0; indice < competicion.pruebas.length; indice++) {
+//     if (competicion.pruebas[indice].nombreprueba == prueba) {
+//       console.log('objeto prueba :', competicion.pruebas[indice])
+//       var objetoprueba = competicion.pruebas[indice]
+//       leerygenerarempezarprueba(objetoprueba,socket)
+//     }
+//   }
+//  })
 
  socket.on('enviandobinomioaempezarprueba', function (binomio) {
   alert('RECIBIDFO enviandobinomioaempezarprueba')
@@ -494,6 +507,16 @@ function iniciarprueba(socket) {
 }
 
 module.exports.iniciarpruebaencurso = function(socket) {
+  // socket.on('pruebaaempezar', function (competicion, prueba) {
+  //   alert('PRUEBA EMPEZATR')
+  //   for (var indice = 0; indice < competicion.pruebas.length; indice++) {
+  //     if (competicion.pruebas[indice].nombreprueba == prueba) {
+  //       console.log('objeto prueba :', competicion.pruebas[indice])
+  //       var objetoprueba = competicion.pruebas[indice]
+  //       leerygenerarempezarprueba(objetoprueba,socket)
+  //     }
+  //   }
+  // })
   // funcionesmodaldesempate.iniciarmodaldesempate() 
   iniciarprueba(socket)
 }

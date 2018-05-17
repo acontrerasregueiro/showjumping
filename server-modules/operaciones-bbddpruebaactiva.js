@@ -2,7 +2,7 @@
 que se realicen sobre la base de datos la prueba en curso o activa */
 'use strict'
 var funciones = require('./funciones.js')
-module.exports = function(socket,MongoClient) {
+module.exports = function(socket,MongoClient,url,dbName) {
   function actualizarpantallaresultadopruebaactiva (coleccion, prueba,socket) {
     MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
       if (err) throw err
@@ -21,15 +21,13 @@ module.exports = function(socket,MongoClient) {
   var ObjectID = require('mongodb').ObjectID
 
   socket.on('empezarprueba', function (nombrecompeticion, nombreprueba) {
-    MongoClient.connect(url, function (err, db) {
-      if (err) {
-        console.log('Unable to connect to the mongoDB server. Error:', err)
-      } else {
-        console.log('LOGGED INTO DB, RECIBIDO EMPEZARPRUEBA!, nombreprueba : ',nombreprueba)
-    // Get the documents collection
-        var collection = db.collection(nombrecompeticion)
+    
+    MongoClient.connect(url, function(err, client) { 
+      const db = client.db(dbName)
+      const col = db.collection(nombrecompeticion)
+      if (err) throw err
         // Insert some users
-        collection.findOne(function (err, competicion){
+        col.findOne(function (err, competicion){
           if (err) {
             console.log(err)
           } else {
@@ -37,10 +35,11 @@ module.exports = function(socket,MongoClient) {
             socket.emit('pruebaaempezar', competicion, nombreprueba)
           }
           // Close connection
-          db.close()
+         
         })
-      }
-    })
+        client.close()
+      })
+    // })
   })
 
   socket.on('anadirbinomioempezarprueba', function (binomio) {

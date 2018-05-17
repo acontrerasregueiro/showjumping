@@ -1,15 +1,6 @@
 
-.container-fluid {
-  height: 100vh;
-}
-/* div {display: block;} */
-.table-wrapper-2 {
-  height: 93vh;
-    display: block;
-    max-height: 100%;
-    overflow-y: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-}
+/*CONFIGURACION DE LAS LISTAS PARA PANTALLA SIN SCROLL*/
+
 ul {width: 100%;}
 li {
   display: block;
@@ -30,42 +21,11 @@ li:after {
   text-overflow: ellipsis;
   white-space:nowrap;
 }
-#tab-competiciones, #tab-caballos, #tab-otros {
-  display:none;
-}
-
-/* #tbodyjinetes {
-  height: 100%;  
-  overflow-y: visible;
-} */
-
-/* 
-/*CONFIGURACION DE LAS LISTAS PARA PANTALLA SIN SCROLL*/
-/* ul {width: 100%;}
-li {
-  display: block;
-  line-height: 5%;
-}
-li:after {
-  content: ' ';
-  display: block;
-  visibility: hidden;
-  clear: both;
-}
-#listadoJinetesconfiguracionordendesalida,#listadoCaballosconfiguracionordendesalida, #listadoordendesalida {
-  height: 30rem;
-  overflow-y: auto;
-}
-#listadoJinetesconfiguracionordendesalida li,#listadoCaballosconfiguracionordendesalida li,  #listadoordendesalida  li {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space:nowrap;
-} */
 
 /* FIN DE CONFIGURACION DE LAS LISTAS PARA PANTALLA SIN SCROLL*/
 
 /*CONFIGURACION DE LA TABLA PARA PANTALLA COMPLETA.*/
-/* table {
+table {
   width: 100%;
 }
 #tablajinetes thead, #tablajinetes tbody, #tablajinetes tr, #tablajinetes td,#tablajinetes th { display: block; }
@@ -78,9 +38,10 @@ tr:after {
 
 #tablajinetes thead th {
   height: 30px;
-} */
+  /*text-align: left;*/
+}
 
-/* #tablajinetes tbody {
+#tablajinetes tbody {
   height: 34.34rem;
   overflow-y: auto;
 }
@@ -89,10 +50,10 @@ tr:after {
 #tablajinetes tbody td,#tablajinetes thead th {
   width: 19.2%;
   float: left;
-} */
+}
 /* FIN DE CONFIGURACION DE LA TABLA PARA PANTALLA COMPLETA.*/
 /*INICIO TABLA CABALLOS*/
-/* #tablacaballos thead, #tablacaballos tbody, #tablacaballos tr, #tablacaballos td, #tablacaballos th { display: block; }
+#tablacaballos thead, #tablacaballos tbody, #tablacaballos tr, #tablacaballos td, #tablacaballos th { display: block; }
 #tablacaballos tr:after {
   content: ' ';
   display: block;
@@ -102,12 +63,13 @@ tr:after {
 #tablacaballos thead th {
   display: block;
   height: 30px;
- }
+  /*text-align: left;*/
+}
 
 #tablacaballos tbody {
   height: 34.34rem;
   overflow-y: auto;
-}  */
+}
 
 
 /* #tablajinetes tbody td,#tablajinetes thead th {
@@ -118,12 +80,12 @@ tr:after {
 
 
 /*FIN TABLA CABALLOS*/
-/* #tab-competiciones, #tab-caballos, #tab-otros {
+#tab-competiciones, #tab-caballos, #tab-otros {
   display:none;
 }
 td span {
   text-align:center;
-} */
+}
 
 /* #tablaempezarprueba {
   overflow-x: visible;
@@ -155,7 +117,7 @@ td span {
   display: inline-block;
   width : 5%;
 } */
-/* .tablejinete, .tablecaballo {
+.tablejinete, .tablecaballo {
   display: inline-block;
   width:30%;
   overflow:hidden;
@@ -169,7 +131,7 @@ td span {
 .tableorden {
   display: inline-block;
   width:5%x;
-} */
+}
 
 /* #empezarpruebajineteenpista {
   float:left;
@@ -181,4 +143,4 @@ td span {
   border-collapse:initial;
   width:100%;
   
-} */ 
+} */

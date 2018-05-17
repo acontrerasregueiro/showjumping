@@ -9,6 +9,8 @@ var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
 var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
 var funcionesformulariocompeticiones = require('./operaciones-formulario-competicion.js')
+var funcionespruebaencurso = require('./pruebaencurso.js')
+
 function iniciarjinetes() {
 
   var formulariodatosjinete = document.getElementById('formulariodatosjinete')
@@ -77,13 +79,14 @@ function iniciarjinetes() {
     })
     funcionesformulariocaballo.iniciarmodulocaballos(socket) // INICIAMOS MODULO CABALLOS
     funcionesformulariocompeticiones.iniciarmodulocompeticiones(socket) //INICIAMOS MODULO DE COMPETICIONES
+    funcionespruebaencurso.iniciarpruebaencurso(socket)
 }
 
 //CONTROLA LA NAVEGACION ENTRE LAS TAB PANE PRINCIPALES MENU HORIZONTAL,. JINETES CABALLOS, COMPETICIONES Y OTROS
 function iniciarnavegacion() {
     var navjinetes = document.getElementById('navjinetes')
     navjinetes.addEventListener('click', function() {
-      funcionescomunes.showdiv('tab-contenedor','tab-content')
+      funcionescomunes.showdiv('tab-jinetes','tab-content')
       funcionescomunes.borrarclase2('nav-link','active')
      document.getElementById('navjinetes').classList.add('active')
     })

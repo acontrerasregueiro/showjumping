@@ -194,9 +194,9 @@ module.exports.anadirbinomiosaordendesalida = function (jinete,caballo,socket) {
   // alert(jinete)
   // var inputbaremonuevaprueba = document.getElementById('inputbaremonuevaprueba')
   // var inputnombrenuevaprueba = document.getElementById('inputnombrenuevaprueba')
-  // var baremodeprueba = inputbaremonuevaprueba.value
-  // var inputjineteordensalida = document.getElementById('inputjineteordendesalida')
-  // var inputcaballoordendesalida = document.getElementById('inputcaballoordendesalida')
+  var baremodeprueba = inputbaremonuevaprueba.value
+  var inputjineteordensalida = document.getElementById('inputjineteordendesalida')
+  var inputcaballoordendesalida = document.getElementById('inputcaballoordendesalida')
   // var li = document.createElement('li')
   // //contamos los elementos LI para asignarle un ID a la filavar myUL = document.getElementById("myUL");
   var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
@@ -215,8 +215,8 @@ module.exports.anadirbinomiosaordendesalida = function (jinete,caballo,socket) {
   // binomio.jinete = jinete
   // binomio.caballo = caballo
   // binomio.numero = cuantosli + 1
-  // var prueba = inputnombrenuevaprueba.value
-  // var coleccion = document.getElementById('inputnombreCompeticion').value
+  var prueba = inputnombrenuevaprueba.value
+  var coleccion = document.getElementById('inputnombreCompeticion').value
   // //primero añadimos el nºde orden de SALIDA
   // var numerodeordensalida = cuantosli + 1
   // li.appendChild(funcionescomunes.creaSpan(numerodeordensalida,idnumero,'NumeroOS'))
@@ -232,7 +232,7 @@ module.exports.anadirbinomiosaordendesalida = function (jinete,caballo,socket) {
   // })
   // li.appendChild(btnborrarbinomio)
   // li.appendChild(funcionescomunes.creaSpan(jinete,idjinete,'jineteOS'))
-  socket.emit('nuevo_binomio', binomio,prueba,coleccion,baremodeprueba)
+  socket.emit('nuevo_binomio', dato,prueba,coleccion,baremodeprueba)
   // li.addEventListener('click',function (){
   //   borrarLiactivo(listadoordendesalida)
   //   this.classList.add('activo')
@@ -374,13 +374,15 @@ module.exports.iniciardropwdown = function(socket) {
     // socket.emit('recargarpaginaclasificacion')
     alert('click enboton EMPEZAR PRUEBA')
     var nombreprueba = document.getElementById('inputnombrenuevaprueba').value
-    var nombrecompeticion = document.getElementById('inputnombreCompeticion2').value
+    var nombrecompeticion = document.getElementById('inputnombreCompeticion').value
     var baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
     var altura = document.getElementById('inputalturanuevaprueba').value
     var trofeo = document.getElementById('inputtrofeonuevaprueba').value
     var baremo = document.getElementById('inputbaremonuevaprueba').value
+    funcionescomunes.showdiv('tab-empezarprueba','tab-content')
+
     //enviamos solicitud de prueba a servdior
-    // socket.emit('empezarprueba', nombrecompeticion, nombreprueba, baremodeprueba)
+    socket.emit('empezarprueba', nombrecompeticion, nombreprueba, baremodeprueba)
 
     // funcionescomunes.showdiv('divempezarprueba','contenido')
     //enviamos solicitud de nuevo encabezado pantalla clasificacion
