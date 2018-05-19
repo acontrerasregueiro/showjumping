@@ -39,20 +39,38 @@ li:after {
 #filaencabezadoempezarprueba th {
   padding:0;
 }
+/* TABLE WRAPER 3, TABLA EMPEZAR PRUEBA */
+.table-wrapper-3 {
+  height: 83vh;
+    display: block;
+    max-height: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
  .tablaempezarprueba {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space:nowrap;
 
 }
-/*
-.tablejinete, .tablecaballo {
-  overflow:hidden;
-  text-overflow: ellipsis;
-  white-space:nowrap;
+#context-menu { position:absolute; display:none; }
+
+#context-menu ul, #context-menu li {
+    list-style:none;
+    margin:0; padding:0;
+    background:white;
 }
-.tablecursor, .tabletiempo, .tablepuntos ,.tablejinete, .tablecaballo  {
- padding: 0;
-} */
 
-
+#context-menu { border:solid 1px #CCC;}
+#context-menu li { border-bottom:solid 1px #CCC; }
+#context-menu li:last-child { border:none; }
+#context-menu li a {
+    display:block;
+    padding:5px 10px;
+    text-decoration:none;
+    color:blue;
+}
+#context-menu li a:hover {
+    background:#90acf6;
+    color:#FFF;
+}

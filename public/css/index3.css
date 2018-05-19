@@ -22,70 +22,8 @@ li:after {
   white-space:nowrap;
 }
 
-/* FIN DE CONFIGURACION DE LAS LISTAS PARA PANTALLA SIN SCROLL*/
-
-/*CONFIGURACION DE LA TABLA PARA PANTALLA COMPLETA.*/
-table {
-  width: 100%;
-}
-#tablajinetes thead, #tablajinetes tbody, #tablajinetes tr, #tablajinetes td,#tablajinetes th { display: block; }
-tr:after {
-  content: ' ';
-  display: block;
-  visibility: hidden;
-  clear: both;
-} 
-
-#tablajinetes thead th {
-  height: 30px;
-  /*text-align: left;*/
-}
-
-#tablajinetes tbody {
-  height: 34.34rem;
-  overflow-y: auto;
-}
 
 
-#tablajinetes tbody td,#tablajinetes thead th {
-  width: 19.2%;
-  float: left;
-}
-/* FIN DE CONFIGURACION DE LA TABLA PARA PANTALLA COMPLETA.*/
-/*INICIO TABLA CABALLOS*/
-#tablacaballos thead, #tablacaballos tbody, #tablacaballos tr, #tablacaballos td, #tablacaballos th { display: block; }
-#tablacaballos tr:after {
-  content: ' ';
-  display: block;
-  visibility: hidden;
-  clear: both;
-} 
-#tablacaballos thead th {
-  display: block;
-  height: 30px;
-  /*text-align: left;*/
-}
-
-#tablacaballos tbody {
-  height: 34.34rem;
-  overflow-y: auto;
-}
-
-
-/* #tablajinetes tbody td,#tablajinetes thead th {
-  width: 19.2%;
-  float: left;
-} */
-
-
-
-/*FIN TABLA CABALLOS*/
-#tab-competiciones, #tab-caballos, #tab-otros {
-  display:none;
-}
-td span {
-  text-align:center;
-}
 
 /* #tablaempezarprueba {
   overflow-x: visible;
@@ -104,34 +42,7 @@ td span {
 }
 .tablecursor {
   width:20px;
-  display: inline-block;
 
-}
-.tableorden {
-  width:32px;
-  display: inline-block;
-
-} */
-
-/* #tablaempezarprueba thead th,#tablaempezarprueba thead th{
-  display: inline-block;
-  width : 5%;
-} */
-.tablejinete, .tablecaballo {
-  display: inline-block;
-  width:30%;
-  overflow:hidden;
-  text-overflow: ellipsis;
-  white-space:nowrap;
-}
-.tablecursor {
-  display: inline-block;
-  width:5%;
-}
-.tableorden {
-  display: inline-block;
-  width:5%x;
-}
 
 /* #empezarpruebajineteenpista {
   float:left;

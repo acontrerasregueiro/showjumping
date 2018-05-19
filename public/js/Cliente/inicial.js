@@ -10,6 +10,7 @@ var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
 var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
 var funcionesformulariocompeticiones = require('./operaciones-formulario-competicion.js')
 var funcionespruebaencurso = require('./pruebaencurso.js')
+var funcionescontextmenupruebaactiva = require('./contextmenuempezarprueba.js')
 
 function iniciarjinetes() {
 
@@ -80,6 +81,8 @@ function iniciarjinetes() {
     funcionesformulariocaballo.iniciarmodulocaballos(socket) // INICIAMOS MODULO CABALLOS
     funcionesformulariocompeticiones.iniciarmodulocompeticiones(socket) //INICIAMOS MODULO DE COMPETICIONES
     funcionespruebaencurso.iniciarpruebaencurso(socket)
+    funcionescontextmenupruebaactiva.iniciarcontextmenu(socket)//INICIAMOS MODULO CONTEXT MENU EMPEZAR PRUEBA
+    
 }
 
 //CONTROLA LA NAVEGACION ENTRE LAS TAB PANE PRINCIPALES MENU HORIZONTAL,. JINETES CABALLOS, COMPETICIONES Y OTROS

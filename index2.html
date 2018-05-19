@@ -298,11 +298,10 @@
                         <!-- <div id="divempezarprueba" class="pure-u-7-8 contenido"> -->
                     <!-- <div id="divcontenidoempezarprueba" >-->
                
-                        <div id="divcontenedortablaemplezarprueba" >
-                                <div id="" class = "table-responsive table-wrapper-2">
-
+                    <div id="divcontenedortablaemplezarprueba" >
+                        <div id="" class = "table-responsive table-wrapper-3">
                             <table id="tablaempezarprueba" class = "table" >
-                             <thead>
+                            <thead>
                                 <tr id= "filaencabezadoempezarprueba" class= "encabezadotabla">                                <th id="encabezadoCursor" class= "tablecursor"><input type="checkbox" id= 'checkboxcontenteditableempezarprueba'/></th>
                                 <th id="encabezadoOrden" class= "tableorden"> Nº </th>
                                 <th id= "encabezadoCaballo"  class= "tablecaballo">Caballo</th>
@@ -319,10 +318,30 @@
                         </div>  
                     </div>
                 </div> 
-                <div id="col2ordendesalida" class= "col-4">
-
-                        dasdadasdsad
+                <div id="col2tablaempezarprueba" class= "col-4">
+                    <div id="divlogalge">
+                        <div id="divpantallaclasificacion">
+                            <div id="encabezadoclasificaciondeprueba">
+                            <span id="encabezadoAltura">Altura</span>
+                            <span id="encabezadoTrofeo">Trofeo</span>
+                            <span id="encabezadoBaremo">Baremo</span>
+                            </div>
+                            <ul id="clasificacionempezarprueba"></ul>
+                        </div>                
+                        <div id="pantallaordendesalida">
+                            <ul id="pantallaordendesalidaempezarprueba"> </ul>
+                        </div>                
+                    </div>
                 </div>
+
+                  <a href="#" id="btnmoverarribaempezarprueba" class="boton_azul">ARRIBA </a>
+                  <a href="#" id="btnmoverabajooempezarprueba" class="boton_azul">ABAJO </a>
+                  <a href="#" id="btnclasificarempezarprueba" class="boton_azul">CLASIFICAR</a>
+                  <a href="#" id="btnAddNewWindow" class="boton_azul">NUEVO JINETE</a>
+                  <a href="#" id="btnexportarexcel" class="boton_azul">EXPORTAR XLS</a>
+                  <a href="#" id="btncrearfilainformacion" class="boton_azul">FILA INFO</a>
+                  <a href="#" id="btnactualizarpantallaordensalida" class="boton_azul">ACTU OSALIDA</a>
+                  <a href="#" id="btnborrarbinomio" class="boton_azul">BORRAR</a>
                  <!-- fincontenidoempezarprueba  -->
                 
             
@@ -359,11 +378,24 @@
         <!-- FIN DE CONTENIDO DE LOS TABS BOOTSTRAP -->
         </div>
     
-</div>
+    </div>
+    <div id="context-menu">
+        <ul>
+        <li id='menueliminado'><a href="#">ELIMINADO-(555)</a></li>
+        <li id='menuretirado'><a href="#">RETIRADO-(666)</a></li>
+        <li id='menunopresentado'><a href="#">NO PRESENTADO-(999)</a></li>
+        <li id='menueliminadonovalido'><a href="#">ELIMINADO NO JUSTIFICADO-(777)</a></li>
+        <li id='menueliminado2'><a href="#">2º-FASE-ELIMINADO-(777)</a></li>
+        <li id='menuretirado2'><a href="#">2º-FASE-RETIRADO-(888)</a></li>
+        <li id='menunopresentado2'><a href="#">NO PRESENTADO-(999)</a></li>
+        </ul>
+    </div>
+</body>
 
     <script src="./socket.io/socket.io.js"></script>
-    <script src="./js/Cliente/bundle.js"></script>
     <script src="./js/Cliente/thenBy.min.js"></script>
+    <script src="./js/Cliente/bundle.js"></script>
+
 
  
   </body>

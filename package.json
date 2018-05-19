@@ -12,6 +12,7 @@
     "mongodb": "^3.0.7",
     "mysql": "^2.15.0",
     "popper.js": "^1.14.3",
+    "serialport": "^6.2.0",
     "watchify": "^3.11.0"
   },
   "devDependencies": {

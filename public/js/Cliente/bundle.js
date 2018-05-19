@@ -16835,6 +16835,7 @@ var funcionesformulariocompeticionseleccionada = require('.//operaciones-formula
 function iniciarcontextmenupruebaencurso(socket) {
   var contextmenu = document.getElementById('context-menu')
   document.onclick = function(e){
+    alert('eliminado')
     contextmenu.style.display = 'none';
   }
 
@@ -16855,7 +16856,8 @@ function iniciarcontextmenupruebaencurso(socket) {
   9999 NO PASAN A LA SEGUNDA FASE
   */
   menueliminado.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    alert('click')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[5].innerHTML = 555
     elementoseleccionado.childNodes[6].innerHTML = 555
@@ -16876,14 +16878,14 @@ function iniciarcontextmenupruebaencurso(socket) {
     //  }
   })
   menueliminado2.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[7].innerHTML = 777
     elementoseleccionado.childNodes[8].innerHTML = 777
   })
 
   menuretirado.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[5].innerHTML = 666
     elementoseleccionado.childNodes[6].innerHTML = 666
@@ -16905,19 +16907,19 @@ function iniciarcontextmenupruebaencurso(socket) {
     // }
   })
   menuretirado2.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[7].innerHTML = 888
     elementoseleccionado.childNodes[8].innerHTML = 888
   })
   menunopresentado2.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[7].innerHTML = 999
     elementoseleccionado.childNodes[8].innerHTML = 999
   })
   menunopresentado.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
    elementoseleccionado.childNodes[5].innerHTML = 999
    elementoseleccionado.childNodes[6].innerHTML = 999
@@ -16931,7 +16933,7 @@ function iniciarcontextmenupruebaencurso(socket) {
     // }
   })
   menueliminadonovalido.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[5].innerHTML = 444
     elementoseleccionado.childNodes[6].innerHTML = 444
@@ -16947,6 +16949,7 @@ function iniciarcontextmenupruebaencurso(socket) {
 }
 
 module.exports.iniciarcontextmenu = function(socket) {
+  alert('iniciando contextmenu')
   iniciarcontextmenupruebaencurso(socket)
 }
 
@@ -17301,6 +17304,7 @@ var funcionesformulariojinete = require('./operaciones-formulario-jinetes.js')
 var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
 var funcionesformulariocompeticiones = require('./operaciones-formulario-competicion.js')
 var funcionespruebaencurso = require('./pruebaencurso.js')
+var funcionescontextmenupruebaactiva = require('./contextmenuempezarprueba.js')
 
 function iniciarjinetes() {
 
@@ -17371,6 +17375,8 @@ function iniciarjinetes() {
     funcionesformulariocaballo.iniciarmodulocaballos(socket) // INICIAMOS MODULO CABALLOS
     funcionesformulariocompeticiones.iniciarmodulocompeticiones(socket) //INICIAMOS MODULO DE COMPETICIONES
     funcionespruebaencurso.iniciarpruebaencurso(socket)
+    funcionescontextmenupruebaactiva.iniciarcontextmenu(socket)//INICIAMOS MODULO CONTEXT MENU EMPEZAR PRUEBA
+    
 }
 
 //CONTROLA LA NAVEGACION ENTRE LAS TAB PANE PRINCIPALES MENU HORIZONTAL,. JINETES CABALLOS, COMPETICIONES Y OTROS
@@ -17421,7 +17427,7 @@ iniciarjinetes()
 iniciar()
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./funciones-compartidas.js":5,"./operaciones-formulario-caballos.js":11,"./operaciones-formulario-competicion.js":12,"./operaciones-formulario-jinetes.js":14,"./pruebaencurso.js":15,"./sorttable.js":16,"bootstrap":1,"jquery":2,"popper.js":3}],8:[function(require,module,exports){
+},{"./contextmenuempezarprueba.js":4,"./funciones-compartidas.js":5,"./operaciones-formulario-caballos.js":11,"./operaciones-formulario-competicion.js":12,"./operaciones-formulario-jinetes.js":14,"./pruebaencurso.js":15,"./sorttable.js":16,"bootstrap":1,"jquery":2,"popper.js":3}],8:[function(require,module,exports){
 
 var funcionescomunes = require('./funciones-compartidas.js')
 
@@ -18356,7 +18362,6 @@ module.exports.iniciardropwdown = function(socket) {
   // var btnempezarrueba = document.getElementById('btnempezarprueba')
   btnempezarprueba.addEventListener('click',function () {
     // socket.emit('recargarpaginaclasificacion')
-    alert('click enboton EMPEZAR PRUEBA')
     var nombreprueba = document.getElementById('inputnombrenuevaprueba').value
     var nombrecompeticion = document.getElementById('inputnombreCompeticion').value
     var baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
@@ -18610,6 +18615,7 @@ var funcionespruebas = require('./funciones-pruebas.js')
 var funcionesdesempate = require('./funciones-pruebas.js')
 var funcionesmodaldesempate = require('.//modaldesempate.js')
 var funcionescontextmenupruebaactiva = require('./contextmenuempezarprueba.js')
+var funcionescomunes = require('./funciones-compartidas.js')
 
 
 //AÑADE LOS PARTICIPANTES EN LA PANTALLA EMPEZARPRUEBA QUE SI NO ES DESEMPATE
@@ -18867,9 +18873,14 @@ var tbodyempezarprueba = document.getElementById('tbodyempezarprueba')
   }
 
   newrow.addEventListener('click', function () {
-    funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
-    newrow.classList.add('activo')
-    funcionespruebas.actualizarjineteenpista(newrow.id)
+    funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+
+    // funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
+    newrow.classList.add('text-primary')
+
+    // this.classList.add('text-primary')//anadimos nueva clase a este elemento (color)
+    // alert('active!!1')
+    // funcionespruebas.actualizarjineteenpista(newrow.id)
   })
   newrow.oncontextmenu = function(e) {
     var contextmenu = document.getElementById('context-menu')
@@ -18923,7 +18934,7 @@ function crearceldasdesempate() {
 }
 
 function leerygenerarempezarprueba (objetoprueba,socket) {
-  alert('leer y generar empezar prueba')
+  // alert('leer y generar empezar prueba')
   var labeltrofeoempezarprueba = document.getElementById('labeltrofeoempezarprueba')
   var labelalturaempezarprueba = document.getElementById('labelalturaempezarprueba')
   var labelbaremoempezarprueba = document.getElementById('labelbaremoempezarprueba')
@@ -18978,7 +18989,7 @@ function leerygenerarempezarprueba (objetoprueba,socket) {
 
 function iniciarprueba(socket) {
     socket.on('pruebaaempezar', function (competicion, prueba) {
-    alert('PRUEBA EMPEZATR')
+    // alert('PRUEBA EMPEZATR')
     for (var indice = 0; indice < competicion.pruebas.length; indice++) {
       if (competicion.pruebas[indice].nombreprueba == prueba) {
         console.log('objeto prueba :', competicion.pruebas[indice])
@@ -19062,16 +19073,7 @@ function iniciarprueba(socket) {
     funcionespruebas.export_table_to_csv(html2, 'table.csv')
   })
 
-//   socket.on('pruebaaempezar', function (competicion, prueba) {
-//   alert('PRUEBA EMPEZATR')
-//   for (var indice = 0; indice < competicion.pruebas.length; indice++) {
-//     if (competicion.pruebas[indice].nombreprueba == prueba) {
-//       console.log('objeto prueba :', competicion.pruebas[indice])
-//       var objetoprueba = competicion.pruebas[indice]
-//       leerygenerarempezarprueba(objetoprueba,socket)
-//     }
-//   }
-//  })
+
 
  socket.on('enviandobinomioaempezarprueba', function (binomio) {
   alert('RECIBIDFO enviandobinomioaempezarprueba')
@@ -19125,7 +19127,7 @@ module.exports.iniciarpruebaencurso = function(socket) {
   iniciarprueba(socket)
 }
 
-},{".//modaldesempate.js":8,"./contextmenuempezarprueba.js":4,"./funciones-pruebas.js":6}],16:[function(require,module,exports){
+},{".//modaldesempate.js":8,"./contextmenuempezarprueba.js":4,"./funciones-compartidas.js":5,"./funciones-pruebas.js":6}],16:[function(require,module,exports){
 module.exports.sortTable  = function(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("tablaempezarprueba");

@@ -6,6 +6,7 @@ var funcionespruebas = require('./funciones-pruebas.js')
 var funcionesdesempate = require('./funciones-pruebas.js')
 var funcionesmodaldesempate = require('.//modaldesempate.js')
 var funcionescontextmenupruebaactiva = require('./contextmenuempezarprueba.js')
+var funcionescomunes = require('./funciones-compartidas.js')
 
 
 //AÑADE LOS PARTICIPANTES EN LA PANTALLA EMPEZARPRUEBA QUE SI NO ES DESEMPATE
@@ -263,9 +264,14 @@ var tbodyempezarprueba = document.getElementById('tbodyempezarprueba')
   }
 
   newrow.addEventListener('click', function () {
-    funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
-    newrow.classList.add('activo')
-    funcionespruebas.actualizarjineteenpista(newrow.id)
+    funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+
+    // funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
+    newrow.classList.add('text-primary')
+
+    // this.classList.add('text-primary')//anadimos nueva clase a este elemento (color)
+    // alert('active!!1')
+    // funcionespruebas.actualizarjineteenpista(newrow.id)
   })
   newrow.oncontextmenu = function(e) {
     var contextmenu = document.getElementById('context-menu')
@@ -319,7 +325,7 @@ function crearceldasdesempate() {
 }
 
 function leerygenerarempezarprueba (objetoprueba,socket) {
-  alert('leer y generar empezar prueba')
+  // alert('leer y generar empezar prueba')
   var labeltrofeoempezarprueba = document.getElementById('labeltrofeoempezarprueba')
   var labelalturaempezarprueba = document.getElementById('labelalturaempezarprueba')
   var labelbaremoempezarprueba = document.getElementById('labelbaremoempezarprueba')
@@ -374,7 +380,7 @@ function leerygenerarempezarprueba (objetoprueba,socket) {
 
 function iniciarprueba(socket) {
     socket.on('pruebaaempezar', function (competicion, prueba) {
-    alert('PRUEBA EMPEZATR')
+    // alert('PRUEBA EMPEZATR')
     for (var indice = 0; indice < competicion.pruebas.length; indice++) {
       if (competicion.pruebas[indice].nombreprueba == prueba) {
         console.log('objeto prueba :', competicion.pruebas[indice])
@@ -458,16 +464,7 @@ function iniciarprueba(socket) {
     funcionespruebas.export_table_to_csv(html2, 'table.csv')
   })
 
-//   socket.on('pruebaaempezar', function (competicion, prueba) {
-//   alert('PRUEBA EMPEZATR')
-//   for (var indice = 0; indice < competicion.pruebas.length; indice++) {
-//     if (competicion.pruebas[indice].nombreprueba == prueba) {
-//       console.log('objeto prueba :', competicion.pruebas[indice])
-//       var objetoprueba = competicion.pruebas[indice]
-//       leerygenerarempezarprueba(objetoprueba,socket)
-//     }
-//   }
-//  })
+
 
  socket.on('enviandobinomioaempezarprueba', function (binomio) {
   alert('RECIBIDFO enviandobinomioaempezarprueba')

@@ -9,6 +9,7 @@ var funcionesformulariocompeticionseleccionada = require('.//operaciones-formula
 function iniciarcontextmenupruebaencurso(socket) {
   var contextmenu = document.getElementById('context-menu')
   document.onclick = function(e){
+    alert('eliminado')
     contextmenu.style.display = 'none';
   }
 
@@ -29,7 +30,8 @@ function iniciarcontextmenupruebaencurso(socket) {
   9999 NO PASAN A LA SEGUNDA FASE
   */
   menueliminado.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    alert('click')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[5].innerHTML = 555
     elementoseleccionado.childNodes[6].innerHTML = 555
@@ -50,14 +52,14 @@ function iniciarcontextmenupruebaencurso(socket) {
     //  }
   })
   menueliminado2.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[7].innerHTML = 777
     elementoseleccionado.childNodes[8].innerHTML = 777
   })
 
   menuretirado.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[5].innerHTML = 666
     elementoseleccionado.childNodes[6].innerHTML = 666
@@ -79,19 +81,19 @@ function iniciarcontextmenupruebaencurso(socket) {
     // }
   })
   menuretirado2.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[7].innerHTML = 888
     elementoseleccionado.childNodes[8].innerHTML = 888
   })
   menunopresentado2.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[7].innerHTML = 999
     elementoseleccionado.childNodes[8].innerHTML = 999
   })
   menunopresentado.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
    elementoseleccionado.childNodes[5].innerHTML = 999
    elementoseleccionado.childNodes[6].innerHTML = 999
@@ -105,7 +107,7 @@ function iniciarcontextmenupruebaencurso(socket) {
     // }
   })
   menueliminadonovalido.addEventListener('click', function(){
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[5].innerHTML = 444
     elementoseleccionado.childNodes[6].innerHTML = 444
@@ -121,5 +123,6 @@ function iniciarcontextmenupruebaencurso(socket) {
 }
 
 module.exports.iniciarcontextmenu = function(socket) {
+  alert('iniciando contextmenu')
   iniciarcontextmenupruebaencurso(socket)
 }

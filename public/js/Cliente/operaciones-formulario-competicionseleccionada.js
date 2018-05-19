@@ -372,7 +372,6 @@ module.exports.iniciardropwdown = function(socket) {
   // var btnempezarrueba = document.getElementById('btnempezarprueba')
   btnempezarprueba.addEventListener('click',function () {
     // socket.emit('recargarpaginaclasificacion')
-    alert('click enboton EMPEZAR PRUEBA')
     var nombreprueba = document.getElementById('inputnombrenuevaprueba').value
     var nombrecompeticion = document.getElementById('inputnombreCompeticion').value
     var baremodeprueba = document.getElementById('inputbaremonuevaprueba').value
