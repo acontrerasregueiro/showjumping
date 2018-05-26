@@ -1,0 +1,71 @@
+/*CSS DEL DIV DE CLASIFICACION EMPEZAR PRUEBA*/
+/*<div id="divpantallaclasificacion">
+  <ul id="clasificacionempezarprueba">
+    <li id="encabezadoclasificacionempezarprueba">
+      <span class="rankclasificacionempezarprueba">Rank </span>
+      <span class="trofeoclasificacionempezarprueba">Trofeo </span>
+      <span class="alturaclasificacionempezarprueba">Altura</span>
+    </li>
+  </ul>
+</div> <br> <br>*/
+#divpantallaclasificacion {
+ width:400px;
+ height: 20em;
+ /* background-color: red; */
+ margin:0;
+ padding:0;
+}
+#clasificacionempezarprueba {
+  padding:0;
+  margin:0;
+  height: 18em;
+  list-style-type: none;
+  overflow-y: scroll;
+  line-height: auto;  
+}
+#clasificacionempezarprueba li {
+  margin:0;
+  padding:0;
+  list-style-type: none;
+  line-height: 1;
+}
+#encabezadoAltura {
+  height:100%;
+  width: 15%;
+  float: left;
+  color:rgb(255, 153, 0);
+  border-color: red;
+}
+#encabezadoTrofeo {
+  float:left;
+  width:65%;
+  color:white;
+}
+#encabezadoBaremo {
+  color:orange;
+  width: 20%;
+  float:right;
+}
+
+#textarealogalge {
+  float:right;
+}
+#pantallaordendesalida{
+  color:green;
+  height:10em;
+  width:400px;
+  margin:0;
+  padding:0;
+}
+#pantallaordendesalidaempezarprueba{
+  margin:0;
+  padding:0;
+  list-style-type: none;
+  line-height: 1;
+}
+#pantallaordendesalidaempezarprueba li {
+  margin:0;
+  padding:0;
+  list-style-type: none;
+  line-height: 1;
+}

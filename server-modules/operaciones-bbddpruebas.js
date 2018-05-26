@@ -163,7 +163,7 @@ module.exports = function(socket,MongoClient,url,dbName) {
     const db = client.db(dbName)
     const col = db.collection(nombrecompeticion)
         if (err) throw err
-        db.collection(nombrecompeticion).findOne(function (err, competicion) {
+        col.findOne(function (err, competicion) {
           socket.emit('ordendesalidacompeticion', competicion, nombreprueba)
           console.log('enviando ordendesalidacompeticion')
         })
@@ -177,6 +177,7 @@ module.exports = function(socket,MongoClient,url,dbName) {
 
 
   socket.on('borrarbinomiodeordensalida', function (binomio, prueba, coleccion) {
+    
     var ordenbinomio = parseInt(binomio.numero)
     var objetobinomio = {
       'orden': ordenbinomio,
@@ -187,14 +188,18 @@ module.exports = function(socket,MongoClient,url,dbName) {
     console.log('RECIBIDO BORRAR BINOMIO PARA ORDEN DE SALIDA')
     console.log('coleccipon : ', coleccion)
     console.log('PRUEBA  :', prueba)
-    MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
+    MongoClient.connect(url, function(err, client) { 
       if (err) throw err
-      db.collection(coleccion).find().toArray(function (err, caballos) {
-        caballos.forEach(function (err, indice) {
-          for (indiceprueba; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
-            if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
+      const db = client.db(dbName)
+      const col = db.collection(coleccion)
+    // MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
+    //   if (err) throw err
+    col.find().toArray(function (err, caballos) {
+      caballos.forEach(function (err, indice) {
+        for (indiceprueba; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
+          if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
               var pathresultadoprueba = 'pruebas.' + indiceprueba + '.os'
-              db.collection(coleccion).update({},
+              col.update({},
                 {
                   $pull: {
                     [pathresultadoprueba]: {jinete: binomio.jinete, caballo: binomio.caballo}

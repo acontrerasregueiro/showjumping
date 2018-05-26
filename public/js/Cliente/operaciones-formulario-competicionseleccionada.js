@@ -3,7 +3,7 @@
 var funcionescomunes = require('./funciones-compartidas.js')
 // var funcionesbbddpruebas = require('.//operaciones-bbdd-pruebas.js')
 // var funcionesmodalnuevaprueba = require('./modalnuevaprueba.js')
-// var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
+var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
 
 module.exports.moverabajoordendesalida = function (socket) {
     //ALMACENO EN VARIABLE EL ELEMENTO SELECCIONADO Y EL ELEMENTO ANTERIOR
@@ -114,7 +114,7 @@ module.exports.moverarribaordendesalida = function(socket) {
   elementoanterior.classList.add('active')
   funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
 }
-function anadirbinomioalistaordendesalida(dato) {
+function anadirbinomioalistaordendesalida(dato,socket) {
   var li = document.createElement('li')
   var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
   li.id = 'fila' + cuantosli + 'OS'
@@ -204,7 +204,7 @@ module.exports.anadirbinomiosaordendesalida = function (jinete,caballo,socket) {
   dato.jinete = jinete
   dato.caballo = caballo
   dato.orden = cuantosli
-  anadirbinomioalistaordendesalida(dato)
+  anadirbinomioalistaordendesalida(dato,socket)
   // li.id = 'fila' + cuantosli + 'OS'
   // var idjinete = 'fila' + cuantosli + 'JineteOS'
   // var idcaballo = 'fila' + cuantosli + 'CaballoOS'
@@ -265,7 +265,7 @@ module.exports.leerygenerarordendesalida = function (objetoprueba,socket) {
       arrayprueba.sort(funcionescomunes.SortByID)
       console.log('ARRAY ORDENADOOOOOOOOOOOO    :', arrayprueba)
       for (var indice = 0; indice < arrayprueba.length; indice++) {
-        anadirbinomioalistaordendesalida(arrayprueba[indice])
+        anadirbinomioalistaordendesalida(arrayprueba[indice],socket)
         // var li = document.createElement('li')
         // li.id = 'fila' + indice + 'OS'
         // var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length

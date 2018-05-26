@@ -1,0 +1,55 @@
+body {
+  margin : 0;
+  padding: 0;
+}
+#contenedor {
+  width : 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* background-color: grey;
+
+  /*ESTILO DE IMAGEN DE FONDO CENTRADO FULLSCREEN*/
+  /* background-image: url("salto.jpg"); */
+     /* Full height */
+     /* height: 100%;  */
+
+     /* Center and scale the image nicely */
+     /* background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover; */
+     /*FIN DE IMAGEN */
+}
+#lista2 {
+  height: 100%;
+  margin-left: 5px;
+  text-decoration: none;
+  list-style: none;
+  font: 35px 'trebuchet MS', 'lucida sans';
+  padding:0;
+  margin:0;
+}
+#lista2 li {
+  height:10%;
+  widows: 100%;
+  margin-left:0px;
+  padding:0;
+  margin:0;
+}
+.dorsalordendesalida {
+  font-size: 80px;
+  background-color: black;
+  color:white;
+  float:left;
+  width: 8%;
+  text-align: center;
+}
+.caballoordendesalida {
+  /* margin-left: 0.5%;  */
+  float: right;
+  display:inline-block;
+  font-size: 80px;
+  color:white;
+  background-color: #393939;
+  width:92%;
+}

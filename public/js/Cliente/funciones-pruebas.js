@@ -56,8 +56,10 @@ module.exports.buscarentabla = function(tablaid,campo1,campo2) {
       var jinete = document.getElementById('participante'+ i + 'Jinete').innerHTML
       if ((caballo.toUpperCase().indexOf(filter) > -1) &&
       (jinete.toUpperCase().indexOf(filter2) > -1)) {
+        
         //si encuentra la palabra a buscar (filter),devuelve el id de la celda de ranking o Clasificacion
         var celdaclasificacion = document.getElementById('participante'+ i + 'Class')
+        // alert('encontrado clasificar')
         return celdaclasificacion
         break
       }

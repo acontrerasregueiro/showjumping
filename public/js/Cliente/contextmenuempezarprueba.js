@@ -9,7 +9,6 @@ var funcionesformulariocompeticionseleccionada = require('.//operaciones-formula
 function iniciarcontextmenupruebaencurso(socket) {
   var contextmenu = document.getElementById('context-menu')
   document.onclick = function(e){
-    alert('eliminado')
     contextmenu.style.display = 'none';
   }
 
@@ -30,7 +29,7 @@ function iniciarcontextmenupruebaencurso(socket) {
   9999 NO PASAN A LA SEGUNDA FASE
   */
   menueliminado.addEventListener('click', function(){
-    alert('click')
+    // alert('click')
     var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[5].innerHTML = 555
@@ -123,6 +122,5 @@ function iniciarcontextmenupruebaencurso(socket) {
 }
 
 module.exports.iniciarcontextmenu = function(socket) {
-  alert('iniciando contextmenu')
   iniciarcontextmenupruebaencurso(socket)
 }

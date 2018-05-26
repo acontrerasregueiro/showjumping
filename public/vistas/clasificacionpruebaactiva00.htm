@@ -1,0 +1,30 @@
+<html>
+<head>
+  <!-- <link rel="stylesheet" href="./clasificacionpruebaactiva0.css" type="text/css" media="screen" title="no title" charset="utf-8"> -->
+  <link rel="stylesheet" href="../vistas/clasificacionpruebaactiva0.css">
+</head>
+<body onload="">
+  <div id="contenedor">
+    <!-- <div id="divlistadoclasificaciondeprueba"> -->
+      <div id="encabezadoclasificaciondeprueba">
+          <span id="encabezadoAlturaid" class="encabezadoAltura">Altura</span>
+          <span id="encabezadoTrofeoid" class="encabezadoTrofeo">Trofeo</span>
+          <span id="encabezadoBaremoid" class="encabezadoBaremo">Baremo</span>
+      </div>
+      <div class="paginaresultado">
+        <ul class = "listadoclasificaciondeprueba"></ul>
+      </div>
+    </div>
+  </div>
+  <!-- <script  src="/socket.io/socket.io.js"></script>
+var io = io.connect(); -->
+<!-- <script type="text/javascript" src="/socket.io/socket.io.js"></script> -->
+<!-- <script type="text/javascript" src="socket.io/socket.io.js"></script> -->
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="../js/Cliente/baremos.js"></script>
+<script type="text/javascript" src="../js/Cliente/thenBy.min.js"></script>
+<script type="text/javascript" src="../js/Cliente/operaciones-websocketclasificacion.js"></script>
+
+</body>
+
+</html>

@@ -3,76 +3,76 @@ var socket = io()
 // socket.on('listadopuertos', function () {
 //
 // })
-// function actualizarpantallaordensalida2 (filaid) {
-//   alert('desempate NO CHECKED')
-//   console.log('RECIBIDO actualizarpantallaordendesalida')
-//   var filaseleccionada = document.getElementById(filaid)
-//   console.log('seleccionado : ', filaseleccionada)
-//   var arrayordendesalida = []
-//   var jinetesamostrar = 10
-//   var elementopadre = document.getElementById(filaid)
-//   var desempate = document.getElementById('checkboxdesempate').checked
-//     if (!desempate) {
-//       alert('desempate NO CHECKED')
-//       for (var indice = 0; indice < jinetesamostrar; indice++) {
-//         var hermanosiguiente = document.getElementById(filaseleccionada.id).nextSibling
-//         if (hermanosiguiente != null) { // siempre y cuando el hermano siguiente exista
-//           //  console.log('nextsibling : ',hermanosiguiente);
-//           var indicedefila = hermanosiguiente.id
-//           var indicedefila = indicedefila.replace('filapruebaactiva', '')
-//           //  console.log('INBDICE FILA : ',indicedefila)
-//           var participante = {}
-//           var caballo = document.getElementById('participante' + indicedefila + 'Caballo')
-//           var jinete = document.getElementById('participante' + indicedefila + 'Jinete')
-//           var orden = document.getElementById('participante' + indicedefila + 'Orden')
-//           participante.caballo = caballo.innerHTML
-//           participante.jinete = jinete.innerHTML
-//           participante.orden = orden.innerHTML
-//           arrayordendesalida[indice] = participante
-//           //  console.log('participante : ',participante)
-//           console.log('ACTUALIZAR PANTALLA ORDEN DE SALIDA , ARRAY  : indice ,', arrayordendesalida[indice])
-//           filaseleccionada = hermanosiguiente
-//         } // fin if
-//       }// fin for
-//     }
-//     if (desempate) {
-//       alert('DESEMPATE CHECKED')
-//     }
+function actualizarpantallaordensalida2 (filaid) {
+  alert('desempate NO CHECKED')
+  console.log('RECIBIDO actualizarpantallaordendesalida')
+  var filaseleccionada = document.getElementById(filaid)
+  console.log('seleccionado : ', filaseleccionada)
+  var arrayordendesalida = []
+  var jinetesamostrar = 10
+  var elementopadre = document.getElementById(filaid)
+  var desempate = document.getElementById('checkboxdesempate').checked
+    if (!desempate) {
+      alert('desempate NO CHECKED')
+      for (var indice = 0; indice < jinetesamostrar; indice++) {
+        var hermanosiguiente = document.getElementById(filaseleccionada.id).nextSibling
+        if (hermanosiguiente != null) { // siempre y cuando el hermano siguiente exista
+          //  console.log('nextsibling : ',hermanosiguiente);
+          var indicedefila = hermanosiguiente.id
+          var indicedefila = indicedefila.replace('filapruebaactiva', '')
+          //  console.log('INBDICE FILA : ',indicedefila)
+          var participante = {}
+          var caballo = document.getElementById('participante' + indicedefila + 'Caballo')
+          var jinete = document.getElementById('participante' + indicedefila + 'Jinete')
+          var orden = document.getElementById('participante' + indicedefila + 'Orden')
+          participante.caballo = caballo.innerHTML
+          participante.jinete = jinete.innerHTML
+          participante.orden = orden.innerHTML
+          arrayordendesalida[indice] = participante
+          //  console.log('participante : ',participante)
+          console.log('ACTUALIZAR PANTALLA ORDEN DE SALIDA , ARRAY  : indice ,', arrayordendesalida[indice])
+          filaseleccionada = hermanosiguiente
+        } // fin if
+      }// fin for
+    }
+    if (desempate) {
+      alert('DESEMPATE CHECKED')
+    }
 
   
-//   console.log(arrayordendesalida)
-//   socket.emit('actualizarpantallaordensalida', arrayordendesalida)
-// }
-// function actualizarresultadoempezarprueba (jineteagrabarresultado) {
-//   var cuantostr = document.getElementById('tbodyempezarprueba').getElementsByTagName('tr').length
-//   console.log('ELEMENTOS TR : ', cuantostr)
-//   var prueba = inputNombrepruebaconfig.value
-//   var coleccion = nombremenuizquierdaCompeticion.value
-//   var idC = document.getElementById('idC').value
-//   // var idcompeticon = idC.value
-//   console.log('PRUEBA ', prueba)
-//   console.log('Coleccion', coleccion)
-//   console.log('IDC ', idC)
-//   socket.emit('grabarresultado', jineteagrabarresultado, coleccion, prueba, idC)
-//   console.log(jineteagrabarresultado)
-//   for (var indice = 0; indice < cuantostr; indice++) {
-//     // var binomio = {}  //ALMACENAMOS EL BINOMIO ANTIGUO7
-//     // var binomioordenado = {}
-//     // var jinete = document.getElementById('fila' + indice + 'JineteOS')
-//     // var caballo = document.getElementById('fila' + indice + 'CaballoOS')
-//     // var spanorden = document.getElementById('fila' + indice + 'NumeroOS')
-//     // binomio.orden = spanorden.innerHTML
-//     // binomio.jinete = jinete.innerHTML
-//     // binomio.caballo = caballo.innerHTML
-//     // var orden = indice + 1  // + 1 YA QUE EL PRIMER ELEMENTO ES CERO
-//     // spanorden.innerHTML = orden
-//     // binomioordenado.orden = spanorden.innerHTML
-//     // binomioordenado.jinete = jinete.innerHTML
-//     // binomioordenado.caballo = caballo.innerHTML
-//     // socket.emit('actualizarresultado',binomio,binomioordenado,coleccion,prueba)
-//     console.log(indice)
-//   }
-// }
+  console.log(arrayordendesalida)
+  socket.emit('actualizarpantallaordensalida', arrayordendesalida)
+}
+function actualizarresultadoempezarprueba (jineteagrabarresultado) {
+  var cuantostr = document.getElementById('tbodyempezarprueba').getElementsByTagName('tr').length
+  console.log('ELEMENTOS TR : ', cuantostr)
+  var prueba = inputNombrepruebaconfig.value
+  var coleccion = nombremenuizquierdaCompeticion.value
+  var idC = document.getElementById('idC').value
+  // var idcompeticon = idC.value
+  console.log('PRUEBA ', prueba)
+  console.log('Coleccion', coleccion)
+  console.log('IDC ', idC)
+  socket.emit('grabarresultado', jineteagrabarresultado, coleccion, prueba, idC)
+  console.log(jineteagrabarresultado)
+  for (var indice = 0; indice < cuantostr; indice++) {
+    // var binomio = {}  //ALMACENAMOS EL BINOMIO ANTIGUO7
+    // var binomioordenado = {}
+    // var jinete = document.getElementById('fila' + indice + 'JineteOS')
+    // var caballo = document.getElementById('fila' + indice + 'CaballoOS')
+    // var spanorden = document.getElementById('fila' + indice + 'NumeroOS')
+    // binomio.orden = spanorden.innerHTML
+    // binomio.jinete = jinete.innerHTML
+    // binomio.caballo = caballo.innerHTML
+    // var orden = indice + 1  // + 1 YA QUE EL PRIMER ELEMENTO ES CERO
+    // spanorden.innerHTML = orden
+    // binomioordenado.orden = spanorden.innerHTML
+    // binomioordenado.jinete = jinete.innerHTML
+    // binomioordenado.caballo = caballo.innerHTML
+    // socket.emit('actualizarresultado',binomio,binomioordenado,coleccion,prueba)
+    console.log(indice)
+  }
+}
 
 // DATOS DISPLAY BOARD
 function analizardatadisplay (datos) {

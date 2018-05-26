@@ -16828,6 +16828,387 @@ return Popper;
 con las bases de datos de competiciones*/
 'use strict'
 
+// var funcionescomunes = require('./funciones-compartidas.js')
+// var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
+module.exports.c = function(array) {
+  var clasificacion = 1
+  array[0].clasificacion = clasificacion
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if(array[i].tiempo == array[i + 1].tiempo) {
+      array[i +1].clasificacion = array[i].clasificacion
+    } else {
+      array[i + 1].clasificacion = i + 2
+      // clasificacion = i + 1
+    }
+  }
+}
+module.exports.tdif = function(array) {
+  var clasificacion = 1
+  if (array[0]) {
+    array[0].clasificacion = clasificacion
+  }
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if ((array[i].totalpuntos == array[i + 1].totalpuntos) && (array[i].tiempo2 == array[i + 1].tiempo2)) {
+      array[i +1].clasificacion = array[i].clasificacion
+    } else {
+      array[i + 1].clasificacion = i + 2
+      // clasificacion = i + 1
+    }
+  }
+
+}
+module.exports.asc = function(array) {
+  var clasificacion = 1
+  array[0].clasificacion = clasificacion
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if(array[i].puntos == array[i + 1].puntos) {
+      array[i +1].clasificacion = array[i].clasificacion
+    } else {
+      array[i + 1].clasificacion = i + 2
+      // clasificacion = i + 1
+    }
+  }
+}
+module.exports.acc = function(array) {
+  var clasificacion = 1
+  array[0].clasificacion = clasificacion
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if ((array[i].puntos == array[i + 1].puntos) && (array[i].tiempo == array[i + 1].tiempo)) {
+      array[i +1].clasificacion = array[i].clasificacion
+    } else {
+      array[i + 1].clasificacion = i + 2
+      // clasificacion = i + 1
+    }
+  }
+}
+//recorrido previo clasifica los participantes del recorrido previo
+// empatados a puntos al primer puesto son ex aequos
+module.exports.recorridoprevio = function(array) { 
+  //REVISAR EMPATADOS A PUNTOS AL RESTO DE PUESTOS
+  var arrayempatadosprimerpuesto = []
+  var clasificacion = 1
+  array[0].clasificacion = clasificacion //asignamos el primer puesto al primer elemento
+  arrayempatadosprimerpuesto.push(array[0])
+  // AHORA TENEMOS QUE VER TODOS LOS EMPATADOS PARA EL PRIMER PUESTO\
+  for (var i = 0 ; i < (array.length - 1); i++) { //EMPATADOS A PUNTOS AL PRIMER PUESTO
+    if(array[i].clasificacion == 1) {
+      if (array[i].puntos == array[i+1].puntos) {
+        array[i+1].clasificacion = array[i].clasificacion
+        arrayempatadosprimerpuesto.push(array[i+1])
+        clasificacion = clasificacion + 1   
+      } else {
+        array[i + 1].clasificacion = i + 2
+      }
+    } else {
+      if ((array[i].puntos == array[i + 1].puntos) && (array[i].tiempo == array[i + 1].tiempo)) {
+        array[i +1].clasificacion = array[i].clasificacion
+      } else {
+        array[i + 1].clasificacion = i + 2
+      }
+    }
+   
+  }
+}
+module.exports.recorridoprevio2 = function(array) {
+  
+  for (var i = 0 ; i < (array.length - 1); i++) { 
+    if( i == 0) {array[0].clasificacion = '1' } 
+    // else {
+      if(array[i].clasificacion == '1'){
+         
+        if (array[i].puntos2 == '1111') {
+          array[i].clasificacion = '?'
+         // alert(array[i].caballo)
+        }
+        else {array[i].clasificacion = i + 1 }
+     }
+  //  }
+  }
+}
+//clasifica los participantes para el desempate del baremo am5
+module.exports.recorridodesempate = function(array) {
+  var clasificacion = 1
+  var arrayempatadosprimerpuesto = []
+  array[0].clasificacion = clasificacion
+  arrayempatadosprimerpuesto.push(array[0])
+  for (var i = 0 ; i < (array.length - 1); i++) { //EMPATADOS A PUNTOS AL PRIMER PUESTO
+    if (array[i].puntos == array[i+1].puntos) {
+      array[i+1].clasificacion = array[i].clasificacion
+      arrayempatadosprimerpuesto.push(array[i+1])
+      clasificacion = clasificacion + 1
+      break
+    } 
+  }
+  for (var i = (arrayempatadosprimerpuesto.length-1); i < (array.length - 1) ; i++ ) {
+    if ((array[i].puntos == array[i + 1].puntos) && (array[i].tiempo == array[i + 1].tiempo)) {
+      array[i +1].clasificacion = array[i].clasificacion
+    } else {
+      array[i + 1].clasificacion = i + 2
+    }
+  }
+}
+module.exports.creloj = function(array) {
+  var clasificacion = 1
+  array[0].clasificacion = clasificacion
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if ((array[i].puntos == array[i + 1].puntos) && (array[i].tiempo == array[i + 1].tiempo)) {
+      array[i +1].clasificacion = array[i].clasificacion
+    } else {
+      array[i + 1].clasificacion = i + 2
+      // clasificacion = i + 1
+    }
+  }
+}
+module.exports.dif = function(array) {
+  var clasificacion = 1
+  array[0].clasificacion = clasificacion
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if ((array[i].puntos == array[i + 1].puntos) && (array[i].tiempo == array[i + 1].tiempo)) {
+      array[i +1].clasificacion = array[i].clasificacion
+    } else {
+      array[i + 1].clasificacion = i + 2
+      // clasificacion = i + 1p
+    }
+  }
+}
+//CLASIFICA LOS PARTICIPANTES DE LA PRIMERA FASE
+//RECIBE POR PARAMETRO UN ARRAY CION LOS PARTICIPANTES DE LA PRIMERA FASE
+//Y UN ENTERO A PARTIR DEL CUAL CLASIFICAN
+module.exports.primerafaseasc = function(array,indice) {
+  var clasificacion = indice + 1
+  if (array[0]) {
+    array[0].clasificacion = clasificacion
+  }
+    for (var i = 0; i < (array.length  -1) ; i++ ) {
+      if ((array[i].puntos == array[i + 1].puntos)) {
+        array[i +1].clasificacion = array[i].clasificacion
+      } else {
+        array[i + 1].clasificacion = clasificacion +1
+      }
+      clasificacion = clasificacion + 1
+    }
+    console.log('array PRIMERA CLASIFICADIO ,', array)
+    return array
+}
+module.exports.primerafaseacc2 = function(array) {
+  var clasificacion = 1
+  array[0].clasificacion = clasificacion
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if ((array[i].tiempo == array[i + 1].tiempo)) {
+      array[i +1].clasificacion = array[i].clasificacion
+      // alert('encontrado empate : ' + array[i].tiempo + ' y ' + array[i + 1].tiempo)
+    } else {
+      array[i + 1].clasificacion = i + 2
+      clasificacion = i + 1
+    }
+  }
+  return array
+}
+
+module.exports.primerafaseacc = function(array,indice) {
+  // alert(indice)
+  var clasificacion = indice + 1
+  if (array[0]) {
+    array[0].clasificacion = clasificacion
+  }
+  for (var i = 0; i < (array.length  -1) ; i++ ) {
+    if ((array[i].puntos == array[i + 1].puntos) && (array[i].tiempo == array[i + 1].tiempo)) {
+      array[i +1].clasificacion = array[i].clasificacion
+      // alert('encontrado empate : ' + array[i].tiempo + ' y ' + array[i + 1].tiempo)
+    } else {
+      array[i + 1].clasificacion = clasificacion + 1
+    }
+    clasificacion = clasificacion + 1
+  }
+  return array
+}
+
+//CLASIFICA A LOS PARTIPANTES EN LA SEGUNDA FASE.
+//OJO PARA EL BAREMO ASC/ACC
+module.exports.segundafaseacc = function(array) {
+  console.log('arraydentro de segundafaseacc sin modificar:'  ,array)
+  // if (array[0]) {
+    var clasificacion = 1
+    if (array[0]) {
+      array[0].clasificacion = clasificacion
+    }
+    // array[0].clasificacion = clasificacion
+    var arrayclasificadosegundafase = []
+      for (var i = 0; i <= (array.length -1) ; i++ ) {
+        if (array.length > 1) {
+         if (array[i].puntos2 != 1111) {
+          //  alert('PUNTOS DOS DISTINTO DE 1111')
+          //COMPROBAMOS SI ES EL ULTIMO ELEMENTO
+          if (i == (array.length -1)) {
+            alert('ultimo elemento')
+          } else {
+            if ((array[i].puntos2 == array[i + 1].puntos2) &&
+            (array[i].tiempo2 == array[i + 1].tiempo2)) {
+              array[i + 1].clasificacion = array[i].clasificacion //misma clasificacion
+            } else if ((array[i].puntos2 == 777) || (array[i].puntos2 == 888) && //O SI SON ELIMINADOS
+            (array[i + 1].puntos2 == 777) || (array[i + 1].puntos2 == 888)) {
+              array[i + 1].clasificacion = array[i].clasificacion
+            } else {
+              array[i + 1].clasificacion = i + 2
+            }
+          }
+          arrayclasificadosegundafase.push(array[i]) //añado los elementos ya clasificados
+        }
+      } else {
+        if (array[i].puntos2 != 1111) {
+          alert('es el primer participante')
+          array[0].clasificacion = clasificacion
+          arrayclasificadosegundafase.push(array[0])
+        }
+      }
+    }
+    return arrayclasificadosegundafase
+  // }
+}
+module.exports.segundafaseaccacc = function(array) {
+  console.log('arraydentro de segundafaseacc sin modificar:'  ,array)
+  // if (array[0]) {
+    var clasificacion = 1
+    if (array[0]) {
+      array[0].clasificacion = clasificacion
+    }
+    // array[0].clasificacion = clasificacion
+    var arrayclasificadosegundafase = []
+      for (var i = 0; i <= (array.length -1) ; i++ ) {
+        if (array.length > 1) {
+         if ((array[i].puntos2 != 1111)|| (array[i].puntos2 != 777) || (array[i].puntos2 != 888)) {
+          //  alert('PUNTOS DOS DISTINTO DE 1111')
+          //COMPROBAMOS SI ES EL ULTIMO ELEMENTO
+          if (i == (array.length -1)) {
+            alert('ultimo elemento')
+          } else {
+            if ((array[i].puntos2 == array[i + 1].puntos2) &&
+            (array[i].tiempo2 == array[i + 1].tiempo2)) {
+              array[i + 1].clasificacion = array[i].clasificacion //misma clasificacion
+            } else {
+              array[i + 1].clasificacion = i + 2
+            }
+          }
+          arrayclasificadosegundafase.push(array[i]) //añado los elementos ya clasificados
+        }
+      } else {
+        if ((array[i].puntos2 != 1111) || (array[i].puntos2 != 777) || (array[i].puntos2 != 888)) {
+          alert('es el primer participante')
+          array[0].clasificacion = clasificacion
+          arrayclasificadosegundafase.push(array[0])
+        }
+      }
+    }
+    return arrayclasificadosegundafase
+  // }
+}
+module.exports.accacc = function(array) {
+  var clasificacion = 1
+  if (array[0]) {
+    array[0].clasificacion = clasificacion
+  }
+  // array[0].clasificacion = clasificacion
+  for (var i = 0; i <= (array.length - 1) ; i++ ) {
+    if (array.length > 1) {
+      if (i == (array.length -1)) {
+        alert('ultimo elemento')
+      } else {
+        if ((array[i].puntos2 == array[i + 1].puntos2) &&
+         (array[i].tiempo2 == array[i + 1].tiempo2)) {
+            if (array[i].tiempo == array[i + 1].tiempo) {
+              array[i +1].clasificacion = array[i].clasificacion
+            } else {
+              array[i + 1].clasificacion = i + 2
+            }
+      } else {
+        array[i + 1].clasificacion = i + 2
+      }
+     }
+    } else {
+      alert('es el primer participante')
+      if (array[i].puntos2 != 1111) {
+        array[0].clasificacion = 1
+      }
+   }
+ }
+  return array
+}
+module.exports.nopresentados = function (array,indice){
+  if (array[0]) {//el primer elemento del array ordenado
+    array[0].clasificacion = clasificacion + 1
+  }
+}
+//ELIMINADOS SEGHUNDA FASE PARA ACC/ACC
+module.exports.elimsegundafaseacc = function(array,indice) {
+ array.sort(
+  firstBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+ )
+  var clasificacion = indice
+  console.log('array ordenado elim2fase ',array)
+  if (array[0]) {//el primer elemento del array ordenado
+    array[0].clasificacion = clasificacion + 1
+  }
+
+  for (var i = 0; i < (array.length) ; i++ ) {
+    if (array.length > 1) {
+    // alert(array.length)
+      if(array[i + 1]) {
+        if (array[i].tiempo == array[i + 1].tiempo) {
+          array[i + 1].clasificacion = array[i].clasificacion
+        } else {
+          array[i + 1].clasificacion = array[i].clasificacion + 1
+          // clasificacion = i + 1
+        } 
+      }
+    }
+  }
+  return array
+}
+module.exports.segundafasec = function(array) {
+  var clasificacion = 1
+  array[0].clasificacion = clasificacion
+  var arrayclasificadosegundafase = []
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if (array[i].puntos2 != 1111) {
+      if (((array[i].puntos2 == array[i + 1].puntos2) &&
+      (array[i].tiempo2 == array[i + 1].tiempo2)) //SI ESTAN EMPATADOS EN PUNTOS Y TIEMPO
+      || ((array[i].puntos2 == 777) || (array[i].puntos2 == 888) && //O SI SON ELIMINADOS
+      (array[i + 1].puntos2 == 777) || (array[i + 1].puntos2 == 888))) // O RETIRADOS
+      {
+        array[i + 1].clasificacion = array[i].clasificacion
+      } else {
+        array[i + 1].clasificacion = i + 2
+      }
+      arrayclasificadosegundafase.push(array[i]) //añado los elementos ya clasificados
+    }
+  }
+  return arrayclasificadosegundafase
+}
+module.exports.accc = function(array) {
+    // var clasificacion = indice + 1
+  if (array[0]) {
+    var clasificacion = 1
+    array[0].clasificacion = clasificacion
+  }
+  for (var i = 0; i < (array.length - 1) ; i++ ) {
+    if ((array[i].tiempo2 == array[i + 1].tiempo2)) {
+      if (array[i].tiempo == array[i + 1].tiempo) {
+        array[i +1].clasificacion = array[i].clasificacion
+      } else {
+        array[i + 1].clasificacion = i + 2
+      }
+    } else {
+      array[i + 1].clasificacion = i + 2
+    }
+  }
+  return array
+}
+
+},{}],5:[function(require,module,exports){
+/*Fichero en el que se realizan todas las operaciones relacionadas
+con las bases de datos de competiciones*/
+'use strict'
+
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
 
@@ -16835,7 +17216,6 @@ var funcionesformulariocompeticionseleccionada = require('.//operaciones-formula
 function iniciarcontextmenupruebaencurso(socket) {
   var contextmenu = document.getElementById('context-menu')
   document.onclick = function(e){
-    alert('eliminado')
     contextmenu.style.display = 'none';
   }
 
@@ -16856,7 +17236,7 @@ function iniciarcontextmenupruebaencurso(socket) {
   9999 NO PASAN A LA SEGUNDA FASE
   */
   menueliminado.addEventListener('click', function(){
-    alert('click')
+    // alert('click')
     var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
     elementoseleccionado.childNodes[5].innerHTML = 555
@@ -16949,11 +17329,10 @@ function iniciarcontextmenupruebaencurso(socket) {
 }
 
 module.exports.iniciarcontextmenu = function(socket) {
-  alert('iniciando contextmenu')
   iniciarcontextmenupruebaencurso(socket)
 }
 
-},{".//operaciones-formulario-competicionseleccionada.js":13,"./funciones-compartidas.js":5}],5:[function(require,module,exports){
+},{".//operaciones-formulario-competicionseleccionada.js":15,"./funciones-compartidas.js":6}],6:[function(require,module,exports){
 //Busca los elementos html con una clase dentro de otro elementoid
 //y los elimina. ELIMINA LOS ELEMENTOS, NO BORRA LA CLASE.
 //Recibe por paramentro el id del nodo donde buscar los elementos con clase,
@@ -17101,6 +17480,7 @@ module.exports.SortByID = function (x, y) {
 }
 
 module.exports.borrarbinomiodeordensalida = function (filaid,socket) {
+  // alert('borrarbinomioorden de salida')
   console.log('CLICK EN SPANIMAGEN ID : ', filaid)  //id : fila2imgOS
   var fila = filaid.replace('imgOS',"")  //eliminamos imgOS para quedarnos con la fila en la que se encuentra
   var jinete = document.getElementById(fila +'JineteOS').innerHTML
@@ -17137,7 +17517,7 @@ module.exports.test2 = function () {
  }
 // module.exports = function (n) { return n * 111 }
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports.leerbaremo = function (baremoelegido) {
   var recorrido = ''
   switch (baremoelegido) {
@@ -17196,8 +17576,10 @@ module.exports.buscarentabla = function(tablaid,campo1,campo2) {
       var jinete = document.getElementById('participante'+ i + 'Jinete').innerHTML
       if ((caballo.toUpperCase().indexOf(filter) > -1) &&
       (jinete.toUpperCase().indexOf(filter2) > -1)) {
+        
         //si encuentra la palabra a buscar (filter),devuelve el id de la celda de ranking o Clasificacion
         var celdaclasificacion = document.getElementById('participante'+ i + 'Class')
+        // alert('encontrado clasificar')
         return celdaclasificacion
         break
       }
@@ -17290,7 +17672,7 @@ module.exports.export_table_to_csv = function(html, filename) {    // CLASS DE T
    labeljinete.innerHTML = jinete.innerHTML
    labelcaballo.innerHTML = caballo.innerHTML
  }
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 (function (global){
 //FICHERO INICIAL
 global.jQuery = require('jquery') // declaramos jquery como GLOBAL, es necesario
@@ -17305,6 +17687,7 @@ var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
 var funcionesformulariocompeticiones = require('./operaciones-formulario-competicion.js')
 var funcionespruebaencurso = require('./pruebaencurso.js')
 var funcionescontextmenupruebaactiva = require('./contextmenuempezarprueba.js')
+var funcionesclasificar = require('./operaciones-clasificacion.js')
 
 function iniciarjinetes() {
 
@@ -17376,6 +17759,7 @@ function iniciarjinetes() {
     funcionesformulariocompeticiones.iniciarmodulocompeticiones(socket) //INICIAMOS MODULO DE COMPETICIONES
     funcionespruebaencurso.iniciarpruebaencurso(socket)
     funcionescontextmenupruebaactiva.iniciarcontextmenu(socket)//INICIAMOS MODULO CONTEXT MENU EMPEZAR PRUEBA
+    funcionesclasificar.iniciarclasificar(socket)
     
 }
 
@@ -17427,7 +17811,7 @@ iniciarjinetes()
 iniciar()
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./contextmenuempezarprueba.js":4,"./funciones-compartidas.js":5,"./operaciones-formulario-caballos.js":11,"./operaciones-formulario-competicion.js":12,"./operaciones-formulario-jinetes.js":14,"./pruebaencurso.js":15,"./sorttable.js":16,"bootstrap":1,"jquery":2,"popper.js":3}],8:[function(require,module,exports){
+},{"./contextmenuempezarprueba.js":5,"./funciones-compartidas.js":6,"./operaciones-clasificacion.js":12,"./operaciones-formulario-caballos.js":13,"./operaciones-formulario-competicion.js":14,"./operaciones-formulario-jinetes.js":16,"./pruebaencurso.js":17,"./sorttable.js":18,"bootstrap":1,"jquery":2,"popper.js":3}],9:[function(require,module,exports){
 
 var funcionescomunes = require('./funciones-compartidas.js')
 
@@ -17475,7 +17859,7 @@ module.exports.iniciarmodaldesempate = function () {
  iniciardivmodaldesempate()
 }
 
-},{"./funciones-compartidas.js":5}],9:[function(require,module,exports){
+},{"./funciones-compartidas.js":6}],10:[function(require,module,exports){
 /*Fichero en el que se realizan todas las operaciones relacionadas
 con la base de datos de caballos*/
 'use strict'
@@ -17531,7 +17915,7 @@ module.exports.socketcaballos = function (socket) {
   iniciarsocketcaballos(socket)
 }
 
-},{"./funciones-compartidas.js":5,"./operaciones-formulario-caballos.js":11}],10:[function(require,module,exports){
+},{"./funciones-compartidas.js":6,"./operaciones-formulario-caballos.js":13}],11:[function(require,module,exports){
 /*Fichero en el que se realizan todas las operaciones relacionadas
 con las bases de datos de competiciones*/
 'use strict'
@@ -17608,7 +17992,600 @@ module.exports.iniciarcompeticiones = function(socket) {
 
 }
 
-},{"./funciones-compartidas.js":5,"./operaciones-formulario-competicion.js":12,"./operaciones-formulario-competicionseleccionada.js":13}],11:[function(require,module,exports){
+},{"./funciones-compartidas.js":6,"./operaciones-formulario-competicion.js":14,"./operaciones-formulario-competicionseleccionada.js":15}],12:[function(require,module,exports){
+/*Fichero en el que se realizan todas las operaciones relacionadas
+con las clasificaciones de las competiciones*/
+'use strict'
+
+var funcionescomunes = require('./funciones-compartidas.js')
+var funcionespruebas = require('./funciones-pruebas.js')
+var clasificar = require('./clasificarbaremos.js')
+var socket = io()
+function clasificarbaremo (baremoelegido, arrayaordenar) {
+  switch (baremoelegido) {
+    case 'ASC':
+      arrayaordenar.sort(
+        firstBy('puntos')
+      )
+      break
+    case 'ACC':
+      arrayaordenar.sort(
+      firstBy('puntos')
+      .thenBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+    )
+      break
+    case 'C':
+      arrayaordenar.sort(
+      firstBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+    )
+      break
+    case 'DIF':
+      arrayaordenar.sort(
+      firstBy('puntos', -1)
+      .thenBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+    )
+      break
+    case 'CRELOJ':
+      arrayaordenar.sort(
+      firstBy('puntos', -1)
+      .thenBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+    )
+      break
+    case 'ASC/ACC':
+    //AQUI COMIENZA OK
+    arrayaordenar.sort(
+    firstBy('puntos2')
+    .thenBy(function (v1, v2) { return v1.tiempo2 - v2.tiempo2 })
+    .thenBy('puntos')
+    .thenBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+    )
+    break
+    case 'ACC/ACC':
+    //AQUI COMIENZA OK
+    arrayaordenar.sort(
+    firstBy('puntos2')
+    .thenBy(function (v1, v2) { return v1.tiempo2 - v2.tiempo2 })
+    .thenBy('puntos')
+    .thenBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+    )
+    break
+    case 'ACC/C':
+    //AQUI COMIENZA OK
+    arrayaordenar.sort(
+    firstBy('tiempo2')
+    .thenBy('puntos')
+    .thenBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+    )
+    break
+    case 'TDIF':
+    //AQUI COMIENZA OK
+    arrayaordenar.sort(
+    firstBy('totalpuntos')
+    .thenBy('tiempo2')
+    .thenBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+    )
+    break
+    case 'AM5':
+      arrayaordenar.sort(
+        firstBy('puntos2')
+        // .thenby('orden')
+        .thenBy(function (v1, v2) { return v1.tiempo2 - v2.tiempo2 })
+        .thenBy('puntos')
+        .thenBy(function (v1, v2) { return v1.tiempo - v2.tiempo })
+      )
+    break
+  }
+  return arrayaordenar
+}
+//anade los participantes ordenados a la lista clasificacionempezarprueba
+function pintarclasificacionprimerafase(array,arraynoclasificados) {
+  var clasificacionempezarprueba = document.getElementById('clasificacionempezarprueba')
+  for (var i = 0; i< array.length ; i++) {
+    var li = document.createElement('li')
+    li.innerHTML = array[i].clasificacion + ' ' + array[i].caballo + ' ' + array[i].puntos + ' ' + array[i].tiempo
+    clasificacionempezarprueba.appendChild(li)
+  }
+  for (var i = 0; i< arraynoclasificados.length ; i++) {
+    var li = document.createElement('li')
+    if (arraynoclasificados[i].puntos == 555) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' ELIM'
+    } else if (arraynoclasificados[i].puntos == 666) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' RET'
+    } else if (arraynoclasificados[i].puntos == 999) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' NP'
+    }
+    clasificacionempezarprueba.appendChild(li)
+  }
+}
+function pintareliminadossegundafase(array) {
+  // console.log(array)
+  var clasificacionempezarprueba = document.getElementById('clasificacionempezarprueba')
+  for (var i = 0; i < array.length ; i++) {
+    var cadena = ''
+    if (array[i].puntos2 == 777) {
+      // alert('ENCONTRADO 777 ELIM ', array[i].jinete)
+      cadena = 'ELIM'
+    } else  {
+      cadena = 'RET'
+    }
+    var li = document.createElement('li')
+    li.innerHTML = array[i].clasificacion + ' ' + array[i].caballo + ' ' + array[i].puntos +
+    ' ' + array[i].tiempo + ' ' + cadena
+    clasificacionempezarprueba.appendChild(li)
+  }
+}
+function pintarclasificacionpruebatdif (array,arraynoclasificados) {
+  var clasificacionempezarprueba = document.getElementById('clasificacionempezarprueba')
+  clasificacionempezarprueba.innerHTML = ''
+  //PRIMERO PINTAMOS LOS CLASIFICADOS
+  for (var i = 0; i< array.length ; i++) {
+    var li = document.createElement('li')
+    li.innerHTML = array[i].clasificacion + ' ' + array[i].caballo + ' ' + array[i].totalpuntos + ' ' + array[i].tiempo2
+    clasificacionempezarprueba.appendChild(li)
+  }
+  //POR ULTIMO PINTAMOS LOS NO CLASIFICADOS
+  console.log(arraynoclasificados)
+  for (var i = 0; i< arraynoclasificados.length ; i++) {
+    var li = document.createElement('li')
+    if (arraynoclasificados[i].puntos == 555) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' ELIM'
+    } else if (arraynoclasificados[i].puntos == 666) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' RET'
+    } else if (arraynoclasificados[i].puntos == 999) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' NP'
+    }
+    clasificacionempezarprueba.appendChild(li)
+  }
+}
+function pintarclasificacionprueba (array,arraynoclasificados) {
+  var clasificacionempezarprueba = document.getElementById('clasificacionempezarprueba')
+  clasificacionempezarprueba.innerHTML = ''
+  //PRIMERO PINTAMOS LOS CLASIFICADOS
+  for (var i = 0; i< array.length ; i++) {
+    var li = document.createElement('li')
+    li.innerHTML = array[i].clasificacion + ' ' + array[i].caballo + ' ' + array[i].puntos + ' ' + array[i].tiempo
+    clasificacionempezarprueba.appendChild(li)
+  }
+  //POR ULTIMO PINTAMOS LOS NO CLASIFICADOS
+  console.log(arraynoclasificados)
+  for (var i = 0; i< arraynoclasificados.length ; i++) {
+    var li = document.createElement('li')
+    if (arraynoclasificados[i].puntos == 555) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' ELIM'
+    } else if (arraynoclasificados[i].puntos == 666) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' RET'
+    } else if (arraynoclasificados[i].puntos == 999) {
+      li.innerHTML = '  ' + arraynoclasificados[i].caballo + ' NP'
+    }
+    clasificacionempezarprueba.appendChild(li)
+  }
+}
+
+function pintarclasificacionsegundafasec(array) {
+  var clasificacionempezarprueba = document.getElementById('clasificacionempezarprueba')
+  clasificacionempezarprueba.innerHTML = ''
+  // console.log(array)
+  //PRIMERO PINTAMOS LOS CLASIFICADOS
+  for (var i = 0; i< array.length ; i++) {
+      var li = document.createElement('li')
+      li.innerHTML = array[i].clasificacion + ' '
+       + array[i].caballo + ' ' + array[i].puntos + ' ' + array[i].tiempo
+       +  ' ' + array[i].tiempo2
+       clasificacionempezarprueba.appendChild(li)
+    }
+}
+
+function pintarclasificacionpruebadosfases (array,arraynoclasificados) {
+  var clasificacionempezarprueba = document.getElementById('clasificacionempezarprueba')
+  clasificacionempezarprueba.innerHTML = ''
+  console.log('array a pintar en segunda fase : ',array)
+  //PRIMERO PINTAMOS LOS CLASIFICADOS
+  for (var i = 0; i < array.length  ; i++) {
+    var cadena = ''
+    if (array[i].puntos2 == 777) {
+      // alert('ENCONTRADO 777 ELIM ', array[i].jinete)
+      cadena = 'ELIM'
+      var li = document.createElement('li')
+      li.innerHTML = array[i].clasificacion + ' '
+       + array[i].caballo + ' ' + array[i].puntos + ' ' + array[i].tiempo
+       +  ' ' + cadena
+       clasificacionempezarprueba.appendChild(li)
+    } 
+    if  (array[i].puntos2 == 888) {
+      var li = document.createElement('li')
+      li.innerHTML = array[i].clasificacion + ' '
+       + array[i].caballo + ' ' + array[i].puntos + ' ' + array[i].tiempo
+       +  ' ' + cadena
+      cadena = 'RET'
+    }    if  (array[i].puntos2 == 999) {
+      var li = document.createElement('li')
+      li.innerHTML = array[i].clasificacion + ' '
+       + array[i].caballo + ' ' + array[i].puntos + ' ' + array[i].tiempo
+       +  ' ' + cadena
+      cadena = 'NP'
+    } else {      
+      var li = document.createElement('li')
+      li.innerHTML = array[i].clasificacion + ' '
+       + array[i].caballo + ' ' + array[i].puntos + ' ' + array[i].tiempo
+       +  ' ' + array[i].puntos2 + ' ' + array[i].tiempo2
+       clasificacionempezarprueba.appendChild(li)
+      }
+    }
+  }
+function asignarrankingtablaprimerafasenoclasificados(arraynoclasificados) {
+  for (var i= 0; i < arraynoclasificados.length; i++) {
+    var celdaclass = funcionespruebas.buscarentabla('tablaempezarprueba',arraynoclasificados[i].caballo,arraynoclasificados[i].jinete)
+    if (arraynoclasificados[i].puntos == '555') {celdaclass.innerHTML = 'ELI'}
+    if (arraynoclasificados[i].puntos == '666') {celdaclass.innerHTML = 'RET'}
+    if (arraynoclasificados[i].puntos == '999') {celdaclass.innerHTML = 'NP'}    
+  }
+}
+function asignarrankingatablasegundafase(arrayordenado){
+  for (var i= 0; i < arrayordenado.length; i++) {
+    var celdaclass = funcionespruebas.buscarentabla('tablaempezarprueba',arrayordenado[i].caballo,arrayordenado[i].jinete)
+    celdaclass.innerHTML = arrayordenado[i].clasificacion
+  }
+}
+function asignarrankingalistaempezarprueba(arrayordenado,arraynoclasificados,arrayprimerafaseclasificado) { 
+  //PRIMERO LISTAMOS LOS CLASIFICADOS DE SEGUNDA FASE
+  var cadena = ''
+  for (var i= 0; i < arrayordenado.length; i++) {
+    var li = document.createElement('li')
+    if (arrayordenado[i].puntos2 == '777') {
+      cadena = '  ELI' 
+      li.innerHTML = arrayordenado[i].clasificacion + ' '
+     + arrayordenado[i].caballo + ' ' + arrayordenado[i].puntos + ' ' + arrayordenado[i].tiempo + ' '+ cadena
+     clasificacionempezarprueba.appendChild(li)
+    } else if (arrayordenado[i].puntos2 == '888') {
+    cadena = '  RET' 
+    li.innerHTML = arrayordenado[i].clasificacion + ' '
+    + arrayordenado[i].caballo + ' ' + arrayordenado[i].puntos + ' ' + arrayordenado[i].tiempo + ' '+ cadena
+    clasificacionempezarprueba.appendChild(li)
+    } else {
+      li.innerHTML = arrayordenado[i].clasificacion + ' '
+      + arrayordenado[i].caballo + ' ' + arrayordenado[i].puntos + ' ' + arrayordenado[i].tiempo + ' '+ 
+      arrayordenado[i].puntos2 + ' ' + arrayordenado[i].tiempo2 
+      clasificacionempezarprueba.appendChild(li)  
+    }
+  }
+  //DESPUES LISTAMOS LSO DE LA PRIMERA
+  for (var i= 0; i < arrayprimerafaseclasificado.length; i++) {
+    var li = document.createElement('li')
+    li.innerHTML = arrayprimerafaseclasificado[i].clasificacion + ' '
+     + arrayprimerafaseclasificado[i].caballo + ' ' + arrayprimerafaseclasificado[i].puntos + ' ' + arrayprimerafaseclasificado[i].tiempo 
+     clasificacionempezarprueba.appendChild(li)   
+  }
+  //DESPUES LOS NO CLASIFICADOS
+  for (var i= 0; i < arraynoclasificados.length; i++) {
+   
+    if (arraynoclasificados[i].puntos == '555') {     
+      var li = document.createElement('li')
+      li.innerHTML = arraynoclasificados[i].caballo + '  ELI'
+       clasificacionempezarprueba.appendChild(li)
+    }
+    if (arraynoclasificados[i].puntos == '666') {
+      var li = document.createElement('li')
+      li.innerHTML = arraynoclasificados[i].caballo +'  RET'
+       clasificacionempezarprueba.appendChild(li)
+      }
+    if (arraynoclasificados[i].puntos == '999') {
+      var li = document.createElement('li')
+      li.innerHTML =arraynoclasificados[i].caballo + '  NP'
+      clasificacionempezarprueba.appendChild(li)
+    }    
+  }
+}
+function asignarrankingatabla(arrayordenado,arraynoclasificados) {
+  for (var i= 0; i < arrayordenado.length; i++) {
+    // alert('clasificando  ' + arrayordenado[i].caballo)
+    var celdaclass = funcionespruebas.buscarentabla('tablaempezarprueba',arrayordenado[i].caballo,arrayordenado[i].jinete)
+    celdaclass.innerHTML = arrayordenado[i].clasificacion
+  }
+  for (var i= 0; i < arraynoclasificados.length; i++) {
+    var celdaclass = funcionespruebas.buscarentabla('tablaempezarprueba',arraynoclasificados[i].caballo,arraynoclasificados[i].jinete)
+    if (arraynoclasificados[i].puntos == '555') {celdaclass.innerHTML = 'ELI'}
+    if (arraynoclasificados[i].puntos == '666') {celdaclass.innerHTML = 'RET'}
+    if (arraynoclasificados[i].puntos == '999') {celdaclass.innerHTML = 'NP'}    
+  }
+}
+
+function enviarencabezadoclasificacion() {
+  var labeltrofeoempezarprueba = document.getElementById('labeltrofeoempezarprueba').innerHTML
+  var labelalturaempezarprueba = document.getElementById('labelalturaempezarprueba').innerHTML
+  var labelbaremoempezarprueba = document.getElementById('labelbaremoempezarprueba').innerHTML
+  socket.emit('encabezadoclasificaciondeprueba',labelalturaempezarprueba,labeltrofeoempezarprueba,labelbaremoempezarprueba)
+}
+
+//anade al array la el numero de clasificacion
+//1º,2º,3º , etc...
+function asignarnumeroclasificacion(array,baremo,arraynoclasificados) {
+  if (baremo == 'ASC') {
+    clasificar.asc(array)
+    pintarclasificacionprueba(array,arraynoclasificados)
+    asignarrankingatabla(array,arraynoclasificados)
+    var arraytotal =[]
+    arraytotal = array.concat(arraynoclasificados)
+    enviarencabezadoclasificacion()
+
+    socket.emit('websocketclasificar',arraytotal)
+  }
+  if (baremo == 'ACC') {
+    clasificar.acc(array)
+    pintarclasificacionprueba(array,arraynoclasificados)
+    asignarrankingatabla(array,arraynoclasificados)
+    var arraytotal =[]
+    arraytotal = array.concat(arraynoclasificados)
+    enviarencabezadoclasificacion()
+
+    socket.emit('websocketclasificar',arraytotal)
+  }
+  if (baremo == 'C') {
+    clasificar.c(array)
+    asignarrankingatabla(array,arraynoclasificados)
+    pintarclasificacionprueba(array,arraynoclasificados)
+    var arraytotal =[]
+    arraytotal = array.concat(arraynoclasificados)
+    enviarencabezadoclasificacion()
+
+    socket.emit('websocketclasificar',arraytotal)
+
+  }
+  if (baremo == 'DIF') {
+    clasificar.c(array)
+    asignarrankingatabla(array,arraynoclasificados)
+    pintarclasificacionprueba(array,arraynoclasificados)
+    var arraytotal =[]
+    arraytotal = array.concat(arraynoclasificados)
+    enviarencabezadoclasificacion()
+
+    socket.emit('websocketclasificar',arraytotal)
+  }
+  if (baremo == 'TDIF') {
+    clasificar.tdif(array)
+    asignarrankingatabla(array,arraynoclasificados)
+    pintarclasificacionpruebatdif(array,arraynoclasificados)
+    var arraytotal =[]
+    arraytotal = array.concat(arraynoclasificados)
+    enviarencabezadoclasificacion()
+
+    socket.emit('websocketclasificar',arraytotal)
+  }
+  if (baremo == 'CRELOJ') {
+    clasificar.creloj(array)
+    asignarrankingatabla(array,arraynoclasificados)
+    pintarclasificacionprueba(array,arraynoclasificados)
+    var arraytotal =[]
+    arraytotal = array.concat(arraynoclasificados)
+    enviarencabezadoclasificacion()
+
+    socket.emit('websocketclasificar',arraytotal)
+  }
+  if (baremo == 'ASC/ACC') {
+    var arraytotal = []
+    var arraysegundafase = clasificar.segundafaseacc(array)
+    var arrayintercambio = []
+    var arrayprimerafase = []
+    for (var i = 0; i < array.length; i ++) {
+       if (array[i].puntos2 == 1111) {
+         arrayintercambio.push(array[i])
+       }
+    }
+    // pintarclasificacionpruebadosfases(arraysegundafase,arraynoclasificados)
+    // pintarclasificacionpruebadosfases(arraysegundafase,arrayelimsegundafase)
+    var clasificacionempezarprueba = document.getElementById('clasificacionempezarprueba')
+    clasificacionempezarprueba.innerHTML = ''
+    var arrayprimerafaseclasificado = clasificar.primerafaseasc(arrayintercambio,arraysegundafase.length)
+    asignarrankingatabla(arraysegundafase,arraynoclasificados)
+    asignarrankingatabla(arrayprimerafaseclasificado,arraynoclasificados)
+    asignarrankingalistaempezarprueba(arraysegundafase,arraynoclasificados,arrayprimerafaseclasificado)
+    arraytotal = arraysegundafase.concat(arrayprimerafaseclasificado,arraynoclasificados)
+    enviarencabezadoclasificacion()
+    socket.emit('websocketclasificar',arraytotal)
+    //  alert('emit websocketclasificar')
+  }
+  if (baremo == 'ACC/ACC') {
+    var arraytotal =[]
+    var arraysegundafase = []
+     //  clasificar.accacc(array)
+    var arrayelimsegundafase = []
+    var arrayintercambio = []
+    var arrayprimerafase = []
+     for (var i = 0; i < array.length; i ++) {
+         if (array[i].puntos2 == 1111) {
+           arrayprimerafase.push(array[i])
+         } else if ((array[i].puntos2 == 777) || (array[i].puntos2 == 888)) {
+           arrayelimsegundafase.push(array[i])
+         } else {
+           arraysegundafase.push(array[i])
+         }
+     }
+     arraysegundafase = clasificar.accacc(arraysegundafase)
+     arrayelimsegundafase = clasificar.elimsegundafaseacc(arrayelimsegundafase,arraysegundafase.length)
+     //  console.log(arrayelimsegundafase)
+     pintarclasificacionpruebadosfases(arraysegundafase,arrayelimsegundafase)
+     asignarrankingatablasegundafase(arraysegundafase) 
+     asignarrankingatablasegundafase(arrayelimsegundafase) 
+     
+     pintareliminadossegundafase(arrayelimsegundafase)
+     var clasificados = arraysegundafase.length + arrayelimsegundafase.length
+     var arrayprimerafaseclasificado = clasificar.primerafaseacc(arrayprimerafase, clasificados)
+     pintarclasificacionprimerafase(arrayprimerafaseclasificado,arraynoclasificados)
+     asignarrankingatablasegundafase(arrayprimerafaseclasificado)
+     asignarrankingtablaprimerafasenoclasificados(arraynoclasificados)
+     enviarencabezadoclasificacion()
+     arraytotal = arraysegundafase.concat(
+       arrayelimsegundafase,
+       arrayprimerafaseclasificado,
+       arraynoclasificados      
+      )
+     socket.emit('websocketclasificar',arraytotal)
+     console.log('enviando array total : ' + arraytotal)
+     //  asignarrankingatabla(arrayprimerafaseclasificado,arraynoclasificados)   
+   }
+
+  if (baremo == 'ACC/C') {
+    var arraysegundafase = []
+   //  clasificar.accacc(array)
+    var arrayelimsegundafase = []
+    var arrayintercambio = []
+    var arrayprimerafase = []
+    for (var i = 0; i < array.length; i ++) {
+       if (array[i].puntos2 == 1111) {
+         arrayprimerafase.push(array[i])
+       } else if ((array[i].puntos2 == 777) || (array[i].puntos2 == 888)) {
+         arrayelimsegundafase.push(array[i])
+       } else {
+         arraysegundafase.push(array[i])
+       }
+    }
+    arraysegundafase = clasificar.accc(arraysegundafase)
+    arrayelimsegundafase = clasificar.elimsegundafaseacc(arrayelimsegundafase,arraysegundafase.length)
+    pintarclasificacionpruebadosfases(arraysegundafase,arraynoclasificados)
+    asignarrankingatablasegundafase(arraysegundafase) 
+    asignarrankingatablasegundafase(arrayelimsegundafase) 
+    pintareliminadossegundafase(arrayelimsegundafase)
+    var clasificados = arraysegundafase.length + arrayelimsegundafase.length
+    var arrayprimerafaseclasificado = clasificar.primerafaseacc(arrayprimerafase, clasificados)
+    pintarclasificacionprimerafase(arrayprimerafaseclasificado,arraynoclasificados)
+    asignarrankingatablasegundafase(arrayprimerafaseclasificado)
+    asignarrankingtablaprimerafasenoclasificados(arraynoclasificados)
+  }
+  if (baremo == 'AM5') {   
+    //REVISAR AQUI ARRAY NO CLASIFICADOS! NO SE ASIGNAN VALORES creemos que falta estas 2 lineas comentadas en donde corresponde, en desempate y sin el
+   // arraytotal = array.concat(arraynoclasificados)
+   // socket.emit('websocketclasificar',arraytotal)
+    var desempate = document.getElementById('checkboxdesempate').checked
+    if (!desempate) {
+      console.log(array)
+      clasificar.recorridoprevio(array)
+            array.sort( 
+        firstBy('clasificacion')
+        .thenBy('orden')  
+      )
+      alert('clasfiicaciondo first by class thenbyu order')
+      pintarclasificacionprueba(array,arraynoclasificados)
+      asignarrankingatabla(array,arraynoclasificados)
+      enviarencabezadoclasificacion()
+      arraytotal = array.concat(arraynoclasificados)
+      socket.emit('websocketclasificar',arraytotal)
+      
+      // array.sort( 
+      //   firstBy('clasificacion')
+      //   .thenBy('orden')  
+      // )
+      // alert('clasfiicaciondo first by class thenbyu order')
+    }
+    if (desempate) {
+      clasificar.recorridoprevio(array)
+      clasificar.recorridoprevio2(array)
+      pintarclasificacionprueba(array,arraynoclasificados)
+      asignarrankingatabla(array,arraynoclasificados)
+      enviarencabezadoclasificacion()
+      arraytotal = array.concat(arraynoclasificados)
+      socket.emit('websocketclasificar',arraytotal)
+    }
+  }
+}
+
+
+function clasificarpruebaactiva (objetoprueba) {
+  // borrarelementosli()
+//  console.log('clasificar ', (objetoprueba))
+console.log('PRUEBA A CLASIFICAR : ',objetoprueba)
+  var encabezadoAltura = document.getElementById('encabezadoAltura')
+  var encabezadoBaremo = document.getElementById('encabezadoBaremo')
+  var encabezadoTrofeo = document.getElementById('encabezadoTrofeo')
+  var clasificacionempezarprueba = document.getElementById('clasificacionempezarprueba')
+  var baremo = objetoprueba.baremo
+  var trofeo = objetoprueba.trofeo
+  var altura = objetoprueba.altura
+  encabezadoAltura.innerHTML = altura
+  encabezadoTrofeo.innerHTML = trofeo
+  encabezadoBaremo.innerHTML = baremo
+  clasificacionempezarprueba.innerHTML = ''
+  if (objetoprueba.os.length > 0) {
+      //   COMENZamos coN PRUEBAS PARA PASAR VCALORES Y ORDENAR ARRAY//
+    var arraynoclasificados = []
+    var arrayprueba = []
+    for (var indice = 0; indice < objetoprueba.os.length; indice++) {
+        //* ************** SI EL ORDEN ES IGUAL AL INDICE -1 (PARA QUE SE INTRODUZCAN DATOS EN ORDEN)
+      var objetoparticipante = {}
+      objetoparticipante.jinete = objetoprueba.os[indice].jinete
+      objetoparticipante.caballo = objetoprueba.os[indice].caballo
+      objetoparticipante.puntos = parseInt(objetoprueba.os[indice].puntos)
+      objetoparticipante.tiempo = parseFloat(objetoprueba.os[indice].tiempo).toFixed(2)
+      objetoparticipante.orden = objetoprueba.os[indice].orden
+        // tenemos que pasar a formato correcto los datos , para que la libreria
+        // thenBy ordene de modo correcto.
+      if ((baremo == 'ASC/ACC') || (baremo == 'ACC/ACC') || (baremo == 'ACC/C')|| (baremo == 'AM5')) {
+        objetoparticipante.puntos2 = parseInt(objetoprueba.os[indice].puntos2)
+        objetoparticipante.tiempo2 = parseFloat(objetoprueba.os[indice].tiempo2).toFixed(2)
+      }
+      if (baremo == 'TDIF') {
+        objetoparticipante.puntos2 = parseInt(objetoprueba.os[indice].puntos2)
+        objetoparticipante.totalpuntos = parseInt(objetoprueba.os[indice].totalpuntos)
+        objetoparticipante.tiempo2 = parseFloat(objetoprueba.os[indice].tiempo2).toFixed(2)
+      }
+      /*
+      555 eliminado 1ª -  dif o creloj  ptos 0 ,tiempo 001 eliminado
+      666 retirado - dif o creloj ptos 0 tiempo 1
+      777 eliminado 2ª
+      888 retirado 2ª
+      999 no presentado  - dif o creloj ptos 0 tiempo 999
+      444 eliminado no valido  - dif o cereloj  ptos 0 tiempo 888
+      9999 NO PASAN A LA SEGUNDA FASE
+      */
+
+      /*
+      VALIDO PARA LOS BAREMOS DE 1 RECORRIDO SENCILLO
+      VALIDO PARA EL TIEMPO DIFERIDO ART274.5.6
+       Y ELIMINADOS EN LA PRIMERA FASE
+      */
+      if ((objetoparticipante.puntos != 555) &&  //si no esta eliminado
+        (objetoparticipante.puntos != 666) &&// ni retirado
+        (objetoparticipante.puntos != 999)) { //ni no presentado
+          // xxxxxxxxxxxxx AQUI HAY QUE METER LOS PARTICPANTES QUE YA HAYAN DISPUTADO
+          // ES DECIR QUE NO ESTÉ EN BLANCO SUS RESULTADOS
+          if (isNaN(objetoparticipante.tiempo) == false) { // || (objetoparticipante.puntos != null)) {
+      // console.log('ENCONTRADO PARTICIPANTE CON PUNTOS COMO NAN NULL O         :', objetoparticipante)
+            arrayprueba.push(objetoparticipante)
+          }
+          // arrayprueba.push(objetoparticipante)
+        } else {
+          arraynoclasificados.push(objetoparticipante)
+          arraynoclasificados.sort(firstBy('puntos'))
+        }
+   } // fin for
+
+    var arrayordenado = []
+    console.log('arrray prueba : '  , arrayprueba)
+    arrayordenado = clasificarbaremo(baremo,arrayprueba)
+    //CLASIFICAR BAREMO ME DEVUELVE EL ARRAY ORDENADO POR PTOS TIEMPO,DEPENDIENDO DEL baremo
+    //CON LA LIBRERIA THENBY
+    console.log('array ordenado : ', arrayordenado)
+    asignarnumeroclasificacion(arrayordenado,baremo,arraynoclasificados)
+ }
+}// fin function
+
+
+function iniciarclasificacion(socket) {
+  socket.on('clasificarpruebaactiva', function (competicion, nombreprueba) {
+    console.log('RECIBIDO CLASIFICAR ', competicion)
+    for (var indice = 0; indice < competicion.pruebas.length; indice++) {
+      if (competicion.pruebas[indice].nombreprueba == nombreprueba) {
+        var objetoprueba = competicion.pruebas[indice]
+        var baremodeprueba = competicion.pruebas[indice].baremo
+        clasificarpruebaactiva(objetoprueba)
+      }
+    }
+  })
+}
+
+module.exports.iniciarclasificar = function(socket) {
+  iniciarclasificacion(socket)
+}
+
+},{"./clasificarbaremos.js":4,"./funciones-compartidas.js":6,"./funciones-pruebas.js":7}],13:[function(require,module,exports){
 'use strict'
 var funcionesbbddcaballos = require('./operaciones-bbdd-caballos.js')
 var funcionescomunes = require('./funciones-compartidas.js')
@@ -17715,7 +18692,7 @@ module.exports.generartablaCaballos = function (data,socket) {
   generarlistacaballosordendesalida(data)
 }
 
-},{"./funciones-compartidas.js":5,"./operaciones-bbdd-caballos.js":9,"./operaciones-formulario-caballos.js":11,"./operaciones-formulario-competicionseleccionada.js":13}],12:[function(require,module,exports){
+},{"./funciones-compartidas.js":6,"./operaciones-bbdd-caballos.js":10,"./operaciones-formulario-caballos.js":13,"./operaciones-formulario-competicionseleccionada.js":15}],14:[function(require,module,exports){
 // 'use strict'
 // var funcionesbbddcaballos = require('.//operaciones-bbdd-caballos.js')
 var funcionescomunes = require('./funciones-compartidas.js')
@@ -17827,8 +18804,8 @@ function iniciarformulariocompeticiones(socket) {
     btnborrarbinomio.classList.add('iconoborrarprueba')
     btnborrarbinomio.innerHTML = 'X'
     btnborrarbinomio.addEventListener('click',function (){
-      funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-      // socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+      funcionescomunes.borrarbinomiodeordensalida(this.id)
+      socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
     })
     li.appendChild(btnborrarbinomio)
     li.classList.add('list-group-item')
@@ -17987,13 +18964,13 @@ module.exports.generartablaCompeticiones = function(competicion,socket) {
   })
 }
 
-},{".//operaciones-bbdd-competicion.js":10,".//operaciones-formulario-competicion.js":12,".//operaciones-formulario-competicionseleccionada.js":13,"./funciones-compartidas.js":5}],13:[function(require,module,exports){
+},{".//operaciones-bbdd-competicion.js":11,".//operaciones-formulario-competicion.js":14,".//operaciones-formulario-competicionseleccionada.js":15,"./funciones-compartidas.js":6}],15:[function(require,module,exports){
 'use strict'
 
 var funcionescomunes = require('./funciones-compartidas.js')
 // var funcionesbbddpruebas = require('.//operaciones-bbdd-pruebas.js')
 // var funcionesmodalnuevaprueba = require('./modalnuevaprueba.js')
-// var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
+var funcionesformulariocompeticionseleccionada = require('.//operaciones-formulario-competicionseleccionada.js')
 
 module.exports.moverabajoordendesalida = function (socket) {
     //ALMACENO EN VARIABLE EL ELEMENTO SELECCIONADO Y EL ELEMENTO ANTERIOR
@@ -18104,7 +19081,7 @@ module.exports.moverarribaordendesalida = function(socket) {
   elementoanterior.classList.add('active')
   funcionesformulariocompeticionseleccionada.actualizarnumerosdeordendesalida(socket)
 }
-function anadirbinomioalistaordendesalida(dato) {
+function anadirbinomioalistaordendesalida(dato,socket) {
   var li = document.createElement('li')
   var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
   li.id = 'fila' + cuantosli + 'OS'
@@ -18194,7 +19171,7 @@ module.exports.anadirbinomiosaordendesalida = function (jinete,caballo,socket) {
   dato.jinete = jinete
   dato.caballo = caballo
   dato.orden = cuantosli
-  anadirbinomioalistaordendesalida(dato)
+  anadirbinomioalistaordendesalida(dato,socket)
   // li.id = 'fila' + cuantosli + 'OS'
   // var idjinete = 'fila' + cuantosli + 'JineteOS'
   // var idcaballo = 'fila' + cuantosli + 'CaballoOS'
@@ -18255,7 +19232,7 @@ module.exports.leerygenerarordendesalida = function (objetoprueba,socket) {
       arrayprueba.sort(funcionescomunes.SortByID)
       console.log('ARRAY ORDENADOOOOOOOOOOOO    :', arrayprueba)
       for (var indice = 0; indice < arrayprueba.length; indice++) {
-        anadirbinomioalistaordendesalida(arrayprueba[indice])
+        anadirbinomioalistaordendesalida(arrayprueba[indice],socket)
         // var li = document.createElement('li')
         // li.id = 'fila' + indice + 'OS'
         // var cuantosli = document.getElementById('listadoordendesalida').getElementsByTagName('li').length
@@ -18491,7 +19468,7 @@ module.exports.generartablaCompeticionSeleccionada = function(competicion,socket
 
 }
 
-},{"./funciones-compartidas.js":5}],14:[function(require,module,exports){
+},{".//operaciones-formulario-competicionseleccionada.js":15,"./funciones-compartidas.js":6}],16:[function(require,module,exports){
 
 /*Fichero en el que se realizan todas las operaciones relacionadas
 con la base de datos de jinete*/
@@ -18606,7 +19583,7 @@ module.exports.generartablaJinetes = function(data,socket) {
   generarListaJinetesordendesalida(data)
 }
 
-},{"./funciones-compartidas.js":5,"./operaciones-formulario-competicionseleccionada.js":13,"./operaciones-formulario-jinetes.js":14}],15:[function(require,module,exports){
+},{"./funciones-compartidas.js":6,"./operaciones-formulario-competicionseleccionada.js":15,"./operaciones-formulario-jinetes.js":16}],17:[function(require,module,exports){
 /*Fichero en el que se realizan todas las operaciones relacionadas
 con las bases de datos de competiciones*/
 'use strict'
@@ -18754,18 +19731,19 @@ function addColumn(tblId)
 
 
 function moverabajoempezarprueba() {
-  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
   var elementoseleccionadoaborrar = elementoseleccionado[0]
   var elementosiguiente = elementoseleccionado[0].nextSibling
   var seleccionadoclonado = elementoseleccionadoaborrar.cloneNode(true)
   tbodyempezarprueba.removeChild(elementoseleccionado[0])
   tbodyempezarprueba.insertBefore(seleccionadoclonado,elementosiguiente.nextSibling)
     // actualizarpantallaordendesalida(seleccionadoclonado.id)
-    console.log('enviando actualizarpantallaordendesalida');
+    // console.log('enviando actualizarpantallaordendesalida');
    seleccionadoclonado.addEventListener('click',function (){
   // //  console.log('Nid clonado: ',anteriorclonado.id)
-    funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
-    seleccionadoclonado.classList.add('activo')
+  funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
+  funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+    seleccionadoclonado.classList.add('text-primary')
     funcionespruebas.actualizarjineteenpista(seleccionadoclonado.id)
 
    })
@@ -18779,18 +19757,18 @@ function moverabajoempezarprueba() {
  }
 }
 function moverarribaempezarprueba() {
-  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
   var elementoanterior = elementoseleccionado[0].previousSibling
   var elementosiguiente = elementoseleccionado[0].nextSibling
   var anteriorclonado = elementoanterior.cloneNode(true)
   tbodyempezarprueba.removeChild(elementoanterior)
   tbodyempezarprueba.insertBefore(anteriorclonado,elementosiguiente)
-  console.log('enviando actualizarpantallaordendesalida');
+  // console.log('enviando actualizarpantallaordendesalida');
   anteriorclonado.addEventListener('click',function (){
     console.log('Nid clonado: ',anteriorclonado.id)
     funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
-    anteriorclonado.classList.add('activo')
-
+    funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+    anteriorclonado.classList.add('text-primary')
     funcionespruebas.actualizarjineteenpista(anteriorclonado.id)
   })
       anteriorclonado.oncontextmenu = function(e) {//ANADIMOS EL CONTEXT MENU
@@ -18891,8 +19869,9 @@ var tbodyempezarprueba = document.getElementById('tbodyempezarprueba')
  }
 }
 function grabarresultado(socket) {
+  // alert('grabarresultado')
   // console.log('click en btn clasificar prueba!!!!')
-  var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
   var elementoseleccionado = elementostractivo[0]
   var participante = {}
   var baremo = document.getElementById('inputbaremonuevaprueba').value
@@ -18901,19 +19880,22 @@ function grabarresultado(socket) {
   participante.puntos = elementoseleccionado.childNodes[5].innerHTML
   participante.tiempo = elementoseleccionado.childNodes[6].innerHTML
   var prueba = inputnombrenuevaprueba.value
-  var coleccion = document.getElementById('inputnombreCompeticion2').value
+  var coleccion = document.getElementById('inputnombreCompeticion').value
 
   if (funcionespruebas.leerbaremo(baremo) == '2') {
     participante.puntos2 = elementoseleccionado.childNodes[7].innerHTML
     participante.tiempo2 = elementoseleccionado.childNodes[8].innerHTML
     participante.totalpuntos = elementoseleccionado.childNodes[9].innerHTML
     socket.emit('grabaresultadoparticipante', coleccion, prueba, baremo, participante)
+    console.log('emtiendo grabaresultadoparticipante ')
     console.log(participante)
+
   } else {
+    console.log('emtiendo grabaresultadoparticipante ')
     console.log(participante)
     socket.emit('grabaresultadoparticipante', coleccion, prueba, baremo, participante)
   }
-  var elementoseleccionado = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  var elementoseleccionado = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
   elementoseleccionado[0].style.backgroundColor = 'rgb(194, 240, 228)'
 }
 function crearceldasdesempate() {
@@ -19030,13 +20012,14 @@ function iniciarprueba(socket) {
     }
   })
 
-  // btnactualizarpantallaordensalida.addEventListener('click', function (){
-  // // alert()
-  // var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
-  //   actualizarpantallaordensalidaempezarprueba(elementoseleccionado[0].id,socket)
-  // })
+  btnactualizarpantallaordensalida.addEventListener('click', function (){
+  // alert()
+  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
+    actualizarpantallaordensalidaempezarprueba(elementoseleccionado[0].id,socket)
+  })
 
   btnclasificarempezarprueba.addEventListener('click',function () {
+    // alert('click')
     //AL BORRAR CON CONTENT EDITABLE SI BORRAMOS EL CONTENIDO CREA UN <BR>
     //POR LO QUE LO BORRAMOS PARA QUE SE GUARDE EN LA BBDD
     // alert('PRUEBAENCUIRSO.JS')
@@ -19045,7 +20028,7 @@ function iniciarprueba(socket) {
       brs[0].parentNode.removeChild(brs[0]);
     } //ELIMINAMOS TODOS LOS BR QUE SE CREAN POR EL BUG CONTENT EDITABLE
     var labelbaremoempezarprueba = document.getElementById('labelbaremoempezarprueba')
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
 
     // if ((elementoseleccionado.childNodes[7]) && (elementoseleccionado.childNodes[8])){
@@ -19059,7 +20042,7 @@ function iniciarprueba(socket) {
       ((elementoseleccionado.childNodes[7]) && ((elementoseleccionado.childNodes[8].innerHTML == ''))))
       {
         // alert(labelbaremoempezarprueba.innerHTML)
-        var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+        var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
         var elementoseleccionado = elementostractivo[0]
         elementoseleccionado.childNodes[7].innerHTML = 1111 // NO PASAN A LA SEGUNDA FASE
         elementoseleccionado.childNodes[8].innerHTML = 1111
@@ -19127,7 +20110,7 @@ module.exports.iniciarpruebaencurso = function(socket) {
   iniciarprueba(socket)
 }
 
-},{".//modaldesempate.js":8,"./contextmenuempezarprueba.js":4,"./funciones-compartidas.js":5,"./funciones-pruebas.js":6}],16:[function(require,module,exports){
+},{".//modaldesempate.js":9,"./contextmenuempezarprueba.js":5,"./funciones-compartidas.js":6,"./funciones-pruebas.js":7}],18:[function(require,module,exports){
 module.exports.sortTable  = function(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("tablaempezarprueba");
@@ -19194,4 +20177,4 @@ module.exports.sortTable  = function(n) {
     }
   }
 }
-},{}]},{},[7]);
+},{}]},{},[8]);

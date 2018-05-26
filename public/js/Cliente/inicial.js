@@ -11,6 +11,7 @@ var funcionesformulariocaballo = require('./operaciones-formulario-caballos.js')
 var funcionesformulariocompeticiones = require('./operaciones-formulario-competicion.js')
 var funcionespruebaencurso = require('./pruebaencurso.js')
 var funcionescontextmenupruebaactiva = require('./contextmenuempezarprueba.js')
+var funcionesclasificar = require('./operaciones-clasificacion.js')
 
 function iniciarjinetes() {
 
@@ -82,6 +83,7 @@ function iniciarjinetes() {
     funcionesformulariocompeticiones.iniciarmodulocompeticiones(socket) //INICIAMOS MODULO DE COMPETICIONES
     funcionespruebaencurso.iniciarpruebaencurso(socket)
     funcionescontextmenupruebaactiva.iniciarcontextmenu(socket)//INICIAMOS MODULO CONTEXT MENU EMPEZAR PRUEBA
+    funcionesclasificar.iniciarclasificar(socket)
     
 }
 

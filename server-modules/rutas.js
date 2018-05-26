@@ -19,12 +19,12 @@ module.exports = function(app,path,express) {
   })
   //Pagina orden de salida 
   app.get('/orden', function (req, res) {
-    var pathordensalida = path.join(__dirname, './../public/vistas/jinetes/ordendesalida.html')
+    var pathordensalida = path.join(__dirname, './../public/vistas/ordendesalida.html')
     res.sendFile(pathordensalida)
   })
   //Pagina clasificacion prueba activa
   app.get('/classactiva', function (req, res) {
-    var pathclassactiva = path.join(__dirname, './../public/vistas/jinetes/clasificacionpruebaactiva00.htm')
+    var pathclassactiva = path.join(__dirname, './../public/vistas/clasificacionpruebaactiva00.htm')
     res.sendFile(pathclassactiva)
   })
   //Anadir jinete prueba en curso

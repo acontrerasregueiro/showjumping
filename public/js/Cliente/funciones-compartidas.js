@@ -145,6 +145,7 @@ module.exports.SortByID = function (x, y) {
 }
 
 module.exports.borrarbinomiodeordensalida = function (filaid,socket) {
+  // alert('borrarbinomioorden de salida')
   console.log('CLICK EN SPANIMAGEN ID : ', filaid)  //id : fila2imgOS
   var fila = filaid.replace('imgOS',"")  //eliminamos imgOS para quedarnos con la fila en la que se encuentra
   var jinete = document.getElementById(fila +'JineteOS').innerHTML

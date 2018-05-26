@@ -145,18 +145,19 @@ function addColumn(tblId)
 
 
 function moverabajoempezarprueba() {
-  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
   var elementoseleccionadoaborrar = elementoseleccionado[0]
   var elementosiguiente = elementoseleccionado[0].nextSibling
   var seleccionadoclonado = elementoseleccionadoaborrar.cloneNode(true)
   tbodyempezarprueba.removeChild(elementoseleccionado[0])
   tbodyempezarprueba.insertBefore(seleccionadoclonado,elementosiguiente.nextSibling)
     // actualizarpantallaordendesalida(seleccionadoclonado.id)
-    console.log('enviando actualizarpantallaordendesalida');
+    // console.log('enviando actualizarpantallaordendesalida');
    seleccionadoclonado.addEventListener('click',function (){
   // //  console.log('Nid clonado: ',anteriorclonado.id)
-    funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
-    seleccionadoclonado.classList.add('activo')
+  funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
+  funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+    seleccionadoclonado.classList.add('text-primary')
     funcionespruebas.actualizarjineteenpista(seleccionadoclonado.id)
 
    })
@@ -170,18 +171,18 @@ function moverabajoempezarprueba() {
  }
 }
 function moverarribaempezarprueba() {
-  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
   var elementoanterior = elementoseleccionado[0].previousSibling
   var elementosiguiente = elementoseleccionado[0].nextSibling
   var anteriorclonado = elementoanterior.cloneNode(true)
   tbodyempezarprueba.removeChild(elementoanterior)
   tbodyempezarprueba.insertBefore(anteriorclonado,elementosiguiente)
-  console.log('enviando actualizarpantallaordendesalida');
+  // console.log('enviando actualizarpantallaordendesalida');
   anteriorclonado.addEventListener('click',function (){
     console.log('Nid clonado: ',anteriorclonado.id)
     funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
-    anteriorclonado.classList.add('activo')
-
+    funcionescomunes.borrarclase('text-primary', this.parentNode)//eliminamos la clase bgsuccess del nodopadre(color)
+    anteriorclonado.classList.add('text-primary')
     funcionespruebas.actualizarjineteenpista(anteriorclonado.id)
   })
       anteriorclonado.oncontextmenu = function(e) {//ANADIMOS EL CONTEXT MENU
@@ -282,8 +283,9 @@ var tbodyempezarprueba = document.getElementById('tbodyempezarprueba')
  }
 }
 function grabarresultado(socket) {
+  // alert('grabarresultado')
   // console.log('click en btn clasificar prueba!!!!')
-  var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
   var elementoseleccionado = elementostractivo[0]
   var participante = {}
   var baremo = document.getElementById('inputbaremonuevaprueba').value
@@ -292,19 +294,22 @@ function grabarresultado(socket) {
   participante.puntos = elementoseleccionado.childNodes[5].innerHTML
   participante.tiempo = elementoseleccionado.childNodes[6].innerHTML
   var prueba = inputnombrenuevaprueba.value
-  var coleccion = document.getElementById('inputnombreCompeticion2').value
+  var coleccion = document.getElementById('inputnombreCompeticion').value
 
   if (funcionespruebas.leerbaremo(baremo) == '2') {
     participante.puntos2 = elementoseleccionado.childNodes[7].innerHTML
     participante.tiempo2 = elementoseleccionado.childNodes[8].innerHTML
     participante.totalpuntos = elementoseleccionado.childNodes[9].innerHTML
     socket.emit('grabaresultadoparticipante', coleccion, prueba, baremo, participante)
+    console.log('emtiendo grabaresultadoparticipante ')
     console.log(participante)
+
   } else {
+    console.log('emtiendo grabaresultadoparticipante ')
     console.log(participante)
     socket.emit('grabaresultadoparticipante', coleccion, prueba, baremo, participante)
   }
-  var elementoseleccionado = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+  var elementoseleccionado = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
   elementoseleccionado[0].style.backgroundColor = 'rgb(194, 240, 228)'
 }
 function crearceldasdesempate() {
@@ -421,13 +426,14 @@ function iniciarprueba(socket) {
     }
   })
 
-  // btnactualizarpantallaordensalida.addEventListener('click', function (){
-  // // alert()
-  // var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
-  //   actualizarpantallaordensalidaempezarprueba(elementoseleccionado[0].id,socket)
-  // })
+  btnactualizarpantallaordensalida.addEventListener('click', function (){
+  // alert()
+  var elementoseleccionado  = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
+    actualizarpantallaordensalidaempezarprueba(elementoseleccionado[0].id,socket)
+  })
 
   btnclasificarempezarprueba.addEventListener('click',function () {
+    // alert('click')
     //AL BORRAR CON CONTENT EDITABLE SI BORRAMOS EL CONTENIDO CREA UN <BR>
     //POR LO QUE LO BORRAMOS PARA QUE SE GUARDE EN LA BBDD
     // alert('PRUEBAENCUIRSO.JS')
@@ -436,7 +442,7 @@ function iniciarprueba(socket) {
       brs[0].parentNode.removeChild(brs[0]);
     } //ELIMINAMOS TODOS LOS BR QUE SE CREAN POR EL BUG CONTENT EDITABLE
     var labelbaremoempezarprueba = document.getElementById('labelbaremoempezarprueba')
-    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+    var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
     var elementoseleccionado = elementostractivo[0]
 
     // if ((elementoseleccionado.childNodes[7]) && (elementoseleccionado.childNodes[8])){
@@ -450,7 +456,7 @@ function iniciarprueba(socket) {
       ((elementoseleccionado.childNodes[7]) && ((elementoseleccionado.childNodes[8].innerHTML == ''))))
       {
         // alert(labelbaremoempezarprueba.innerHTML)
-        var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('activo')
+        var elementostractivo = document.getElementById('tbodyempezarprueba').getElementsByClassName('text-primary')
         var elementoseleccionado = elementostractivo[0]
         elementoseleccionado.childNodes[7].innerHTML = 1111 // NO PASAN A LA SEGUNDA FASE
         elementoseleccionado.childNodes[8].innerHTML = 1111

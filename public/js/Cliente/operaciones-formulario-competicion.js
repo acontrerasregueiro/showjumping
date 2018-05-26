@@ -109,8 +109,8 @@ function iniciarformulariocompeticiones(socket) {
     btnborrarbinomio.classList.add('iconoborrarprueba')
     btnborrarbinomio.innerHTML = 'X'
     btnborrarbinomio.addEventListener('click',function (){
-      funcionescomunes.borrarbinomiodeordensalida(this.id,socket)
-      // socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
+      funcionescomunes.borrarbinomiodeordensalida(this.id)
+      socket.emit('generarordendesalida',document.getElementById('inputnombreCompeticion').value, document.getElementById('inputnombrenuevaprueba').value)
     })
     li.appendChild(btnborrarbinomio)
     li.classList.add('list-group-item')

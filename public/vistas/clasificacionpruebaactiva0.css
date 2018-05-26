@@ -1,0 +1,103 @@
+body {
+  margin : 0;
+  padding: 0;
+}
+#contenedor {
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  overflow-y: hidden;
+  /*background-color: rgb(146, 146, 147);*/
+}
+#encabezadoclasificaciondeprueba {
+  display:block;
+  background-color: #393939;
+  list-style: none;
+  font-size: 90%;
+  height:10%;
+  color:white;
+  padding: 0;
+  width: 100%;
+  text-align:center;
+}
+.encabezadoAltura {
+  font-size: 500%;
+  height:100%;
+  width: 15%;
+  float: left;
+  color:rgb(255, 153, 0);
+  border-color: red;
+}
+.encabezadoTrofeo {
+  font-size: 500%;
+  float:left;
+  width:55%;
+  color:white;
+}
+.encabezadoBaremo {
+    font-size: 500%;
+  color:orange;
+  width: 30%;
+  float:right;
+}
+/*FIN DE ENCABEZADO DE LISTADO*/
+/*COMENZAMOS CON ESTILO DE LA CLASIFICACION*/
+.listadoclasificaciondeprueba {
+  list-style: none;
+  margin:0;
+  padding:0;
+  height:90%;
+  background-color:rgb(85, 85, 85);
+}
+.listadoclasificaciondeprueba li {
+  border-bottom: thin solid black;
+  height:9.9%;
+  font-size:375%;
+  margin:0;
+  padding:0;
+  width:100%;
+}
+.spancaballo {
+  margin:0;
+  margin-left: 1%;
+  padding:0;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  width:70%;
+  color:orange;
+  float:left;
+}
+.spancaballodosfases {
+  display:block;
+  margin:0;
+  margin-left: 1%;
+  padding:0;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  width:47%;
+  color:orange;
+  float:left;
+}
+.spanpuntos {
+  white-space:pre;  /*para que respete la cadena si son espacios*/
+  margin:0;
+  padding:0;
+  text-align: right;
+  width:7%;
+  color:white;
+  float:left;
+}
+.spantiempo {
+  white-space:pre;/*para que respete la cadena si son espacios*/
+  margin:0;
+  padding:0;
+  text-align: right;
+  width:14%;
+  color:white;
+  float:left;
+}
+
