@@ -404,7 +404,7 @@ function iniciarprueba(socket) {
   var textarealogalge = document.getElementById('textarealogalge')
   var btnleertiemposdealge = document.getElementById('btnleertiemposdealge')
   var btnexportarexcel = document.getElementById('btnexportarexcel')
-  var btnAddNewWindow = document.getElementById('btnAddNewWindow')
+  // var btnAddNewWindow = document.getElementById('btnAddNewWindow')
   var btnclasificarempezarprueba = document.getElementById('btnclasificarempezarprueba')
   var btngenerardesempate = document.getElementById('btngenerardesempate')
   //SI CHECKLBOX DESEMPATE ESTA MARCADO ES UN DESEMPATE
@@ -492,10 +492,39 @@ function iniciarprueba(socket) {
   anadirfila(objetobinomio, indice,labelbaremoempezarprueba)
 })
 
- btnAddNewWindow.addEventListener('click',function(){
-  alert('click en BOTON añadir bin1')
-  var myWindow = window.open("http://127.0.0.1:9000/add", "", "width=400,height=150");
+var btnguardarmodalnuevojinete = document.getElementById('btnguardarmodalnuevojinete')
+btnguardarmodalnuevojinete.addEventListener('click',function (){
+  var baremo = document.getElementById('labelbaremoempezarprueba').innerHTML
+  var coleccion = document.getElementById('inputnombreCompeticion').value
+  var prueba = document.getElementById('inputnombrenuevaprueba').value
+  var jinete = document.getElementById('jinete-name').value
+  var caballo = document.getElementById('caballo-name').value
+  var numero = document.getElementById('tbodyempezarprueba').getElementsByTagName('tr').length + 1
+  alert(numero)
+  var dato = {}
+  dato.jinete = jinete
+  dato.caballo = caballo
+  dato.numero = numero
+
+  var objetobinomio = {
+    'orden': numero,
+    'jinete': jinete,
+    'caballo': caballo,
+    'puntos': '',
+    'tiempo': '',
+    'puntos2': '',
+    'tiempo2': '',
+    'totalpuntos': '',
+    'totaltiempo': ''
+  }
+  socket.emit('nuevo_binomio',dato,prueba,coleccion,baremo)
+  anadirfila(objetobinomio, numero,baremo)
+
 })
+//  btnAddNewWindow.addEventListener('click',function(){
+//   alert('click en BOTON añadir bin1')
+//   var myWindow = window.open("http://127.0.0.1:9000/add", "", "width=400,height=150");
+// })
 
  btnmoverabajooempezarprueba.addEventListener('click',function(){
   funcionescontextmenupruebaactiva.iniciarcontextmenu()

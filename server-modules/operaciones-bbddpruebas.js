@@ -134,28 +134,7 @@ module.exports = function(socket,MongoClient,url,dbName) {
     client.close()
     })
   })
-  // MongoClient.connect('mongodb://127.0.0.1:27017/hipica', function (err, db) {
-  //   if (err) throw err
-  //   db.collection(coleccion).find().toArray(function (err, caballos) {
-  //     caballos.forEach(function (err, indice) {
-  //       // console.log('LENGTH PRUEBAS :',caballos[indice].pruebas.length)
-  //       for (indiceprueba; indiceprueba < caballos[0].pruebas.length; indiceprueba++) {
-  //         if (caballos[indice].pruebas[indiceprueba].nombreprueba == prueba) {
-  //           console.log('AL FIN ENCONTRAMOS INDICE :             -> ', indiceprueba)
-  //           var path = 'pruebas.' + indiceprueba + '.os'
-  //           console.log('PATH DDDDDDDDDDDDDDDDD: ', path)
-  //           db.collection(coleccion).update({},
-  //             { $push: {
-  //               [path]: objetobinomio
-  //             }}
-  //           )
-  //         }
-  //       }
-  //     })
-  //     db.close()
-  //   })
-  // })
- })
+})
 
  socket.on('generarordendesalida', function (nombrecompeticion, nombreprueba) {
 

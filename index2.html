@@ -334,17 +334,21 @@
                         </div>                
                     </div>
                 </div>
-                <div id="btnpantallaempezarprueba" class= "btn-group" role="group"></div>
-                  <button type="button" id="btnmoverarribaempezarprueba" class="boton_azul">ARRIBA </a>
-                  <button type="button" id="btnmoverabajooempezarprueba" class="boton_azul">ABAJO </a>
-                  <button type="button" id="btnclasificarempezarprueba" class="boton_azul">CLASIFICAR</a>
-                  <button type="button" id="btnAddNewWindow" class="boton_azul">NUEVO JINETE</a>
-                  <button type="button" id="btnexportarexcel" class="boton_azul">EXPORTAR XLS</a>
-                  <button type="button" id="btncrearfilainformacion" class="boton_azul">FILA INFO</a>
-                  <button type="button" id="btnactualizarpantallaordensalida" class="boton_azul">ACTU OSALIDA</a>
-                  <button type="button" id="btnborrarbinomio" class="boton_azul">BORRAR</a>
-                 <!-- fincontenidoempezarprueba  -->
+                <div id="btnpantallaempezarprueba" class= "btn-group" role="group">
+
                 
+                  <button type="button" id="btnmoverarribaempezarprueba" class="btn btn-info">ARRIBA 
+                  <button type="button" id="btnmoverabajooempezarprueba" class="btn btn-info">ABAJO 
+                  <button type="button" id="btnclasificarempezarprueba" class="btn btn-info">CLASIFICAR
+                        <!-- Button trigger modal -->
+
+                  <button type="button" id="btnAddNewWindow" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">NUEVO JINETE
+                  <button type="button" id="btnexportarexcel" class="btn btn-info">EXPORTAR XLS
+                  <button type="button" id="btncrearfilainformacion" class="btn btn-info">FILA INFO
+                  <button type="button" id="btnactualizarpantallaordensalida" class="btn btn-info">ACTU OSALIDA
+                  <!-- <button type="button" id="btnborrarbinomio"class="btn btn-info">BORRAR -->
+                 <!-- fincontenidoempezarprueba  -->
+                </div>
             
             </div>
                         <!-- <div id="divpantallaclasificacion">
@@ -391,6 +395,35 @@
         <li id='menunopresentado2'><a href="#">NO PRESENTADO-(999)</a></li>
         </ul>
     </div>
+
+  
+  <!-- Modal NUEVO JINETE EMPEZAR PRUEBA -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Añadir Jinete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="jinete-name" class="col-form-label">Jinete:</label>
+                <input type="text" class="form-control" id="jinete-name">
+            </div>
+            <div class="form-group">
+                <label for="caballo-name" class="col-form-label">Caballo:</label>
+                <input type="text" class="form-control" id="caballo-name">
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id= "btnguardarmodalnuevojinete"class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>    
+  <!--FIN DE  Modal NUEVO JINETE EMPEZAR PRUEBA -->
 </body>
 
     <script src="./socket.io/socket.io.js"></script>
