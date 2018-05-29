@@ -47,11 +47,21 @@ li:after {
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
- .tablaempezarprueba {
+/* #divcontenedortablaempezarprueba {
+  line-height: 1.4;
+
+}
+#row1empezarprueba {
+  line-height: 1.4;
+} */
+#tab-empezarprueba {
+  line-height: 1.4;
+
+}
+ #tablaempezarprueba {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space:nowrap;
-
 }
 #context-menu { position:absolute; display:none; }
 

@@ -12,7 +12,7 @@ var funcionesformulariocompeticiones = require('./operaciones-formulario-competi
 var funcionespruebaencurso = require('./pruebaencurso.js')
 var funcionescontextmenupruebaactiva = require('./contextmenuempezarprueba.js')
 var funcionesclasificar = require('./operaciones-clasificacion.js')
-
+var funcionespuertoserie = require('./operaciones-puertoserie.js')
 function iniciarjinetes() {
 
   var formulariodatosjinete = document.getElementById('formulariodatosjinete')
@@ -84,6 +84,7 @@ function iniciarjinetes() {
     funcionespruebaencurso.iniciarpruebaencurso(socket)
     funcionescontextmenupruebaactiva.iniciarcontextmenu(socket)//INICIAMOS MODULO CONTEXT MENU EMPEZAR PRUEBA
     funcionesclasificar.iniciarclasificar(socket)
+    funcionespuertoserie.iniciarpuertoserie(socket)//INICIAMOS MODULO LEER PUERTO SERIE
     
 }
 
