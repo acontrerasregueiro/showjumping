@@ -72,7 +72,7 @@ module.exports.buscarentabla = function(tablaid,campo1,campo2) {
 module.exports.borrarfilaempezarprueba = function(table) {
   var tableitems = table.getElementsByTagName('tr')
   for (var i = 0 ; i < tableitems.length; i++){
-    tableitems[i].classList.remove('activo')
+    tableitems[i].classList.remove('text-primary')
   }
 }
 /*modulos testeo diseno modular*/

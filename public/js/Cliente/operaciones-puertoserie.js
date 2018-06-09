@@ -1,6 +1,82 @@
 
 var funcionescomunes = require('./funciones-compartidas.js')
 var funcionespruebas = require('./funciones-pruebas.js')
+function actualizarpantallaordensalidaempezarprueba (filaid,socket) {
+  console.log('RECIBIDO actualizarpantallaordendesalida')
+  var filaseleccionada = document.getElementById(filaid)
+  console.log('seleccionado : ', filaseleccionada)
+  var arrayordendesalida = []
+  var jinetesamostrar = 10
+  var elementopadre = document.getElementById(filaid)
+  var desempate = document.getElementById('checkboxdesempate').checked
+    if (!desempate) {
+      var pantallaordendesalidaempezarprueba = document.getElementById('pantallaordendesalidaempezarprueba')
+      pantallaordendesalidaempezarprueba.innerHTML = '' //limpieamos 
+      // alert('desempate NO CHECKED')
+      for (var indice = 0; indice < jinetesamostrar; indice++) {
+        var hermanosiguiente = document.getElementById(filaseleccionada.id).nextSibling
+        if (hermanosiguiente != null) { // siempre y cuando el hermano siguiente exista
+          //  console.log('nextsibling : ',hermanosiguiente);
+          var indicedefila = hermanosiguiente.id
+          var indicedefila = indicedefila.replace('filapruebaactiva', '')
+          //  console.log('INBDICE FILA : ',indicedefila)
+          var participante = {}
+          var caballo = document.getElementById('participante' + indicedefila + 'Caballo')
+          var jinete = document.getElementById('participante' + indicedefila + 'Jinete')
+          var orden = document.getElementById('participante' + indicedefila + 'Orden')
+          participante.caballo = caballo.innerHTML
+          participante.jinete = jinete.innerHTML
+          participante.orden = orden.innerHTML
+          arrayordendesalida[indice] = participante
+          //  console.log('participante : ',participante)
+          console.log('ACTUALIZAR PANTALLA ORDEN DE SALIDA , ARRAY  : indice ,', arrayordendesalida[indice])
+          filaseleccionada = hermanosiguiente
+          anadirjineteapantallaordensalidaempezarprueba(participante)
+        } // fin if
+      }// fin for
+    }
+    if (desempate) {
+      // alert('DESEMPATE CHECKED')
+      var pantallaordendesalidaempezarprueba = document.getElementById('pantallaordendesalidaempezarprueba')
+      pantallaordendesalidaempezarprueba.innerHTML = '' //limpieamos 
+      var filas = document.getElementById('tablaempezarprueba').rows.length
+      // alert('participantes totales : '+ filas)
+      //SI ESTAMOS EN UN DESEMPATE ANADIMOS AQUELLOS QUE ESTEN EMPATADOS AL PRIMER PUESTO
+      for (var indice = 0; indice < filas; indice++) {
+        var hermanosiguiente = document.getElementById(filaseleccionada.id).nextSibling
+        if (hermanosiguiente != null) { // siempre y cuando el hermano siguiente exista
+          //  console.log('nextsibling : ',hermanosiguiente);
+          var indicedefila = hermanosiguiente.id
+          var indicedefila = indicedefila.replace('filapruebaactiva', '')
+          //  console.log('INBDICE FILA : ',indicedefila)
+          var participante = {}
+          var caballo = document.getElementById('participante' + indicedefila + 'Caballo')
+          var jinete = document.getElementById('participante' + indicedefila + 'Jinete')
+          var orden = document.getElementById('participante' + indicedefila + 'Orden')
+          var Class = document.getElementById('participante' + indicedefila + 'Class')
+          participante.caballo = caballo.innerHTML
+          participante.jinete = jinete.innerHTML
+          participante.orden = orden.innerHTML
+          participante.Class = Class.innerHTML
+          if (arrayordendesalida.length < 10){
+            if (participante.Class == '?') {
+              // alert('encontrado un desempateroooo ' + participante.caballo)
+              arrayordendesalida.push(participante)
+              //  console.log('participante : ',participante)
+              anadirjineteapantallaordensalidaempezarprueba(participante)                  
+
+            }
+          }
+     
+          filaseleccionada = hermanosiguiente
+          console.log('ACTUALIZAR PANTALLA ORDEN DE SALIDA , ARRAY  : indice ,', arrayordendesalida[indice])
+        } // fin if
+      }// fin for
+    }
+  
+  console.log(arrayordendesalida)
+  socket.emit('actualizarpantallaordensalida', arrayordendesalida) 
+}
 
 // DATOS RS232
 function analizardata (datos) {
@@ -26,9 +102,9 @@ function analizardata (datos) {
       jineteterminado.innerHTML = '0'
     }
     funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
-    jineteencurso.classList.add('activo')
-    // actualizarjineteenpista(jineteencurso.id)
-    // actualizarpantallaordendesalida(jineteencurso.id)
+    jineteencurso.classList.add('text-primary')
+    funcionespruebas.actualizarjineteenpista(jineteencurso.id)
+    // actualizarpantallaordensalidaempezarprueba(jineteencurso.id)
   } // FIN PRESENTACION PARTICIPANTE
   // SI LA CADENA ES > 5 , ES DECIR NO ES UN NUEVO PARTICIPANTE, ANALIZAMOS
   if (datos.length > 5) {

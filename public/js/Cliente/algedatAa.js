@@ -1,8 +1,24 @@
 // analizamos los datos recibidos por el puerto serie del alge.
 var socket = io()
+var funcionespruebas = require('./funciones-pruebas.js')
 // socket.on('listadopuertos', function () {
 //
 // })
+function actualizarjineteenpista(filaid) {
+  alert('actyalizar jinete en pista')
+  //RECIBE POR PARAMETRO EL ID DE LA FILA,
+  //ACTUALIZA LAS LABEL CON NOMBRES DE CABALLO Y JINETE EN PISTA
+  var indicedefila =  filaid.replace('filapruebaactiva','')
+
+  var caballo = document.getElementById('participante'+ indicedefila +'Caballo')
+  var jinete = document.getElementById('participante'+ indicedefila +'Jinete')
+
+  var labelcaballo = document.getElementById('labelcaballoempezarprueba')
+  var labeljinete = document.getElementById('labeljineteempezarprueba')
+  labeljinete.innerHTML = jinete.innerHTML
+  labelcaballo.innerHTML = caballo.innerHTML
+}
+
 function actualizarpantallaordensalida2 (filaid) {
   alert('desempate NO CHECKED')
   console.log('RECIBIDO actualizarpantallaordendesalida')
@@ -98,6 +114,7 @@ function analizardatadisplay (datos) {
 
 // DATOS RS232
 function analizardata (datos) {
+  alert('rs232 data')
   //CHECKBOX PARA INDICAR SI ESTA EN EL DESEMPATE
 
   // 1er caso si la cadena comienza por "n" significa nuevo jinete
@@ -109,13 +126,14 @@ function analizardata (datos) {
     orden = orden - 1
     console.log('ORDEN = PARSEINT : ', orden)
     var jineteencurso = document.getElementById('filapruebaactiva' + orden)
+    alert(jinete)
     // INICIALIZAMOS EL JINETE A PUNTOS '0' EN LA PRIMERA FASE O RECORRIDO
     var jineteterminado = document.getElementById('participante' + orden + 'Penalidades')
     jineteterminado.innerHTML = '0'
-    borrarfilaempezarprueba(tbodyempezarprueba)
-    jineteencurso.classList.add('activo')
+    funcionespruebas.borrarfilaempezarprueba(tbodyempezarprueba)
+    jineteencurso.classList.add('text-primary')
     actualizarjineteenpista(jineteencurso.id)
-    actualizarpantallaordendesalida(jineteencurso.id)
+    actualizarpantallaordendesalida2(jineteencurso.id)
   } // FIN PRESENTACION PARTICIPANTE
   // SI LA CADENA ES > 5 , ES DECIR NO ES UN NUEVO PARTICIPANTE, ANALIZAMOS
   if (datos.length > 5) {

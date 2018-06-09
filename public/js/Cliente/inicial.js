@@ -13,6 +13,8 @@ var funcionespruebaencurso = require('./pruebaencurso.js')
 var funcionescontextmenupruebaactiva = require('./contextmenuempezarprueba.js')
 var funcionesclasificar = require('./operaciones-clasificacion.js')
 var funcionespuertoserie = require('./operaciones-puertoserie.js')
+var algedata = require('./algedatAa.js')
+
 function iniciarjinetes() {
 
   var formulariodatosjinete = document.getElementById('formulariodatosjinete')

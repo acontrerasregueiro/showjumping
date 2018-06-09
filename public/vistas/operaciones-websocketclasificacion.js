@@ -106,7 +106,7 @@ function anadirdatosalista (arrayordenado) {
           spanpuntos.innerHTML = '   '
         } else if (arrayordenado[indicearray].tiempo2 == 999) {
           spantiempo2.innerHTML = 'NP'
-          alert('np')
+          // alert('np')
           spantiempo.innerHTML = arrayordenado[indicearray].tiempo
           var spanpuntos = document.createElement('span')
           spanpuntos.classList.add('spanpuntos')
